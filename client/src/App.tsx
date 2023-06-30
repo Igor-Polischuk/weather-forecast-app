@@ -1,9 +1,16 @@
+import { Route, Routes } from "react-router-dom";
+
+import { AuthPage, MainPage } from "./pages";
+
 import "./App.scss";
 
 function App() {
   return (
-    <div>
-      Hello <a href="/">world</a>
+    <div className="app">
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/auth" element={<AuthPage />} />
+      </Routes>
     </div>
   );
 }
