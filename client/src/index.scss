@@ -26,6 +26,7 @@ body {
   min-width: 320px;
   width: 100%;
   min-height: 100vh;
+  background-color: #fffcfc
 }
 
 h1 {
@@ -67,4 +68,8 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+#root {
+  width: 100%;
 }

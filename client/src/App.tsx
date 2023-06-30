@@ -6,12 +6,10 @@ import "./App.scss";
 
 function App() {
   return (
-    <div className="app">
-      <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/auth" element={<AuthPage />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="/auth" element={<AuthPage />} />
+    </Routes>
   );
 }
 
