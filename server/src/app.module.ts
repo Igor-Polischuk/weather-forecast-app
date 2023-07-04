@@ -7,8 +7,8 @@ import { Module } from '@nestjs/common';
 
 import { join } from 'path';
 
-import { UserModule } from './user/user.module';
-import { PetsModule } from './pets/pets.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -25,9 +25,10 @@ import { PetsModule } from './pets/pets.module';
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
+      entities: [User],
+      synchronize: true,
     }),
-    UserModule,
-    PetsModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
