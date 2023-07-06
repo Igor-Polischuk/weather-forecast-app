@@ -1,5 +1,7 @@
-import { CreateUserInput } from './dto/create-user.input';
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Query, Resolver } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 
@@ -8,17 +10,14 @@ export class UsersResolver {
   constructor(private usersService: UsersService) {}
 
   @Query(() => [User])
+  @UseGuards(JwtAuthGuard)
   users(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Query(() => User)
+  @UseGuards(JwtAuthGuard)
   user(@Args('id', { type: () => Int }) id: number): Promise<User> {
     return this.usersService.findOne(id);
-  }
-
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.createUser(createUserInput);
   }
 }

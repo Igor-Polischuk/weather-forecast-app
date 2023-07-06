@@ -7,13 +7,24 @@ type User {
   email: String!
 }
 
+type LoginResponse {
+  access_token: String!
+  user: User!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
+  login(loginUserInput: LoginUserInput!): LoginResponse!
+  signup(loginUserInput: CreateUserInput!): User!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }
 
 input CreateUserInput {
