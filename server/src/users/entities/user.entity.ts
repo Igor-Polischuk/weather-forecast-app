@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Int, Field } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
@@ -15,4 +15,10 @@ export class User {
 
   @Column()
   password: string;
+
+  @CreateDateColumn()
+  createdDate: Date
+
+  @UpdateDateColumn()
+  updatedDate: Date
 }

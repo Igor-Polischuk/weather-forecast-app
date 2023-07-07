@@ -1,4 +1,4 @@
-import { Args, Int, Query, Resolver } from '@nestjs/graphql';
+import { Args, Context, Int, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -19,5 +19,13 @@ export class UsersResolver {
   @UseGuards(JwtAuthGuard)
   user(@Args('id', { type: () => Int }) id: number): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Query(() => User)
+  @UseGuards(JwtAuthGuard)
+  me(@Context() context): Promise<User> {
+    const user = context.req.user;
+    console.log(user);
+    return user;
   }
 }
