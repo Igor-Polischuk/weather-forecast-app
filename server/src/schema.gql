@@ -7,6 +7,11 @@ type User {
   email: String!
 }
 
+type RefreshResponse {
+  old_token: String!
+  user: User!
+}
+
 type LoginResponse {
   access_token: String!
   user: User!
@@ -21,6 +26,7 @@ type Query {
 type Mutation {
   login(loginUserInput: LoginUserInput!): LoginResponse!
   signup(loginUserInput: CreateUserInput!): User!
+  refresh: RefreshResponse!
 }
 
 input LoginUserInput {

@@ -10,6 +10,7 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { RefreshToken } from './auth/entities/refresh-token.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req, res }) => ({ req, res })
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -26,7 +28,7 @@ import { AuthModule } from './auth/auth.module';
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
-      entities: [User],
+      entities: [User, RefreshToken],
       synchronize: true,
     }),
     UsersModule,

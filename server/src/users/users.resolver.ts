@@ -25,7 +25,6 @@ export class UsersResolver {
   @UseGuards(JwtAuthGuard)
   me(@Context() context): Promise<User> {
     const user = context.req.user;
-    console.log(user);
     return user;
   }
 }
