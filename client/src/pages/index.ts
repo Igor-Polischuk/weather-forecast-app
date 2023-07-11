@@ -1,4 +1,4 @@
-import { AuthPage } from './AuthPage/AuthPage';
-import { MainPage } from './MainPage/MainPage';
+import { AuthPage } from './AuthPage';
+import { MainPage } from './MainPage';
 
 export { MainPage, AuthPage }

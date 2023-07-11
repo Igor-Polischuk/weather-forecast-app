@@ -1,12 +1,13 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "antd";
 import React from "react";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
-import { schema } from "./validation-schema";
-import InputField from "./components/InputField";
+import { schema } from "../validation-schema";
+import InputField from "./InputField";
+import { useLogin } from "../hooks/useLogin";
 
 import styles from "./styles.module.scss";
 
@@ -22,12 +23,14 @@ export const LoginForm: React.FC = () => {
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
-    mode: "onSubmit"
+    mode: "onSubmit",
+    defaultValues: {
+      email: 'somebody@gmail.com',
+      password: 'qwerty123'
+    }
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-  };
+  const { loading, error, onSubmit } = useLogin();
 
   return (
     <form className={styles.login_form} onSubmit={handleSubmit(onSubmit)}>
@@ -46,9 +49,10 @@ export const LoginForm: React.FC = () => {
         type="password"
         errorMessage={errors.password?.message}
       />
-      <Button type="primary" htmlType="submit" size="large" block>
+      <Button type="primary" htmlType="submit" size="large" block loading={loading}>
         Log in
       </Button>
+      {error && <p className={styles.error_message}>{error.message}</p>}
     </form>
   );
 };

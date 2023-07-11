@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, Control } from "react-hook-form";
 import { Input } from "antd";
 
-import styles from "../styles.module.scss";
+import styles from "./styles.module.scss";
 
 interface InputFieldProps {
   name: string;
