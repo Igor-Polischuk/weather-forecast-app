@@ -7,6 +7,9 @@ export class RefreshResponse {
   @Field()
   old_token: string;
 
+  @Field()
+  access_token: string;
+
   @Field(() => User)
   user: User;
 }

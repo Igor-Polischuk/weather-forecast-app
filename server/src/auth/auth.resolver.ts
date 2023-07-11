@@ -40,6 +40,7 @@ export class AuthResolver {
 
     return {
       old_token: data.oldRefreshToken,
+      access_token: data.newAccessToken,
       user: data.user,
     };
   }

@@ -9,6 +9,7 @@ type User {
 
 type RefreshResponse {
   old_token: String!
+  access_token: String!
   user: User!
 }
 

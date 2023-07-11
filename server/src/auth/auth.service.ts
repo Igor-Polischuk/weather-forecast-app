@@ -38,28 +38,24 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const refresh_token = await this.refreshTokenStrategy.generateAndSaveToken({
-      email: user.email,
-      id: user.id,
-    });
-
+    const { accessToken, refreshToken } = await this.generateTokens(user);
     return {
-      access_token: this.jwtService.sign({ email: user.email, sub: user.id }),
-      refresh_token,
+      access_token: accessToken,
+      refresh_token: refreshToken,
       user,
     };
   }
 
-  async refresh(refreshToken: string) {
-    if (!refreshToken) {
+  async refresh(oldRefreshToken: string) {
+    if (!oldRefreshToken) {
       throw new UnauthorizedException();
     }
 
     const decoded = await this.refreshTokenStrategy.validateRefreshToken(
-      refreshToken,
+      oldRefreshToken,
     );
     const tokenFromDb = await this.refreshTokenStrategy.findRefreshToken(
-      refreshToken,
+      oldRefreshToken,
     );
 
     if (!decoded || !tokenFromDb) {
@@ -68,15 +64,12 @@ export class AuthService {
 
     const user = await this.usersService.findOne(decoded.id);
 
-    const newRefreshToken =
-      await this.refreshTokenStrategy.generateAndSaveToken({
-        email: user.email,
-        id: user.id,
-      });
+    const { accessToken, refreshToken } = await this.generateTokens(user);
 
     return {
-      oldRefreshToken: refreshToken,
-      newRefreshToken,
+      oldRefreshToken,
+      newRefreshToken: refreshToken,
+      newAccessToken: accessToken,
       user,
     };
   }
@@ -91,5 +84,22 @@ export class AuthService {
     const password = await bcrypt.hash(createUserInput.password, 10);
 
     return this.usersService.createUser({ ...createUserInput, password });
+  }
+
+  private async generateTokens(user: { email: string; id: number }) {
+    const accessToken = this.jwtService.sign({
+      email: user.email,
+      sub: user.id,
+    });
+
+    const refreshToken = await this.refreshTokenStrategy.generateAndSaveToken({
+      id: user.id,
+      email: user.email,
+    });
+
+    return {
+      refreshToken,
+      accessToken,
+    };
   }
 }
