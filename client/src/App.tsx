@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import { AuthPage, MainPage } from "./pages";
-import { PrivateRoute } from "./modules/auth/hoc/PrivateRoute";
+import { AuthPage, MainPage } from "@/pages";
+import { PrivateRoute } from "@modules/auth";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           </PrivateRoute>
         }
       />
-      <Route path="/login" element={<AuthPage/>} />
+      <Route path="/login" element={<AuthPage />} />
     </Routes>
   );
 }

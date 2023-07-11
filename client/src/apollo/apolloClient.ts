@@ -4,7 +4,7 @@ import { onError } from '@apollo/client/link/error';
 import { REFRESH } from '../graphql/mutation.graphql';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql',
+  uri: import.meta.env.VITE_SERVER_URL,
   credentials: 'include',
 });
 

@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
+import ReactDOM from "react-dom/client";
+import React from "react";
 
-import {client} from "./apollo/apolloClient.ts";
-import App from "./App.tsx";
+import {client} from "@/apollo/apolloClient.ts";
+import App from "@/App.tsx";
 
 import "./styles/index.scss";
 

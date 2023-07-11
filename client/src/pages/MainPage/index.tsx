@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { GET_CURRENT_USER } from "../../graphql/query.graphql";
+import { GET_CURRENT_USER } from "@graphql/query.graphql";
 
 export const MainPage = () => {
   const {data, error, loading} = useQuery(GET_CURRENT_USER);
