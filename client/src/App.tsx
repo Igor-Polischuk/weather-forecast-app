@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { AuthPage, MainPage } from "@/pages";
-import { PrivateRoute } from "@modules/auth";
+import { AccessControl, AccessLevel } from "@modules/auth";
 
 function App() {
   return (
@@ -9,12 +9,19 @@ function App() {
       <Route
         path="/"
         element={
-          <PrivateRoute>
+          <AccessControl access={AccessLevel.AUTHORIZED}>
             <MainPage />
-          </PrivateRoute>
+          </AccessControl>
         }
       />
-      <Route path="/login" element={<AuthPage />} />
+      <Route
+        path="/login"
+        element={
+          <AccessControl access={AccessLevel.UNAUTHORIZED}>
+            <AuthPage />
+          </AccessControl>
+        }
+      />
     </Routes>
   );
 }

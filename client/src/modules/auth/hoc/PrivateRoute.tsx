@@ -2,22 +2,35 @@
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useCurrentUserQuery } from "@/gql";
+import { Spin } from "antd";
+
+export enum AccessLevel {
+  AUTHORIZED = "authorized",
+  UNAUTHORIZED = "unauthorized",
+  PUBLIC = "public",
+}
 
 interface IRequireAuthProps {
   children: JSX.Element;
+  access?: AccessLevel
+  role?: string[]
 }
 
-export const PrivateRoute: FC<IRequireAuthProps> = ({ children }) => {
+export const AccessControl: FC<IRequireAuthProps> = ({ children, access = AccessLevel.PUBLIC}) => {
   const {data, loading} = useCurrentUserQuery();
   const location = useLocation();
   
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spin size="large"/>;
   }
 
-  return (data) ? (
-    children
-  ) : (
-    <Navigate to="/login" state={{ from: location }} />
-  );
+  if(access === AccessLevel.AUTHORIZED && !data){
+    return <Navigate to="/login" state={{ from: location }} />
+  }
+
+  if(access === AccessLevel.UNAUTHORIZED && data){
+    return <Navigate to="/" state={{ from: location }} />
+  }
+
+  return children;
 };
