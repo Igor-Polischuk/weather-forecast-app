@@ -1,7 +1,7 @@
+import { REFRESH } from '@/modules/auth/graphql/mutation/refresh';
 import { ApolloClient, ApolloLink, InMemoryCache, Observable, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { REFRESH } from '../graphql/mutation.graphql';
 
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_SERVER_URL,

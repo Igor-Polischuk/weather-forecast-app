@@ -1,9 +1,8 @@
-import { useQuery } from "@apollo/client";
+import { useCurrentUserQuery } from "@/gql";
 import { Link } from "react-router-dom";
-import { GET_CURRENT_USER } from "@graphql/query.graphql";
 
 export const MainPage = () => {
-  const {data, error, loading} = useQuery(GET_CURRENT_USER);
+  const {data, error, loading} = useCurrentUserQuery();
 
   if (error) {
     return (
@@ -19,7 +18,7 @@ export const MainPage = () => {
   return (
     <div>
       Main page
-      <p>Hello {data.me.email}</p>
+      <p>Hello {data?.me.email}</p>
       <Link to="/login"> Go to login page</Link>
     </div>
   );

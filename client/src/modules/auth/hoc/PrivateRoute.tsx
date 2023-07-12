@@ -1,15 +1,14 @@
 // import useCheckAuth from "@/hooks/useCheckAuth";
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_CURRENT_USER } from "../../../graphql/query.graphql";
+import { useCurrentUserQuery } from "@/gql";
 
 interface IRequireAuthProps {
   children: JSX.Element;
 }
 
 export const PrivateRoute: FC<IRequireAuthProps> = ({ children }) => {
-  const { loading, data } = useQuery(GET_CURRENT_USER);
+  const {data, loading} = useCurrentUserQuery();
   const location = useLocation();
   
   if (loading) {
