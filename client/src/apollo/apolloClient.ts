@@ -28,7 +28,11 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     return new Observable((observer) => {
       (async () => {
         try {
-          await refreshToken();
+          const token = await refreshToken();
+
+          if(!token) {
+            throw new Error('Refresh token is invalid')
+          }
           
           const subscriber = {
             next: observer.next.bind(observer),
@@ -70,28 +74,3 @@ const refreshToken = async () => {
     console.log(error);
   }
 };
-
-// const errorLink = onError(({ graphQLErrors, operation, forward }) => {
-//   if (graphQLErrors && graphQLErrors[0].extensions.code === "UNAUTHENTICATED") {
-//     if (operation.operationName === 'Refresh' || operation.operationName === 'Login') {
-//       return
-//     }
-
-//     (async () => {
-//       try {
-//         const token = await refreshToken();
-
-//         operation.setContext(({ headers = {} }) => ({
-//           headers: {
-//             ...headers,
-//             authorization: `Bearer ${token}`,
-//           },
-//         }));
-//       } catch (e) {
-//         console.log(e);
-//         return
-//       }
-//     })()
-//     return forward(operation);
-//   }
-// })
