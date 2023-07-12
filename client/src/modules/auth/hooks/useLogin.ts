@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useCurrentUserQuery, useLoginMutation } from "@/gql";
+import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
 
 export function useLogin() {
     const [login, { loading, error }] = useLoginMutation();
-    const { refetch } = useCurrentUserQuery();
+    const [_, {refetch}] = useCurrentUserLazyQuery();
     const navigate = useNavigate();
 
     const onSubmit = async (inputData: { email: string, password: string }) => {

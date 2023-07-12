@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import { AuthPage, MainPage } from "@/pages";
-import { AccessControl, AccessLevel } from "@modules/auth";
+import { AccessControl, AccessLevel, AuthPage } from "@modules/auth";
+import { MainPage } from "@modules/common/pages";
 
 function App() {
   return (
