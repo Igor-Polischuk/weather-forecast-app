@@ -4,6 +4,7 @@
         "Codegen",
         "Fastify",
         "foward",
+        "makemigrations",
         "typeorm"
     ]
 }

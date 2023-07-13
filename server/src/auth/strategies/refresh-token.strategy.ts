@@ -21,15 +21,15 @@ export class RefreshTokenStrategy {
     return refreshToken;
   }
 
-  async saveRefreshToken(userId: number, token: string): Promise<RefreshToken>{
-    const tokenData = await this.tokenRepository.findOne({where: { userId }});
+  async saveRefreshToken(user: {email: string, id: number}, token: string): Promise<RefreshToken>{
+    const tokenData = await this.tokenRepository.findOne({where: { user: {id: user.id} }});
 
     if (tokenData){
         tokenData.refreshToken = token;
         return this.tokenRepository.save(tokenData);
     }
 
-    const newToken = this.tokenRepository.create({userId, refreshToken: token});
+    const newToken = this.tokenRepository.create({user, refreshToken: token});
     this.tokenRepository.save(newToken);
   }
 
@@ -48,6 +48,6 @@ export class RefreshTokenStrategy {
 
   async generateAndSaveToken(user: {email: string, id: number}): Promise<string>{
     const refresh_token = await this.generateRefreshToken(user);
-    return (await this.saveRefreshToken(user.id, refresh_token)).refreshToken;
+    return (await this.saveRefreshToken(user, refresh_token)).refreshToken;
   }
 }

@@ -1,17 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn, } from 'typeorm';
+import { BaseEntity } from 'src/database/entities/base.entity';
+import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity()
-export class RefreshToken {
-  @PrimaryColumn()
-  userId: number
+export class RefreshToken extends BaseEntity{
+  @OneToOne(() => User, user => user.refreshToken)
+  @JoinColumn()
+  user: User;
 
   @Column()
   refreshToken: string;
-
-  @CreateDateColumn()
-  createdDate: Date
-
-  @UpdateDateColumn()
-  updatedDate: Date
 }

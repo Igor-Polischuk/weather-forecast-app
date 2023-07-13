@@ -17,7 +17,11 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "makemigrations": "npm run typeorm migration:generate -- -d ./src/database/typeorm.config.ts ./src/database/migrations/auto",
+    "migrate": "npm run typeorm migration:run -- -d ./src/database/typeorm.config.ts",
+    "revert": "npm run typeorm migration:revert -- -d ./src/database/typeorm.config.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.7.5",
@@ -32,12 +36,14 @@
     "@nestjs/typeorm": "^10.0.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
+    "@types/dotenv": "^8.2.0",
     "@types/passport-jwt": "^3.0.8",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "graphql": "^16.7.1",
     "jsonwebtoken": "^9.0.1",
     "passport": "^0.6.0",

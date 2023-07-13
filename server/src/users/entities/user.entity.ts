@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Int, Field } from '@nestjs/graphql';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { RefreshToken } from 'src/auth/entities/refresh-token.entity';
+import { BaseEntity } from 'src/database/entities/base.entity';
+import { Column, Entity, OneToOne } from 'typeorm';
 
 @Entity()
 @ObjectType()
-export class User {
-  @PrimaryGeneratedColumn()
+export class User extends BaseEntity{
   @Field(() => Int)
   id: number;
 
@@ -16,9 +17,6 @@ export class User {
   @Column()
   password: string;
 
-  @CreateDateColumn()
-  createdDate: Date
-
-  @UpdateDateColumn()
-  updatedDate: Date
+  @OneToOne(() => RefreshToken, refreshToken => refreshToken.user)
+  refreshToken: RefreshToken;
 }
