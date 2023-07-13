@@ -7,35 +7,33 @@ type User {
   email: String!
 }
 
-type RefreshResponse {
-  old_token: String!
-  access_token: String!
-  user: User!
+type RefreshOutput {
+  accessToken: String!
 }
 
-type LoginResponse {
-  access_token: String!
+type LoginOutput {
+  accessToken: String!
   user: User!
 }
 
 type Query {
   users: [User!]!
   user(id: Int!): User!
-  me: User!
+  currentUser: User!
 }
 
 type Mutation {
-  login(loginUserInput: LoginUserInput!): LoginResponse!
-  signup(loginUserInput: CreateUserInput!): User!
-  refresh: RefreshResponse!
+  login(loginUserInput: LoginInput!): LoginOutput!
+  signup(loginUserInput: SignUpInput!): User!
+  refresh: RefreshOutput!
 }
 
-input LoginUserInput {
+input LoginInput {
   email: String!
   password: String!
 }
 
-input CreateUserInput {
+input SignUpInput {
   email: String!
   password: String!
 }

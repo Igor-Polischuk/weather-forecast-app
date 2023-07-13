@@ -23,7 +23,7 @@ export class UsersResolver {
 
   @Query(() => User)
   @UseGuards(JwtAuthGuard)
-  me(@Context() context): Promise<User> {
+  currentUser(@Context() context): Promise<User> {
     const user = context.req.user;
     return user;
   }

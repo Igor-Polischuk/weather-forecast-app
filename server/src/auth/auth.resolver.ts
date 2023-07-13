@@ -2,46 +2,44 @@ import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { setRefreshTokenCookie } from './helpers/setRefreshLoginCookie';
-import { CreateUserInput } from 'src/users/dto/create-user.input';
-import { RefreshResponse } from './dto/refresh-response';
-import { LoginUserInput } from './dto/login-user.input';
+import { SignUpInput } from 'src/auth/dto/sign-up.input';
+import { RefreshOutput } from './dto/refresh.output';
+import { LoginInput } from './dto/login.input';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
-import { User } from 'src/users/entities/user.entity';
-import { LoginResponse } from './dto/login-response';
+import { LoginOutput } from './dto/login.output';
 import { AuthService } from './auth.service';
+import { User } from 'src/users/entities/user.entity';
 
 @Resolver()
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
-  @Mutation(() => LoginResponse)
+  @Mutation(() => LoginOutput)
   @UseGuards(GqlAuthGuard)
-  async login(@Args('loginUserInput') _: LoginUserInput, @Context() context) {
-    const { refresh_token, ...result } = await this.authService.login(
+  async login(@Args('loginUserInput') _: LoginInput, @Context() context) {
+    const { refreshToken, ...result } = await this.authService.login(
       context.user,
     );
 
-    setRefreshTokenCookie(context.res, refresh_token);
+    setRefreshTokenCookie(context.res, refreshToken);
 
     return result;
   }
 
   @Mutation(() => User)
-  signup(@Args('loginUserInput') createUserInput: CreateUserInput) {
-    return this.authService.signup(createUserInput);
+  signup(@Args('loginUserInput') signInInput: SignUpInput) {
+    return this.authService.signup(signInInput);
   }
 
-  @Mutation(() => RefreshResponse)
+  @Mutation(() => RefreshOutput)
   async refresh(@Context() context) {
     const { refreshToken } = context.req.cookies;
     const data = await this.authService.refresh(refreshToken);
 
-    setRefreshTokenCookie(context.res, data.newRefreshToken);
+    setRefreshTokenCookie(context.res, data.refreshToken);
 
     return {
-      old_token: data.oldRefreshToken,
-      access_token: data.newAccessToken,
-      user: data.user,
+      accessToken: data.accessToken,
     };
   }
 }

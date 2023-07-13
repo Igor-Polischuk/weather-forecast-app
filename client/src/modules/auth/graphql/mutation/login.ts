@@ -10,7 +10,7 @@ export const LOGIN = gql(`
       id
       email
     }
-    access_token
+    accessToken
   }
 }
 `);

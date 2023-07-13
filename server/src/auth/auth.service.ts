@@ -4,8 +4,9 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
-import { CreateUserInput } from 'src/users/dto/create-user.input';
+import { SignUpInput } from 'src/auth/dto/sign-up.input';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
+import { IUser, UserDto } from 'src/users/dto/User';
 
 @Injectable()
 export class AuthService {
@@ -15,10 +16,7 @@ export class AuthService {
     private refreshTokenStrategy: RefreshTokenStrategy,
   ) {}
 
-  async validateUser(
-    email: string,
-    password: string,
-  ): Promise<Omit<User, 'password'> | null> {
+  async validateUser(email: string, password: string): Promise<UserDto | null> {
     const user = await this.usersService.findOneByEmail(email);
     const errorMessage = 'Invalid email or password';
 
@@ -32,16 +30,14 @@ export class AuthService {
       throw new UnauthorizedException(errorMessage);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password: _, ...result } = user;
-    return result;
+    return new UserDto(user);
   }
 
   async login(user: User) {
     const { accessToken, refreshToken } = await this.generateTokens(user);
     return {
-      access_token: accessToken,
-      refresh_token: refreshToken,
+      accessToken,
+      refreshToken,
       user,
     };
   }
@@ -67,14 +63,12 @@ export class AuthService {
     const { accessToken, refreshToken } = await this.generateTokens(user);
 
     return {
-      oldRefreshToken,
-      newRefreshToken: refreshToken,
-      newAccessToken: accessToken,
-      user,
+      refreshToken,
+      accessToken,
     };
   }
 
-  async signup(createUserInput: CreateUserInput) {
+  async signup(createUserInput: SignUpInput) {
     const user = await this.usersService.findOneByEmail(createUserInput.email);
 
     if (user) {
@@ -83,10 +77,10 @@ export class AuthService {
 
     const password = await bcrypt.hash(createUserInput.password, 10);
 
-    return this.usersService.createUser({ ...createUserInput, password });
+    return this.usersService.saveUser({ ...createUserInput, password });
   }
 
-  private async generateTokens(user: { email: string; id: number }) {
+  private async generateTokens(user: IUser) {
     const accessToken = this.jwtService.sign({
       email: user.email,
       sub: user.id,

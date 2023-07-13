@@ -18,7 +18,7 @@ export const MainPage = () => {
   return (
     <div>
       Main page
-      <p>Hello {data?.me.email}</p>
+      <p>Hello {data?.currentUser.email}</p>
       <Link to="/login"> Go to login page</Link>
     </div>
   );

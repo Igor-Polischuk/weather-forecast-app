@@ -65,7 +65,7 @@ const refreshToken = async () => {
       mutation: REFRESH,
     });
     
-    const accessToken = refreshResolverResponse.data?.refresh.access_token;
+    const accessToken = refreshResolverResponse.data?.refresh.accessToken;
 
     localStorage.setItem('token', accessToken || '');
 
