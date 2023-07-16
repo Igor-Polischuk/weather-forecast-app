@@ -16,7 +16,10 @@ export class AuthService {
     private refreshTokenStrategy: RefreshTokenStrategy,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<UserDto | null> {
+  async authenticateUser(
+    email: string,
+    password: string,
+  ): Promise<UserDto | null> {
     const user = await this.usersService.findOneByEmail(email);
     const errorMessage = 'Invalid email or password';
 

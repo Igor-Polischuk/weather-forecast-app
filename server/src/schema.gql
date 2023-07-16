@@ -16,14 +16,45 @@ type LoginOutput {
   user: User!
 }
 
+type WeatherMain {
+  temperature: Float!
+  feelsLike: Float!
+  maxTemperature: Float!
+  minTemperature: Float!
+  clouds: Float!
+  rainPerHour: Float!
+  pressure: Int!
+  humidity: Int!
+  current: String!
+  weatherDescription: String!
+}
+
+type Timezone {
+  sunrise: Int!
+  sunset: Int!
+  timezone: Int!
+}
+
+type CurrentWeatherOutput {
+  main: WeatherMain!
+  timezone: Timezone!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
   currentUser: User!
+  currentWeather(Coordinate: Coordinate!): CurrentWeatherOutput!
+  forecast(Coordinate: Coordinate!): CurrentWeatherOutput!
+}
+
+input Coordinate {
+  lat: Float!
+  lon: Float!
 }
 
 type Mutation {
-  login(loginUserInput: LoginInput!): LoginOutput!
+  login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
   refresh: RefreshOutput!
 }
