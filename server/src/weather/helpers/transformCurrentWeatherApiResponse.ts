@@ -25,9 +25,9 @@ export function transformCurrentWeatherApiResponse(
   };
 
   const timezoneData: Timezone = {
-    sunrise: sys.sunrise,
-    sunset: sys.sunset,
-    timezone: timezone,
+    sunrise: sys.sunrise || 0,
+    sunset: sys.sunset || 0,
+    timezone: timezone || 0,
   };
 
   return {

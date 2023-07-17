@@ -40,12 +40,31 @@ type CurrentWeatherOutput {
   timezone: Timezone!
 }
 
+type ForecastItem {
+  temperature: Float!
+  feelsLike: Float!
+  maxTemperature: Float!
+  minTemperature: Float!
+  clouds: Float!
+  rainPerHour: Float!
+  pressure: Int!
+  humidity: Int!
+  current: String!
+  weatherDescription: String!
+  pop: Float!
+  date: Float!
+}
+
+type ForecastOutput {
+  items: [ForecastItem!]!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
   currentUser: User!
   currentWeather(Coordinate: Coordinate!): CurrentWeatherOutput!
-  forecast(Coordinate: Coordinate!): CurrentWeatherOutput!
+  forecast(Coordinate: Coordinate!): ForecastOutput!
 }
 
 input Coordinate {

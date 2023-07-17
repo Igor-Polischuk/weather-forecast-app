@@ -5,6 +5,8 @@ import { ICurrentWeatherApiResponse } from './interfaces/ICurrentWeatherApiRespo
 import { ICoordinate } from './interfaces/ICoordinates';
 import { transformCurrentWeatherApiResponse } from './helpers/transformCurrentWeatherApiResponse';
 import { CurrentWeatherOutput } from './dto/current-weather.output';
+import { IForecastApiResponse } from './interfaces/IForecastApiResponse';
+import { transformForecastApiResponse } from './helpers/transformForecastApiResponse';
 
 enum Endpoint {
   Forecast = 'forecast',
@@ -24,6 +26,24 @@ export class WeatherService {
       const weather = data.data;
 
       return transformCurrentWeatherApiResponse(weather);
+    } catch (error) {
+      console.log(error);
+
+      throw new ForbiddenException('API not available');
+    }
+  }
+
+  async getForecast(coord: ICoordinate) {
+    const url = this.generateUrl(coord, Endpoint.Forecast);
+
+    try {
+      const data = await this.httpService.axiosRef.get<IForecastApiResponse>(
+        url,
+      );
+
+      const forecast = data.data;
+
+      return transformForecastApiResponse(forecast);
     } catch (error) {
       console.log(error);
 
