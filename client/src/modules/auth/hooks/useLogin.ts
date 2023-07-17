@@ -9,8 +9,8 @@ export function useLogin() {
     const onSubmit = async (inputData: { email: string, password: string }) => {
         try {
             const data = await login({ variables: inputData });
-            data.data?.login.access_token
-            localStorage.setItem('token', data.data?.login.access_token || "");
+            data.data?.login.accessToken
+            localStorage.setItem('token', data.data?.login.accessToken || "");
             await refetch();
             navigate('/');
         } catch (error: any) {

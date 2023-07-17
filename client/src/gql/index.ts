@@ -18,6 +18,38 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type Coordinate = {
+  lat: Scalars['Float']['input'];
+  lon: Scalars['Float']['input'];
+};
+
+export type CurrentWeatherOutput = {
+  __typename?: 'CurrentWeatherOutput';
+  main: WeatherMain;
+  timezone: Timezone;
+};
+
+export type ForecastItem = {
+  __typename?: 'ForecastItem';
+  clouds: Scalars['Float']['output'];
+  current: Scalars['String']['output'];
+  date: Scalars['Float']['output'];
+  feelsLike: Scalars['Float']['output'];
+  humidity: Scalars['Int']['output'];
+  maxTemperature: Scalars['Float']['output'];
+  minTemperature: Scalars['Float']['output'];
+  pop: Scalars['Float']['output'];
+  pressure: Scalars['Int']['output'];
+  rainPerHour: Scalars['Float']['output'];
+  temperature: Scalars['Float']['output'];
+  weatherDescription: Scalars['String']['output'];
+};
+
+export type ForecastOutput = {
+  __typename?: 'ForecastOutput';
+  items: Array<ForecastItem>;
+};
+
 export type LoginInput = {
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
@@ -38,7 +70,7 @@ export type Mutation = {
 
 
 export type MutationLoginArgs = {
-  loginUserInput: LoginInput;
+  loginInput: LoginInput;
 };
 
 
@@ -49,8 +81,20 @@ export type MutationSignupArgs = {
 export type Query = {
   __typename?: 'Query';
   currentUser: User;
+  currentWeather: CurrentWeatherOutput;
+  forecast: ForecastOutput;
   user: User;
   users: Array<User>;
+};
+
+
+export type QueryCurrentWeatherArgs = {
+  Coordinate: Coordinate;
+};
+
+
+export type QueryForecastArgs = {
+  Coordinate: Coordinate;
 };
 
 
@@ -68,10 +112,31 @@ export type SignUpInput = {
   password: Scalars['String']['input'];
 };
 
+export type Timezone = {
+  __typename?: 'Timezone';
+  sunrise: Scalars['Int']['output'];
+  sunset: Scalars['Int']['output'];
+  timezone: Scalars['Int']['output'];
+};
+
 export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
+};
+
+export type WeatherMain = {
+  __typename?: 'WeatherMain';
+  clouds: Scalars['Float']['output'];
+  current: Scalars['String']['output'];
+  feelsLike: Scalars['Float']['output'];
+  humidity: Scalars['Int']['output'];
+  maxTemperature: Scalars['Float']['output'];
+  minTemperature: Scalars['Float']['output'];
+  pressure: Scalars['Int']['output'];
+  rainPerHour: Scalars['Float']['output'];
+  temperature: Scalars['Float']['output'];
+  weatherDescription: Scalars['String']['output'];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -95,7 +160,7 @@ export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename
 
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
-  login(loginUserInput: {email: $email, password: $password}) {
+  login(loginInput: {email: $email, password: $password}) {
     user {
       id
       email
