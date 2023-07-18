@@ -1,16 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { ObjectType, Field } from '@nestjs/graphql';
-import { WeatherMain } from '../entities/weather-main.entity';
-import { Timezone } from './timezone';
+import { Weather } from '../weather';
+import { Timezone } from '../timezone';
 
 @ObjectType()
 export class CurrentWeatherOutput {
-    @Field(() => WeatherMain)
-    main: WeatherMain
+    @Field(() => Weather)
+    weather: Weather
 
     @Field(() => Timezone)
     timezone: Timezone
 }
-
-export { Timezone };
-

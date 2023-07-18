@@ -1,17 +1,17 @@
 /* eslint-disable prettier/prettier */
-import {
-  CurrentWeatherOutput,
-  Timezone,
-} from '../dto/current-weather.output';
-import { WeatherMain } from '../entities/weather-main.entity';
-import { ICurrentWeatherApiResponse } from '../interfaces/ICurrentWeatherApiResponse';
+import { CurrentWeatherOutput } from "src/weather/dto/output/current-weather.output";
+import { Timezone } from "src/weather/dto/timezone";
+import { Weather } from "src/weather/dto/weather";
+
+import { ICurrentWeatherApiResponse } from "../interfaces/ICurrentWeatherApiResponse";
+
 
 export function transformCurrentWeatherApiResponse(
   apiResponse: ICurrentWeatherApiResponse,
 ): CurrentWeatherOutput {
   const { main, weather, sys, timezone, clouds, rain } = apiResponse;
 
-  const mainData: WeatherMain = {
+  const mainData: Weather = {
     temperature: main.temp,
     feelsLike: main.feels_like,
     maxTemperature: main.temp_max,
@@ -20,7 +20,7 @@ export function transformCurrentWeatherApiResponse(
     rainPerHour: rain?.['1h'] || 0,
     pressure: main.pressure,
     humidity: main.humidity,
-    current: weather[0].main,
+    weather: weather[0].main,
     weatherDescription: weather[0].description,
   };
 
@@ -31,7 +31,7 @@ export function transformCurrentWeatherApiResponse(
   };
 
   return {
-    main: mainData,
+    weather: mainData,
     timezone: timezoneData,
   };
 }

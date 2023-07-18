@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { ForecastItem, ForecastOutput } from "../dto/forecast.output";
+import { ForecastOutput, ForecastItem } from "src/weather/dto/output/forecast.output";
 import { ICurrentWeatherApiResponse } from "../interfaces/ICurrentWeatherApiResponse";
 import { IForecastApiResponse } from "../interfaces/IForecastApiResponse";
 import { transformCurrentWeatherApiResponse } from "./transformCurrentWeatherApiResponse";
@@ -12,7 +12,7 @@ export function transformForecastApiResponse(
   const transformedList: ForecastItem[] = list.map((item) => {
     const date = item.dt * 1000;
     const { pop, ...weatherData } = item;
-    const {main}= transformCurrentWeatherApiResponse(weatherData as ICurrentWeatherApiResponse);
+    const {weather: main}= transformCurrentWeatherApiResponse(weatherData as ICurrentWeatherApiResponse);
 
     return { ...main, pop, date } ; 
   });

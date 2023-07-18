@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Field, Float, ObjectType } from '@nestjs/graphql';
-import { WeatherMain } from '../entities/weather-main.entity';
+import { Weather } from '../weather';
 
 @ObjectType()
-export class ForecastItem extends WeatherMain{
+export class ForecastItem extends Weather{
     @Field(() => Float)
     pop: number
 

@@ -3,7 +3,7 @@ import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 
 
 @ObjectType()
-export class WeatherMain {
+export class Weather {
   @Field(() => Float)
   temperature: number;
 
@@ -29,7 +29,7 @@ export class WeatherMain {
   humidity: number;
 
   @Field()
-  current: string;
+  weather: string;
 
   @Field()
   weatherDescription: string;

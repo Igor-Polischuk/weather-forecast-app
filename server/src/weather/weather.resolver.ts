@@ -1,8 +1,9 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
+
+import { CurrentWeatherOutput } from './dto/output/current-weather.output';
+import { ForecastOutput } from './dto/output/forecast.output';
+import { WeatherInput } from './dto/input/weather.input';
 import { WeatherService } from './weather.service';
-import { Coordinate } from './dto/coordinate.input';
-import { CurrentWeatherOutput } from './dto/current-weather.output';
-import { ForecastOutput } from './dto/forecast.output';
 
 @Resolver()
 // @UseGuards(JwtAuthGuard)
@@ -10,12 +11,18 @@ export class WeatherResolver {
   constructor(private readonly weatherService: WeatherService) {}
 
   @Query(() => CurrentWeatherOutput)
-  currentWeather(@Args('Coordinate') coordinate: Coordinate) {
-    return this.weatherService.getCurrentWeather(coordinate);
+  currentWeather(@Args('WeatherInput') weatherInput: WeatherInput) {
+    return this.weatherService.getCurrentWeather(
+      weatherInput.coordinate,
+      weatherInput.units,
+    );
   }
 
   @Query(() => ForecastOutput)
-  forecast(@Args('Coordinate') coordinate: Coordinate) {
-    return this.weatherService.getForecast(coordinate);
+  forecast(@Args('WeatherInput') weatherInput: WeatherInput) {
+    return this.weatherService.getForecast(
+      weatherInput.coordinate,
+      weatherInput.units,
+    );
   }
 }

@@ -1,15 +1,11 @@
-import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 
-import { WeatherService } from './weather.service';
+import { WeatherApiModule } from 'src/external-api/weather-api/weather-api.module';
 import { WeatherResolver } from './weather.resolver';
+import { WeatherService } from './weather.service';
 
 @Module({
-  imports: [
-    HttpModule.register({
-      baseURL: process.env.WEATHER_API_BASE_URL,
-    }),
-  ],
+  imports: [WeatherApiModule],
   providers: [WeatherResolver, WeatherService],
 })
 export class WeatherModule {}
