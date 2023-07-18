@@ -9,6 +9,9 @@ export class City extends BaseEntity{
   @Column()
   name: string;
 
+  @Column({unique: true})
+  fullname: string;
+
   @Column('float')
   lat: number;
 

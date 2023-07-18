@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { WeatherModule } from './weather/weather.module';
 import { CityModule } from './city/city.module';
+import { GeoApiModule } from './external-api/geo-api/geo-api.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CityModule } from './city/city.module';
     AuthModule,
     WeatherModule,
     CityModule,
+    GeoApiModule,
   ],
 })
 export class AppModule {}

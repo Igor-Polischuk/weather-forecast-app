@@ -4,6 +4,7 @@
         "Codegen",
         "Fastify",
         "foward",
+        "fullname",
         "makemigrations",
         "srid",
         "typeorm"
