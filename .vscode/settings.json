@@ -5,6 +5,7 @@
         "Fastify",
         "foward",
         "makemigrations",
+        "srid",
         "typeorm"
     ]
 }
