@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-import { Coordinate } from './coordinate.input';
 
 enum WeatherUnits {
   Metric = 'metric',
@@ -15,7 +14,7 @@ registerEnumType(WeatherUnits, {
 @InputType()
 export class WeatherInput {
   @Field()
-  coordinate: Coordinate;
+  city: string;
 
   @Field(() => WeatherUnits, {defaultValue: 'metric'})
   units: WeatherUnits

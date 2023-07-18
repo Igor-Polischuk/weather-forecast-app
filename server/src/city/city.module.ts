@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([City]), GeoApiModule],
+  exports: [CityService],
   providers: [CityResolver, CityService],
 })
 export class CityModule {}

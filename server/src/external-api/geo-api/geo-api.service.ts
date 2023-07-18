@@ -14,12 +14,15 @@ export class GeoApiService {
     try {
       const data = await this.httpService.axiosRef.get<GeoApiResponse>(url);
       const citiesList = data.data;
-      console.log(citiesList);
       return this.transformCitiesInfo(citiesList);
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('API not available');
     }
+  }
+
+  async getCityInfo(city: string): Promise<CitiesNameOutput> {
+    return (await this.getCities(city))[0];
   }
 
   private transformCitiesInfo(cities: GeoApiResponse): CitiesNameOutput[] {
@@ -30,6 +33,8 @@ export class GeoApiService {
       return {
         name: city.name,
         fullname,
+        lat: city.lat,
+        lon: city.lon,
       };
     });
   }

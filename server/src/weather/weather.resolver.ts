@@ -13,7 +13,7 @@ export class WeatherResolver {
   @Query(() => CurrentWeatherOutput)
   currentWeather(@Args('WeatherInput') weatherInput: WeatherInput) {
     return this.weatherService.getCurrentWeather(
-      weatherInput.coordinate,
+      weatherInput.city,
       weatherInput.units,
     );
   }
@@ -21,7 +21,7 @@ export class WeatherResolver {
   @Query(() => ForecastOutput)
   forecast(@Args('WeatherInput') weatherInput: WeatherInput) {
     return this.weatherService.getForecast(
-      weatherInput.coordinate,
+      weatherInput.city,
       weatherInput.units,
     );
   }

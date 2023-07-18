@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Float, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class CitiesNameOutput {
@@ -8,4 +8,10 @@ export class CitiesNameOutput {
 
     @Field()
     fullname: string
+
+    @Field(() => Float)
+    lat: number
+
+    @Field(() => Float)
+    lon: number
 }

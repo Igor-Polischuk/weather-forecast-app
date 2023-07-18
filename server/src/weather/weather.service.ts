@@ -1,18 +1,22 @@
 import { Injectable } from '@nestjs/common';
+
 import { WeatherApiService } from 'src/external-api/weather-api/weather-api.service';
-import { ICoordinate } from './interfaces/ICoordinates';
+import { CityService } from './../city/city.service';
 
 @Injectable()
 export class WeatherService {
-  constructor(private readonly weatherApiService: WeatherApiService) {}
+  constructor(
+    private readonly weatherApiService: WeatherApiService,
+    private readonly cityService: CityService,
+  ) {}
 
-  getCurrentWeather(coord: ICoordinate, unit: string) {
-    // const coordinate = cityService.getCoordinate(cityName)
-    return this.weatherApiService.getCurrentWeather(coord, unit);
+  async getCurrentWeather(city: string, unit: string) {
+    const coordinate = await this.cityService.getCityCoordinate(city);
+    return this.weatherApiService.getCurrentWeather(coordinate, unit);
   }
 
-  getForecast(coord: ICoordinate, unit: string) {
-    // const coordinate = cityService.getCoordinate(cityName)
-    return this.weatherApiService.getForecast(coord, unit);
+  async getForecast(city: string, unit: string) {
+    const coordinate = await this.cityService.getCityCoordinate(city);
+    return this.weatherApiService.getForecast(coordinate, unit);
   }
 }

@@ -62,6 +62,8 @@ type ForecastOutput {
 type CitiesNameOutput {
   name: String!
   fullname: String!
+  lat: Float!
+  lon: Float!
 }
 
 type Query {
@@ -74,13 +76,8 @@ type Query {
 }
 
 input WeatherInput {
-  coordinate: Coordinate!
+  city: String!
   units: WeatherUnits! = Metric
-}
-
-input Coordinate {
-  lat: Float!
-  lon: Float!
 }
 
 enum WeatherUnits {
