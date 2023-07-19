@@ -31,7 +31,8 @@ export class RefreshTokenStrategy {
     }
 
     const newToken = this.tokenRepository.create({user, refreshToken: token});
-    this.tokenRepository.save(newToken);
+
+    return this.tokenRepository.save(newToken);
   }
 
   async findRefreshToken(refreshToken: string): Promise<RefreshToken | null> {
@@ -48,7 +49,7 @@ export class RefreshTokenStrategy {
   }
 
   async generateAndSaveToken(user: IUser): Promise<string>{
-    const refresh_token = await this.generateRefreshToken(user);
-    return (await this.saveRefreshToken(user, refresh_token)).refreshToken;
+    const refreshToken = await this.generateRefreshToken(user);
+    return (await this.saveRefreshToken(user, refreshToken)).refreshToken;
   }
 }

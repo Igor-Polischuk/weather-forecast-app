@@ -6,7 +6,7 @@ import CONNECTION from './database.connection';
   imports: [
     TypeOrmModule.forRoot({
       ...CONNECTION,
-      synchronize: true,
+      synchronize: false,
       autoLoadEntities: true,
     }),
   ],
