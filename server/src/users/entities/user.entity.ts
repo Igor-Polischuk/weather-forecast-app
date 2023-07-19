@@ -21,6 +21,7 @@ export class User extends BaseEntity{
   @OneToOne(() => RefreshToken, refreshToken => refreshToken.user)
   refreshToken: RefreshToken;
 
+  @Field(() => [City])
   @ManyToMany(() => City, city => city.users)
   @JoinTable()
   cities: City[];

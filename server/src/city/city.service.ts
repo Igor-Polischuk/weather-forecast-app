@@ -17,6 +17,23 @@ export class CityService {
     return this.geoApiService.getCities(cityName);
   }
 
+  async findOrCreateCity(city: string) {
+    const cityInDb = await this.cityRepository.findOne({
+      where: { fullname: city },
+    });
+
+    if (cityInDb) {
+      return cityInDb;
+    }
+
+    const cityInfo = await this.geoApiService.getCityInfo(city);
+
+    const newCity = this.cityRepository.create(cityInfo);
+    await this.cityRepository.save(newCity);
+
+    return newCity;
+  }
+
   async getCityCoordinate(cityName: string): Promise<ICoordinate> {
     const cityInDb = await this.cityRepository.findOne({
       where: { fullname: cityName },

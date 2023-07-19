@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import { City } from 'src/city/entities/city.entity';
 import { User } from '../entities/user.entity';
 
 export interface IUser {
@@ -9,9 +10,13 @@ export interface IUser {
 export class UserDto implements IUser {
     email: string
     id: number
+    cities: City[]
 
     constructor(user: User) {
+      console.log(user);
+      
         this.email = user.email
         this.id = user.id
+        this.cities = user.cities
     }
 }
