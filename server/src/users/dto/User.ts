@@ -13,8 +13,6 @@ export class UserDto implements IUser {
     cities: City[]
 
     constructor(user: User) {
-      console.log(user);
-      
         this.email = user.email
         this.id = user.id
         this.cities = user.cities

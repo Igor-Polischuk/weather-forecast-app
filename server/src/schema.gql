@@ -2,35 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type City {
-  name: String!
-  fullname: String!
-  lat: Float!
-  lon: Float!
-}
-
-type User {
-  id: Int!
-  email: String!
-  cities: [City!]!
-}
-
-type CitiesNameOutput {
-  name: String!
-  fullname: String!
-  lat: Float!
-  lon: Float!
-}
-
-type RefreshOutput {
-  accessToken: String!
-}
-
-type LoginOutput {
-  accessToken: String!
-  user: User!
-}
-
 type Weather {
   temperature: Float!
   feelsLike: Float!
@@ -74,10 +45,39 @@ type ForecastOutput {
   items: [ForecastItem!]!
 }
 
+type City {
+  name: String!
+  fullname: String!
+  lat: Float!
+  lon: Float!
+}
+
+type User {
+  id: Int!
+  email: String!
+  cities: [City!]!
+}
+
 type CitiesCurrentWeatherOutput {
   weather: Weather!
   timezone: Timezone!
   city: City!
+}
+
+type CitiesNameOutput {
+  name: String!
+  fullname: String!
+  lat: Float!
+  lon: Float!
+}
+
+type RefreshOutput {
+  accessToken: String!
+}
+
+type LoginOutput {
+  accessToken: String!
+  user: User!
 }
 
 type Query {

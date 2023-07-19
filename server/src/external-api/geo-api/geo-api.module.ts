@@ -1,7 +1,6 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 
-import { GeoApiResolver } from './geo-api.resolver';
 import { GeoApiService } from './geo-api.service';
 
 @Module({
@@ -11,6 +10,6 @@ import { GeoApiService } from './geo-api.service';
     }),
   ],
   exports: [GeoApiService],
-  providers: [GeoApiResolver, GeoApiService],
+  providers: [GeoApiService],
 })
 export class GeoApiModule {}

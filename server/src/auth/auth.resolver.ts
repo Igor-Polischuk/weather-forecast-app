@@ -2,13 +2,13 @@ import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { setRefreshTokenCookie } from './helpers/setRefreshLoginCookie';
-import { SignUpInput } from 'src/auth/dto/sign-up.input';
-import { RefreshOutput } from './dto/refresh.output';
-import { LoginInput } from './dto/login.input';
+import { SignUpInput } from 'src/auth/dto/input/sign-up';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
-import { LoginOutput } from './dto/login.output';
-import { AuthService } from './auth.service';
 import { User } from 'src/users/entities/user.entity';
+import { RefreshOutput } from './dto/output/refresh';
+import { LoginOutput } from './dto/output/login';
+import { LoginInput } from './dto/input/login';
+import { AuthService } from './auth.service';
 
 @Resolver()
 export class AuthResolver {
