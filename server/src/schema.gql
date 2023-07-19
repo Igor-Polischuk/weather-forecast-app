@@ -74,6 +74,12 @@ type ForecastOutput {
   items: [ForecastItem!]!
 }
 
+type CitiesCurrentWeatherOutput {
+  weather: Weather!
+  timezone: Timezone!
+  city: City!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User!
@@ -81,6 +87,7 @@ type Query {
   getCitiesTips(cityName: String!): [CitiesNameOutput!]!
   currentWeather(WeatherInput: WeatherInput!): CurrentWeatherOutput!
   forecast(WeatherInput: WeatherInput!): ForecastOutput!
+  getCurrentWeatherInUserCities: [CitiesCurrentWeatherOutput!]!
 }
 
 input WeatherInput {
