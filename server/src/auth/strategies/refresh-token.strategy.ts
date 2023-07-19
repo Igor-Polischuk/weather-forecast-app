@@ -52,4 +52,14 @@ export class RefreshTokenStrategy {
     const refreshToken = await this.generateRefreshToken(user);
     return (await this.saveRefreshToken(user, refreshToken)).refreshToken;
   }
+
+  async clearRefreshToken(user: IUser) {
+    const tokenData = await this.tokenRepository.findOne({where: { user: {id: user.id} }});
+
+    if (!tokenData) {
+      throw new UnauthorizedException('Token doesn`t exist')
+    }
+
+    await this.tokenRepository.remove(tokenData);
+  }
 }

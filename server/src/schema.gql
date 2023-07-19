@@ -105,6 +105,7 @@ type Mutation {
   saveCity(city: String!): User!
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
+  logout: String!
   refresh: RefreshOutput!
 }
 

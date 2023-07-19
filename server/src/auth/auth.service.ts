@@ -83,6 +83,10 @@ export class AuthService {
     return this.usersService.saveUser({ ...createUserInput, password });
   }
 
+  logout(user: IUser) {
+    this.refreshTokenStrategy.clearRefreshToken(user);
+  }
+
   private async generateTokens(user: IUser) {
     const accessToken = this.jwtService.sign({
       email: user.email,

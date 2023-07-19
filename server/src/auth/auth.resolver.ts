@@ -9,6 +9,9 @@ import { RefreshOutput } from './dto/output/refresh';
 import { LoginOutput } from './dto/output/login';
 import { LoginInput } from './dto/input/login';
 import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { CurrentUser } from 'src/users/decorators/CurrentUser';
+import { IUser } from 'src/users/dto/User';
 
 @Resolver()
 export class AuthResolver {
@@ -29,6 +32,24 @@ export class AuthResolver {
   @Mutation(() => User)
   signup(@Args('loginUserInput') signInInput: SignUpInput) {
     return this.authService.signup(signInInput);
+  }
+
+  @Mutation(() => String)
+  @UseGuards(JwtAuthGuard)
+  async logout(@Context() context, @CurrentUser() user: IUser) {
+    this.authService.logout(user);
+
+    context.res.clearCookie('refreshToken', {
+      httpOnly: true,
+      maxAge:
+        Number.parseFloat(process.env.REFRESH_TOKEN_MAX_AGE) *
+        24 *
+        60 *
+        60 *
+        1000,
+    });
+
+    return 'Successfully logout';
   }
 
   @Mutation(() => RefreshOutput)
