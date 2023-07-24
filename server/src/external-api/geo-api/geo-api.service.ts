@@ -1,4 +1,8 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
 import { CitiesNameOutput } from 'src/city/dto/output/cities-names';
@@ -21,8 +25,14 @@ export class GeoApiService {
     }
   }
 
-  async getCityInfo(city: string): Promise<CitiesNameOutput> {
-    return (await this.getCities(city))[0];
+  async getCityInfo(cityName: string): Promise<CitiesNameOutput> {
+    const city = await this.getCities(cityName)[0];
+
+    if (!city) {
+      throw new NotFoundException(`No info about city: '${cityName}'`);
+    }
+
+    return city;
   }
 
   private transformCitiesInfo(cities: GeoApiResponse): CitiesNameOutput[] {

@@ -103,6 +103,7 @@ enum WeatherUnits {
 
 type Mutation {
   saveCity(city: String!): User!
+  removeCity(city: String!): User!
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
   logout: String!

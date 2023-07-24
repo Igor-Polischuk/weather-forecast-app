@@ -18,9 +18,7 @@ export class CityService {
   }
 
   async findOrCreateCity(city: string) {
-    const cityInDb = await this.cityRepository.findOne({
-      where: { fullname: city },
-    });
+    const cityInDb = await this.findSavedCity(city);
 
     if (cityInDb) {
       return cityInDb;
@@ -32,6 +30,14 @@ export class CityService {
     await this.cityRepository.save(newCity);
 
     return newCity;
+  }
+
+  async findSavedCity(city: string) {
+    const cityInDb = await this.cityRepository.findOne({
+      where: { fullname: city },
+    });
+
+    return cityInDb;
   }
 
   async getCityCoordinate(cityName: string): Promise<ICoordinate> {

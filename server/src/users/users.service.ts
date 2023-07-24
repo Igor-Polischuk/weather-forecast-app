@@ -1,4 +1,8 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -50,7 +54,25 @@ export class UsersService {
     return currentUser;
   }
 
-  async validateSavingCity(currentUser: User, cityName: string) {
+  async removeCity(user: IUser, cityName: string) {
+    const city = await this.cityService.findSavedCity(cityName);
+    const currentUser = await this.findOne(user.id);
+
+    if (!city) {
+      throw new NotFoundException(`${cityName} not found`);
+    }
+
+    const newCities = currentUser.cities.filter(
+      (city) => city.fullname !== cityName,
+    );
+
+    currentUser.cities = newCities;
+    await this.usersRepository.save(currentUser);
+
+    return currentUser;
+  }
+
+  private async validateSavingCity(currentUser: User, cityName: string) {
     const limit = Number(process.env.SAVED_CITY_LIMIT);
 
     if (currentUser.cities.length === limit) {
