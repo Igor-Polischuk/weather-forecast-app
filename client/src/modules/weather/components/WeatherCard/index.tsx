@@ -1,9 +1,9 @@
 // @flow
 import { FC } from "react";
 
-import styles from "./styles.module.scss";
-import { Col, Row } from "antd";
+import { Card, Col, Row } from "antd";
 
+import styles from "./styles.module.scss";
 import sunny from "@/assets/sunny.svg"; 
 
 
@@ -20,20 +20,25 @@ export const WeatherCard: FC<IWeatherCardProps> = ({
   city;
   temperature;
   return (
-    <div className={styles.weatherCard}>
-      <Row justify={"space-between"}>
-        <Col span={12}>
-          <p className={styles.temperature}>{temperature}<span> °C</span></p>
-        </Col>
-        <Col span={12}>
-          <img src={sunny} alt="sunny" />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-            <p>{city}</p>
-        </Col>
-      </Row>
-    </div>
+    <Card bodyStyle={{padding: 5}} className={styles.weatherCard}>
+      <Row className={styles.weatherCard} align={"middle"} justify={"space-between"}>
+      <Col xl={3}>
+        <Row align={"middle"}>
+        <img src={sunny} alt="Sunny icon"/>
+        </Row>
+      </Col>
+      <Col xl={12}>
+        <div>
+          <p className={styles.city}>{city}</p>
+          <p>Sunny, clear sky</p>
+        </div>
+      </Col>
+      <Col xl={5}>
+        <Row justify={"end"}>
+          <p className={styles.temperature} >{temperature}°</p>
+        </Row>
+      </Col>
+    </Row>
+    </Card>
   );
 };
