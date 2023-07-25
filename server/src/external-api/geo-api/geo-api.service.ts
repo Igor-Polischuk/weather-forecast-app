@@ -26,7 +26,7 @@ export class GeoApiService {
   }
 
   async getCityInfo(cityName: string): Promise<CitiesNameOutput> {
-    const city = await this.getCities(cityName)[0];
+    const city = (await this.getCities(cityName))[0];
 
     if (!city) {
       throw new NotFoundException(`No info about city: '${cityName}'`);
