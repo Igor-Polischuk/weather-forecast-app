@@ -7,14 +7,19 @@ import { transformCurrentWeatherApiResponse } from "./transformCurrentWeatherApi
 export function transformForecastApiResponse(
   apiResponse: IForecastApiResponse,
 ): ForecastOutput {
-    const { list } = apiResponse;
+  const { list, city } = apiResponse;
+
+  const sys = {
+    sunrise: city.sunrise,
+    sunset: city.sunset
+  }
 
   const transformedList: ForecastItem[] = list.map((item) => {
     const date = item.dt * 1000;
     const { pop, ...weatherData } = item;
-    const {weather: main}= transformCurrentWeatherApiResponse(weatherData as ICurrentWeatherApiResponse);
+    const { weather: main } = transformCurrentWeatherApiResponse({...weatherData, sys} as ICurrentWeatherApiResponse);
 
-    return { ...main, pop, date } ; 
+    return { ...main, pop, date };
   });
 
   return { items: transformedList };

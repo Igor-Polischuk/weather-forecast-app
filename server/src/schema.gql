@@ -14,6 +14,7 @@ type Weather {
   windSpeed: Float!
   weather: String!
   weatherDescription: String!
+  icon: String!
 }
 
 type Timezone {
@@ -39,6 +40,7 @@ type ForecastItem {
   windSpeed: Float!
   weather: String!
   weatherDescription: String!
+  icon: String!
   pop: Float!
   date: Float!
 }

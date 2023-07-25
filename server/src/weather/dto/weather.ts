@@ -37,4 +37,7 @@ export class Weather {
 
   @Field()
   weatherDescription: string;
+
+  @Field()
+  icon: string;
 }
