@@ -18,21 +18,38 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type Coordinate = {
-  lat: Scalars['Float']['input'];
-  lon: Scalars['Float']['input'];
+export type CitiesCurrentWeatherOutput = {
+  __typename?: 'CitiesCurrentWeatherOutput';
+  city: City;
+  timezone: Timezone;
+  weather: Weather;
+};
+
+export type CitiesNameOutput = {
+  __typename?: 'CitiesNameOutput';
+  fullname: Scalars['String']['output'];
+  lat: Scalars['Float']['output'];
+  lon: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
+};
+
+export type City = {
+  __typename?: 'City';
+  fullname: Scalars['String']['output'];
+  lat: Scalars['Float']['output'];
+  lon: Scalars['Float']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type CurrentWeatherOutput = {
   __typename?: 'CurrentWeatherOutput';
-  main: WeatherMain;
   timezone: Timezone;
+  weather: Weather;
 };
 
 export type ForecastItem = {
   __typename?: 'ForecastItem';
   clouds: Scalars['Float']['output'];
-  current: Scalars['String']['output'];
   date: Scalars['Float']['output'];
   feelsLike: Scalars['Float']['output'];
   humidity: Scalars['Int']['output'];
@@ -42,6 +59,7 @@ export type ForecastItem = {
   pressure: Scalars['Int']['output'];
   rainPerHour: Scalars['Float']['output'];
   temperature: Scalars['Float']['output'];
+  weather: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
 };
 
@@ -64,13 +82,26 @@ export type LoginOutput = {
 export type Mutation = {
   __typename?: 'Mutation';
   login: LoginOutput;
+  logout: Scalars['String']['output'];
   refresh: RefreshOutput;
+  removeCity: User;
+  saveCity: User;
   signup: User;
 };
 
 
 export type MutationLoginArgs = {
   loginInput: LoginInput;
+};
+
+
+export type MutationRemoveCityArgs = {
+  city: Scalars['String']['input'];
+};
+
+
+export type MutationSaveCityArgs = {
+  city: Scalars['String']['input'];
 };
 
 
@@ -83,18 +114,25 @@ export type Query = {
   currentUser: User;
   currentWeather: CurrentWeatherOutput;
   forecast: ForecastOutput;
+  getCitiesTips: Array<CitiesNameOutput>;
+  getCurrentWeatherInUserCities: Array<CitiesCurrentWeatherOutput>;
   user: User;
   users: Array<User>;
 };
 
 
 export type QueryCurrentWeatherArgs = {
-  Coordinate: Coordinate;
+  WeatherInput: WeatherInput;
 };
 
 
 export type QueryForecastArgs = {
-  Coordinate: Coordinate;
+  WeatherInput: WeatherInput;
+};
+
+
+export type QueryGetCitiesTipsArgs = {
+  cityName: Scalars['String']['input'];
 };
 
 
@@ -121,14 +159,14 @@ export type Timezone = {
 
 export type User = {
   __typename?: 'User';
+  cities: Array<City>;
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
 };
 
-export type WeatherMain = {
-  __typename?: 'WeatherMain';
+export type Weather = {
+  __typename?: 'Weather';
   clouds: Scalars['Float']['output'];
-  current: Scalars['String']['output'];
   feelsLike: Scalars['Float']['output'];
   humidity: Scalars['Int']['output'];
   maxTemperature: Scalars['Float']['output'];
@@ -136,8 +174,20 @@ export type WeatherMain = {
   pressure: Scalars['Int']['output'];
   rainPerHour: Scalars['Float']['output'];
   temperature: Scalars['Float']['output'];
+  weather: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
 };
+
+export type WeatherInput = {
+  city: Scalars['String']['input'];
+  units?: WeatherUnits;
+};
+
+export enum WeatherUnits {
+  Imperial = 'Imperial',
+  Metric = 'Metric',
+  Standard = 'Standard'
+}
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -156,6 +206,13 @@ export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: number, email: string } };
+
+export type GetCitiesTipsQueryVariables = Exact<{
+  cityName: Scalars['String']['input'];
+}>;
+
+
+export type GetCitiesTipsQuery = { __typename?: 'Query', getCitiesTips: Array<{ __typename?: 'CitiesNameOutput', name: string, fullname: string, lat: number, lon: number }> };
 
 
 export const LoginDocument = gql`
@@ -263,3 +320,41 @@ export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
 export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
 export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
+export const GetCitiesTipsDocument = gql`
+    query getCitiesTips($cityName: String!) {
+  getCitiesTips(cityName: $cityName) {
+    name
+    fullname
+    lat
+    lon
+  }
+}
+    `;
+
+/**
+ * __useGetCitiesTipsQuery__
+ *
+ * To run a query within a React component, call `useGetCitiesTipsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCitiesTipsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCitiesTipsQuery({
+ *   variables: {
+ *      cityName: // value for 'cityName'
+ *   },
+ * });
+ */
+export function useGetCitiesTipsQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetCitiesTipsQuery, GetCitiesTipsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetCitiesTipsQuery, GetCitiesTipsQueryVariables>(GetCitiesTipsDocument, options);
+      }
+export function useGetCitiesTipsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCitiesTipsQuery, GetCitiesTipsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetCitiesTipsQuery, GetCitiesTipsQueryVariables>(GetCitiesTipsDocument, options);
+        }
+export type GetCitiesTipsQueryHookResult = ReturnType<typeof useGetCitiesTipsQuery>;
+export type GetCitiesTipsLazyQueryHookResult = ReturnType<typeof useGetCitiesTipsLazyQuery>;
+export type GetCitiesTipsQueryResult = Apollo.QueryResult<GetCitiesTipsQuery, GetCitiesTipsQueryVariables>;

@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["*"],
       "@components/*": ["components/*"],
+      "@common/*": ["components/common*"],
       "@pages/*": ["pages/*"],
       "@modules/*": ["modules/*"],
       "@utils/*": ["utils/*"],

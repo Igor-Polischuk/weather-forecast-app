@@ -9,6 +9,7 @@ export default defineConfig({
     alias: [
       { find: '@', replacement: path.resolve(__dirname, 'src') },
       { find: '@components', replacement: path.resolve(__dirname, 'src/components') },
+      { find: '@common', replacement: path.resolve(__dirname, 'src/components/common') },
       { find: '@pages', replacement: path.resolve(__dirname, 'src/pages') },
       { find: '@modules', replacement: path.resolve(__dirname, 'src/modules') },
       { find: '@graphql', replacement: path.resolve(__dirname, 'src/graphql') },
