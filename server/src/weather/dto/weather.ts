@@ -28,6 +28,10 @@ export class Weather {
   @Field(() => Int)
   humidity: number;
 
+
+  @Field(() => Int)
+  windSpeed: number
+
   @Field()
   weather: string;
 

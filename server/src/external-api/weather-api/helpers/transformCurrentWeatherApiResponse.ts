@@ -9,7 +9,7 @@ import { ICurrentWeatherApiResponse } from "../interfaces/ICurrentWeatherApiResp
 export function transformCurrentWeatherApiResponse(
   apiResponse: ICurrentWeatherApiResponse,
 ): CurrentWeatherOutput {
-  const { main, weather, sys, timezone, clouds, rain } = apiResponse;
+  const { main, weather, sys, timezone, clouds, rain, wind } = apiResponse;
 
   const mainData: Weather = {
     temperature: main.temp,
@@ -22,6 +22,7 @@ export function transformCurrentWeatherApiResponse(
     humidity: main.humidity,
     weather: weather[0].main,
     weatherDescription: weather[0].description,
+    windSpeed: wind.speed
   };
 
   const timezoneData: Timezone = {
