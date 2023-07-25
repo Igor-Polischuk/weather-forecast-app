@@ -15,6 +15,7 @@ export const CURRENT_WEATHER = gql(`
             weather
             weatherDescription
             windSpeed 
+            icon
           }
           timezone {
             timezone

@@ -53,6 +53,7 @@ export type ForecastItem = {
   date: Scalars['Float']['output'];
   feelsLike: Scalars['Float']['output'];
   humidity: Scalars['Int']['output'];
+  icon: Scalars['String']['output'];
   maxTemperature: Scalars['Float']['output'];
   minTemperature: Scalars['Float']['output'];
   pop: Scalars['Float']['output'];
@@ -61,7 +62,7 @@ export type ForecastItem = {
   temperature: Scalars['Float']['output'];
   weather: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
-  windSpeed: Scalars['Int']['output'];
+  windSpeed: Scalars['Float']['output'];
 };
 
 export type ForecastOutput = {
@@ -170,6 +171,7 @@ export type Weather = {
   clouds: Scalars['Float']['output'];
   feelsLike: Scalars['Float']['output'];
   humidity: Scalars['Int']['output'];
+  icon: Scalars['String']['output'];
   maxTemperature: Scalars['Float']['output'];
   minTemperature: Scalars['Float']['output'];
   pressure: Scalars['Int']['output'];
@@ -177,7 +179,7 @@ export type Weather = {
   temperature: Scalars['Float']['output'];
   weather: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
-  windSpeed: Scalars['Int']['output'];
+  windSpeed: Scalars['Float']['output'];
 };
 
 export type WeatherInput = {
@@ -221,14 +223,14 @@ export type GetCurrentWeatherQueryVariables = Exact<{
 }>;
 
 
-export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weather: string, weatherDescription: string, windSpeed: number }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
+export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weather: string, weatherDescription: string, windSpeed: number, icon: string }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
 
 export type GetForecastQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
 }>;
 
 
-export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, pop: number, date: number }> } };
+export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, pop: number, date: number, icon: string }> } };
 
 
 export const LoginDocument = gql`
@@ -387,6 +389,7 @@ export const GetCurrentWeatherDocument = gql`
       weather
       weatherDescription
       windSpeed
+      icon
     }
     timezone {
       timezone
@@ -431,6 +434,7 @@ export const GetForecastDocument = gql`
       temperature
       pop
       date
+      icon
     }
   }
 }

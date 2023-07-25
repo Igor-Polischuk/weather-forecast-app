@@ -5,7 +5,6 @@ import { FC } from "react";
 import { useGetCurrentWeatherQuery } from "@/gql";
 
 import styles from "./styles.module.scss";
-import sunny from "@/assets/sunny.svg";
 
 interface ICurrentWeatherProps {
   cityName: string;
@@ -49,9 +48,9 @@ export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
         </Col>
         <Col span={8} className={styles.iconBlock}>
           <img
-            src={sunny}
-            alt="sunny"
-            className={`${styles.weatherIcon} rotate`}
+            src={weather.icon}
+            alt={`icon of ${weather.weather}`}
+            className={`${styles.weatherIcon}`}
           />
           <p
             className={styles.weatherDescription}

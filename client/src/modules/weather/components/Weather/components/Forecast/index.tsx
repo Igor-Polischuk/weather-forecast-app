@@ -5,7 +5,6 @@ import { ForecastItem } from "./ForecastItem";
 import { useGetForecastQuery } from "@/gql";
 
 import styles from "./styles.module.scss";
-import sunny from "@/assets/sunny.svg";
 
 interface IForecastProps {
   cityName: string;
@@ -30,7 +29,7 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
 
     return (
       <ForecastItem
-        icon={<img src={sunny} />}
+        icon={<img src={weather.icon} />}
         temperature={temp}
         pop={pop}
         time={timeStr}

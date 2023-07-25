@@ -9,6 +9,7 @@ export const CURRENT_WEATHER = gql(`
             temperature
             pop
             date
+            icon
           }
   }
 }

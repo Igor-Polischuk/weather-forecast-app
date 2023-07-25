@@ -14,7 +14,7 @@ export function getWeatherIconUrl({ weatherCondition, weatherDescription, isDay 
   const iconMapping = {
     clouds: {
       ['few clouds']: `few_clouds_${timeOfDay}`,
-      default: `clouds_${timeOfDay}`
+      default: `clouds`
     },
     clear: {
       default: `clear_${timeOfDay}`
@@ -22,13 +22,13 @@ export function getWeatherIconUrl({ weatherCondition, weatherDescription, isDay 
     rain: {
       ['light rain']: `rain_${timeOfDay}`,
       ['moderate rain']: `rain_${timeOfDay}`,
-      default: `shower_rain_${timeOfDay}`
+      default: `shower_rain`
     },
     snow: {
-      default: `snow_${timeOfDay}`
+      default: `snow`
     },
     thunderstorm: {
-      default: `thunderstorm_${timeOfDay}`
+      default: `thunderstorm`
     },
     default: 'mist'
   };
