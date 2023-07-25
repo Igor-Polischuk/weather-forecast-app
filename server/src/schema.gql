@@ -11,7 +11,7 @@ type Weather {
   rainPerHour: Float!
   pressure: Int!
   humidity: Int!
-  windSpeed: Int!
+  windSpeed: Float!
   weather: String!
   weatherDescription: String!
 }
@@ -36,7 +36,7 @@ type ForecastItem {
   rainPerHour: Float!
   pressure: Int!
   humidity: Int!
-  windSpeed: Int!
+  windSpeed: Float!
   weather: String!
   weatherDescription: String!
   pop: Float!

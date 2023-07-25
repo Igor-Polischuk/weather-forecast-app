@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 export const CURRENT_WEATHER = gql(`
   query getCurrentWeather($cityName: String!){
     currentWeather(WeatherInput: {
-        city: "$cityName"
+        city: $cityName
       }){
         weather{
             temperature
@@ -12,7 +12,9 @@ export const CURRENT_WEATHER = gql(`
             minTemperature
             pressure
             humidity
-            
+            weather
+            weatherDescription
+            windSpeed 
           }
           timezone {
             timezone

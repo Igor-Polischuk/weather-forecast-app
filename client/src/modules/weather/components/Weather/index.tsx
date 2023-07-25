@@ -1,37 +1,44 @@
-import { InfoCard } from "@/modules/common/components/InfoCard";
-import { Space, Row, Col } from "antd";
+import { useReactiveVar } from "@apollo/client";
+import { Space } from "antd";
 
 import { CurrentWeather } from "./components/CurrentMain";
 import { Forecast } from "./components/Forecast";
 
-import windImg from "@assets/wind.png";
-import humidityImg from "@assets/humidity.png";
-import pressureImg from "@assets/pressure.png";
+import { currentCityVar } from "@/apollo/weather-vars";
+import { WeatherMessage } from "./components/ChooseCity";
+import { CurrentAdditional } from "./components/CurrentAdditional/indes";
+import { useEffect } from "react";
+import { useGetCurrentWeatherLazyQuery } from "@/gql";
 
 export const Weather = () => {
+  const cityName = useReactiveVar(currentCityVar);
+  const isCitySelected = cityName.trim() !== "";
+  const [getCityWeather, { error }] = useGetCurrentWeatherLazyQuery();
+
+  console.log(error);
+  
+
+  useEffect(() => {
+    if (isCitySelected) {
+      getCityWeather({ variables: { cityName } });
+    }
+  }, [cityName, getCityWeather, isCitySelected]);
+
+  if (!isCitySelected) {
+    return (
+      <WeatherMessage text="Use search panel to find weather in your city" />
+    );
+  }
+
+  if (error) {
+    return <WeatherMessage text={error.message} />;
+  }
+
   return (
     <Space direction="vertical" size="large" style={{ display: "flex" }}>
-      <CurrentWeather />
-      <Forecast />
-      <Row justify={"space-between"} gutter={[16, 16]}>
-        <Col span={8}>
-          <InfoCard image={<img src={windImg} />} text="5.2 m/s" title="Wind" />
-        </Col>
-        <Col span={8}>
-          <InfoCard
-            image={<img src={humidityImg} />}
-            text="75%"
-            title="Humidity"
-          />
-        </Col>
-        <Col span={8}>
-          <InfoCard
-            image={<img src={pressureImg} />}
-            text="1015 hPa"
-            title="Pressure"
-          />
-        </Col>
-      </Row>
+      <CurrentWeather cityName={cityName} />
+      <Forecast cityName={cityName} />
+      <CurrentAdditional cityName={cityName} />
     </Space>
   );
 };

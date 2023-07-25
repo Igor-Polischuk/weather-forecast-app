@@ -29,7 +29,7 @@ export class Weather {
   humidity: number;
 
 
-  @Field(() => Int)
+  @Field(() => Float)
   windSpeed: number
 
   @Field()

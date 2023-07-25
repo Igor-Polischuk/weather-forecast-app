@@ -3,6 +3,7 @@ import { AutoComplete, Input } from "antd";
 
 import { useGetCitiesTipsLazyQuery } from "@/gql";
 import { debounce } from "../../../common/utils/debounce";
+import { currentCityVar } from "@/apollo/weather-vars";
 
 export const SearchCity = () => {
   const { Search } = Input;
@@ -15,7 +16,7 @@ export const SearchCity = () => {
 
 
   const onSelect = (data: string) => {
-    console.log("onSelect", data);
+    currentCityVar(data)
   };
 
   const getOptions = () => {
@@ -39,8 +40,8 @@ export const SearchCity = () => {
 
   const onSearch = (value: string) => {
     const cityFullname = options[0]?.value || value
-    console.log(event);
     console.log('onSearch ', cityFullname)
+    currentCityVar(cityFullname)
   };
 
   const options = getOptions();

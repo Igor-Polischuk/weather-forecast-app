@@ -7,9 +7,10 @@ interface IForecastItemProps {
     temperature: number
     icon: JSX.Element
     time: string
+    pop: number
 }
 
-export const ForecastItem: FC<IForecastItemProps> = ({icon, temperature, time}) => {
+export const ForecastItem: FC<IForecastItemProps> = ({icon, temperature, time, pop}) => {
     return (
         <div className={styles.forecastItem}>
             <p className={styles.forecastItem_time}>{time}</p>
@@ -17,7 +18,7 @@ export const ForecastItem: FC<IForecastItemProps> = ({icon, temperature, time}) 
             <p className={styles.forecastItem_temp}>{temperature}°</p>
             <p className={styles.forecastItem_rain}>
                 <img src={drop} alt="drop" />
-                <span>15%</span>
+                <span>{pop}%</span>
             </p>
         </div>
     );
