@@ -1,6 +1,6 @@
 import { Space } from "antd";
 import { TopBar } from "../components/TopBar";
-import { Weather } from "../components/Weather";
+import { WeatherDashboard } from "../components/WeatherDashboard";
 import styles from "./styles.module.scss";
 
 export const WeatherPage = () => {
@@ -12,7 +12,7 @@ export const WeatherPage = () => {
       className={styles.weatherPage}
     >
       <TopBar />
-      <Weather />
+      <WeatherDashboard />
     </Space>
   );
 };

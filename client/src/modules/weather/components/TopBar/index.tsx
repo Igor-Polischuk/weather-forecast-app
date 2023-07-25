@@ -1,7 +1,7 @@
 import { UserDropdown } from "@/modules/user/components/UserDropdown";
 import { Col, Row } from "antd";
 
-import { SearchCity } from "@/modules/common/components/SearchCity";
+import { SearchCity } from "@/modules/weather/components/SearchCity";
 import { Burger } from "@/modules/common/components/Burger";
 import { WeatherCards } from "../WeatherCards";
 

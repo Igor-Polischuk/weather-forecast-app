@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { AutoComplete, Input } from "antd";
 
 import { useGetCitiesTipsLazyQuery } from "@/gql";
-import { debounce } from "../../utils/debounce";
+import { debounce } from "../../../common/utils/debounce";
 
 export const SearchCity = () => {
   const { Search } = Input;
