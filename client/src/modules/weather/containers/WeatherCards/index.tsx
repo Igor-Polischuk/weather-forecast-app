@@ -13,6 +13,8 @@ export const WeatherCards = () => {
     return <p>Something was wrong</p>;
   }
 
+  const isCity = data.currentUser.cities.length === 0;
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const weatherCards = useTransition(data.currentUser.cities, {
     key: (city: { fullname: string }) => city.fullname,
@@ -21,7 +23,7 @@ export const WeatherCards = () => {
     leave: { opacity: 0 },
     config: {
       duration: 200,
-    }
+    },
   });
 
   return (
@@ -32,11 +34,15 @@ export const WeatherCards = () => {
       className={styles.cards}
     >
       <Space direction="vertical" size="large" style={{ display: "flex" }}>
-        {weatherCards((style, city) => (
-          <animated.div style={style}>
-            <SavedCityWeatherCard city={city} />
-          </animated.div>
-        ))}
+        {isCity ? (
+          <Card>You haven't saved any city yet</Card>
+        ) : (
+          weatherCards((style, city) => (
+            <animated.div style={style}>
+              <SavedCityWeatherCard city={city} />
+            </animated.div>
+          ))
+        )}
       </Space>
     </Card>
   );

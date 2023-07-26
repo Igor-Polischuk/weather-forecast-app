@@ -1,7 +1,11 @@
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { Tooltip } from "antd";
 
-import { useCurrentUserQuery, useRemoveCityMutation, useSaveCityMutation } from "@/gql";
+import {
+  useCurrentUserQuery,
+  useRemoveCityMutation,
+  useSaveCityMutation,
+} from "@/gql";
 
 import styles from "./styles.module.scss";
 import { useReactiveVar } from "@apollo/client";
@@ -12,6 +16,7 @@ export const SaveCityButton = () => {
   const currentCity = useReactiveVar(currentCityVar);
   const [removeCity] = useRemoveCityMutation();
   const [saveCity] = useSaveCityMutation();
+  const cityLimit = Number(import.meta.env.VITE_CITY_LIMIT);
 
   if (!data?.currentUser) {
     return null;
@@ -29,14 +34,18 @@ export const SaveCityButton = () => {
 
   const onSave = () => {
     saveCity({
-        variables: { cityName: currentCity },
-      });
+      variables: { cityName: currentCity },
+    });
   };
 
-  return isSavedCity ? (
-    <RemoveCity onClick={onRemove} />
-  ) : (
+  if (data.currentUser.cities.length === cityLimit && !isSavedCity) {
+    return null;
+  }
+
+  return !isSavedCity ? (
     <AddCity onClick={onSave} />
+  ) : (
+    <RemoveCity onClick={onRemove} />
   );
 };
 
