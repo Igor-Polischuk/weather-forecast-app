@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
+import { isClickedLogOut } from "@/apollo/user-vars";
 
 export function useLogin() {
     const [login, { loading, error }] = useLoginMutation();
@@ -12,6 +13,7 @@ export function useLogin() {
             data.data?.login.accessToken
             localStorage.setItem('token', data.data?.login.accessToken || "");
             await refetch();
+            isClickedLogOut(false);
             navigate('/');
         } catch (error: any) {
             console.log(error.message);

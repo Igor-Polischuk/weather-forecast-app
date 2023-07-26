@@ -3,8 +3,8 @@ import { UserOutlined } from "@ant-design/icons";
 import { Navigate } from "react-router-dom";
 
 import { useCurrentUserQuery } from "@/gql";
+import { LogOut } from "../LogOut";
 
-import styles from "./styles.module.scss";
 
 export const UserDropdown = () => {
   const { data, error } = useCurrentUserQuery();
@@ -12,9 +12,7 @@ export const UserDropdown = () => {
   const items: MenuProps["items"] = [
     {
       label: (
-        <a className={styles.logOut} href="/weather">
-          Log out
-        </a>
+        <LogOut/>
       ),
       key: "0",
     },

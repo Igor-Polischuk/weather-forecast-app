@@ -7,7 +7,7 @@ import { currentCityVar } from "@/apollo/weather-vars";
 
 export const SearchCity = () => {
   const { Search } = Input;
-
+  
   const [getCity, { data }] = useGetCitiesTipsLazyQuery();
   const [searchText, setSearchText] = useState("");
 
@@ -42,7 +42,6 @@ export const SearchCity = () => {
 
   const onSearch = (value: string) => {
     const cityFullname = options[0]?.value || value;
-    console.log("onSearch ", cityFullname);
     currentCityVar(cityFullname);
   };
 
@@ -55,7 +54,12 @@ export const SearchCity = () => {
       onSelect={onSelect}
       onSearch={(text) => getPanelValue(text)}
     >
-      <Search placeholder="Input city" onSearch={onSearch} enterButton />
+      <Search
+        placeholder="Input city"
+        onSearch={onSearch}
+        enterButton
+        allowClear
+      />
     </AutoComplete>
   );
 };
