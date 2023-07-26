@@ -1,12 +1,12 @@
 import { useReactiveVar } from "@apollo/client";
 import { Space } from "antd";
 
-import { CurrentWeather } from "./components/CurrentMain";
-import { Forecast } from "./components/Forecast";
+import { CurrentWeather } from "./CurrentWeather";
+import { Forecast } from "./Forecast";
 
 import { currentCityVar } from "@/apollo/weather-vars";
-import { WeatherMessage } from "./components/WeatherMessage";
-import { CurrentAdditional } from "./components/CurrentAdditional/indes";
+import { WeatherMessage } from "./WeatherMessage";
+import { CurrentWeatherAdditional } from "./CurrentWeatherAdditional";
 import { useEffect } from "react";
 import { useGetCurrentWeatherLazyQuery } from "@/gql";
 
@@ -35,7 +35,7 @@ export const Weather = () => {
     <Space direction="vertical" size="large" style={{ display: "flex" }}>
       <CurrentWeather cityName={cityName} />
       <Forecast cityName={cityName} />
-      <CurrentAdditional cityName={cityName} />
+      <CurrentWeatherAdditional cityName={cityName} />
     </Space>
   );
 };

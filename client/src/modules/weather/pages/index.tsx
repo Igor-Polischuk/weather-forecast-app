@@ -1,7 +1,7 @@
 import { Space } from "antd";
-import { TopBar } from "../components/TopBar";
-import { WeatherDashboard } from "../components/WeatherDashboard";
+import { WeatherDashboard } from "../containers/WeatherDashboard";
 import styles from "./styles.module.scss";
+import { TopBar } from "../containers/TopBar";
 
 export const WeatherPage = () => {
   return (
