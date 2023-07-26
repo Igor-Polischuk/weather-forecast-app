@@ -11,11 +11,10 @@ interface ICurrentWeatherProps {
 }
 
 export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
-  const { data, loading, error } = useGetCurrentWeatherQuery({
+  const { data, loading } = useGetCurrentWeatherQuery({
     variables: { cityName },
   });
 
-  console.log(error?.message);
   if (loading) {
     return <Skeleton />;
   }

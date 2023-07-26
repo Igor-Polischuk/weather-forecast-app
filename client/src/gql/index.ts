@@ -209,7 +209,7 @@ export type RefreshMutation = { __typename?: 'Mutation', refresh: { __typename?:
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: number, email: string } };
+export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: number, email: string, cities: Array<{ __typename?: 'City', fullname: string, name: string }> } };
 
 export type GetCitiesTipsQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
@@ -224,6 +224,11 @@ export type GetCurrentWeatherQueryVariables = Exact<{
 
 
 export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weather: string, weatherDescription: string, windSpeed: number, icon: string }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
+
+export type GetCurrentWeatherInUserCitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCurrentWeatherInUserCitiesQuery = { __typename?: 'Query', getCurrentWeatherInUserCities: Array<{ __typename?: 'CitiesCurrentWeatherOutput', city: { __typename?: 'City', name: string, fullname: string }, weather: { __typename?: 'Weather', temperature: number, weather: string, weatherDescription: string, icon: string } }> };
 
 export type GetForecastQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
@@ -308,6 +313,10 @@ export const CurrentUserDocument = gql`
   currentUser {
     id
     email
+    cities {
+      fullname
+      name
+    }
   }
 }
     `;
@@ -427,6 +436,49 @@ export function useGetCurrentWeatherLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type GetCurrentWeatherQueryHookResult = ReturnType<typeof useGetCurrentWeatherQuery>;
 export type GetCurrentWeatherLazyQueryHookResult = ReturnType<typeof useGetCurrentWeatherLazyQuery>;
 export type GetCurrentWeatherQueryResult = Apollo.QueryResult<GetCurrentWeatherQuery, GetCurrentWeatherQueryVariables>;
+export const GetCurrentWeatherInUserCitiesDocument = gql`
+    query getCurrentWeatherInUserCities {
+  getCurrentWeatherInUserCities {
+    city {
+      name
+      fullname
+    }
+    weather {
+      temperature
+      weather
+      weatherDescription
+      icon
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetCurrentWeatherInUserCitiesQuery__
+ *
+ * To run a query within a React component, call `useGetCurrentWeatherInUserCitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCurrentWeatherInUserCitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCurrentWeatherInUserCitiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCurrentWeatherInUserCitiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetCurrentWeatherInUserCitiesQuery, GetCurrentWeatherInUserCitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetCurrentWeatherInUserCitiesQuery, GetCurrentWeatherInUserCitiesQueryVariables>(GetCurrentWeatherInUserCitiesDocument, options);
+      }
+export function useGetCurrentWeatherInUserCitiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCurrentWeatherInUserCitiesQuery, GetCurrentWeatherInUserCitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetCurrentWeatherInUserCitiesQuery, GetCurrentWeatherInUserCitiesQueryVariables>(GetCurrentWeatherInUserCitiesDocument, options);
+        }
+export type GetCurrentWeatherInUserCitiesQueryHookResult = ReturnType<typeof useGetCurrentWeatherInUserCitiesQuery>;
+export type GetCurrentWeatherInUserCitiesLazyQueryHookResult = ReturnType<typeof useGetCurrentWeatherInUserCitiesLazyQuery>;
+export type GetCurrentWeatherInUserCitiesQueryResult = Apollo.QueryResult<GetCurrentWeatherInUserCitiesQuery, GetCurrentWeatherInUserCitiesQueryVariables>;
 export const GetForecastDocument = gql`
     query getForecast($cityName: String!) {
   forecast(WeatherInput: {city: $cityName}) {

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CURRENT_WEATHER = gql(`
+export const FORECAST = gql(`
   query getForecast($cityName: String!){
     forecast(WeatherInput: {
         city: $cityName

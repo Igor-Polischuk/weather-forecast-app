@@ -1,44 +1,45 @@
 // @flow
+import { Skeleton } from "antd";
 import { FC } from "react";
 
-import { Card, Col, Row } from "antd";
-
-import styles from "./styles.module.scss";
-import sunny from "@/assets/sunny.svg"; 
-
+import { WeatherCardDisplay } from "./WeatherCardDisplay";
+import { currentCityVar } from "@/apollo/weather-vars";
+import { useGetCurrentWeatherQuery } from "@/gql";
 
 interface IWeatherCardProps {
-  city?: string;
-  temperature?: number;
-  icon?: JSX.Element;
+  city: {
+    name: string;
+    fullname: string;
+  };
 }
 
-export const WeatherCard: FC<IWeatherCardProps> = ({
-  city = "Kyiv",
-  temperature = 28,
-}) => {
-  city;
-  temperature;
+export const SavedCityWeatherCard: FC<IWeatherCardProps> = ({ city }) => {
+  const { data, loading, error } = useGetCurrentWeatherQuery({
+    variables: { cityName: city.fullname },
+  });
+
+  if (loading) {
+    return <Skeleton />;
+  }
+
+  if (error || !data?.currentWeather) {
+    return null;
+  }
+
+  const weather = data.currentWeather.weather;
+  const temperature = Math.round(weather.temperature);
+
+  const onClick = () => {
+    currentCityVar(city.fullname);
+  };
+
   return (
-    <Card bodyStyle={{padding: 5}} className={styles.weatherCard}>
-      <Row className={styles.weatherCard} align={"middle"} justify={"space-between"}>
-      <Col xl={3}>
-        <Row align={"middle"}>
-        <img src={sunny} alt="Sunny icon"/>
-        </Row>
-      </Col>
-      <Col xl={12}>
-        <div>
-          <p className={styles.city}>{city}</p>
-          <p>Sunny, clear sky</p>
-        </div>
-      </Col>
-      <Col xl={5}>
-        <Row justify={"end"}>
-          <p className={styles.temperature} >{temperature}°</p>
-        </Row>
-      </Col>
-    </Row>
-    </Card>
+    <WeatherCardDisplay
+      city={city.name}
+      icon={weather.icon}
+      onCardClick={onClick}
+      temperature={temperature}
+      weather={weather.weatherDescription}
+    />
   );
 };

@@ -5,6 +5,10 @@ query currentUser{
   currentUser{
       id
       email
+      cities {
+        fullname
+        name
+      }
     }
   }
 `)
