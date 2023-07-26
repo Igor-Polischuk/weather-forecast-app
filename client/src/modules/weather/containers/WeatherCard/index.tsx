@@ -1,4 +1,3 @@
-// @flow
 import { Skeleton } from "antd";
 import { FC } from "react";
 

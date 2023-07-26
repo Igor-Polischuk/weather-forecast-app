@@ -14,3 +14,48 @@
     animation-timing-function: linear;
     animation-iteration-count: infinite;
 }
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+
+.fade {
+    animation-name: fade;
+    animation-duration: 0.2s;
+    animation-timing-function: linear;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
+.fade-appear {
+    opacity: 0;
+}
+
+.fade-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}

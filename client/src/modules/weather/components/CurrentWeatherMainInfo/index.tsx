@@ -1,5 +1,4 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Card, Row, Col, Tooltip } from "antd";
+import { Card, Row, Col } from "antd";
 import { FC } from "react"
 
 import styles from "./styles.module.scss";
@@ -13,6 +12,7 @@ interface ICurrentWeatherMainInfoProps {
     icon: string
     weatherMain: string
     weatherDesc: string
+    saveCityBtn: JSX.Element
 }
 
 export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
@@ -23,7 +23,8 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
     minTemp,
     temperature,
     weatherDesc,
-    weatherMain
+    weatherMain,
+    saveCityBtn
 }) => {
     return (
         <Card className={styles.currentWeather}>
@@ -31,9 +32,7 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
         <Col span={14}>
           <div className={styles.cityName}>
             <p>{city}</p>
-            <Tooltip title="Add city to cards" placement="right">
-              <PlusCircleOutlined className={styles.plus} />
-            </Tooltip>
+            {saveCityBtn}
           </div>
           <p className={styles.temp}>
             {Math.round(temperature)}

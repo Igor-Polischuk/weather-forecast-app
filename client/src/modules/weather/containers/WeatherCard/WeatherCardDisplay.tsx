@@ -20,7 +20,7 @@ export const WeatherCardDisplay: FC<IWeatherCardDisplayProps> = ({
   return (
     <Card
       bodyStyle={{ padding: 5 }}
-      className={styles.weatherCard}
+      className={`${styles.weatherCard} fade`}
       onClick={onCardClick}
     >
       <Row
