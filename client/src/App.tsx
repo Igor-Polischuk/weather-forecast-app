@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import { AccessControl, AccessLevel, AuthPage } from "@modules/auth";
-import { MainPage } from "@modules/common/pages";
+import { MainPage, NotFound } from "@modules/common/pages";
 import { WeatherPage } from "@modules/weather";
 
 function App() {
@@ -29,6 +29,12 @@ function App() {
           <AccessControl access={AccessLevel.AUTHORIZED}>
             <WeatherPage />
           </AccessControl>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <NotFound />
         }
       />
     </Routes>
