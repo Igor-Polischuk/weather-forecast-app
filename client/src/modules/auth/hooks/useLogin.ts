@@ -4,6 +4,7 @@ import { isClickedLogOut } from "@/apollo/user-vars";
 
 export function useLogin() {
     const [login, { loading, error }] = useLoginMutation();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, {refetch}] = useCurrentUserLazyQuery();
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ export function useLogin() {
             await refetch();
             isClickedLogOut(false);
             navigate('/');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.log(error.message);
         }

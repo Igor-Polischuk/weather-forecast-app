@@ -4,12 +4,7 @@ import { useCurrentUserQuery } from "@/gql";
 import { Spin } from "antd";
 import { useReactiveVar } from "@apollo/client";
 import { isClickedLogOut } from "@/apollo/user-vars";
-
-export enum AccessLevel {
-  AUTHORIZED = "authorized",
-  UNAUTHORIZED = "unauthorized",
-  PUBLIC = "public",
-}
+import { AccessLevel } from "..";
 
 interface IRequireAuthProps {
   children: JSX.Element;

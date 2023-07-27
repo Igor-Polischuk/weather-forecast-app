@@ -5,9 +5,9 @@ import React from "react";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
-import { schema } from "../validation-schema";
-import InputField from "./InputField";
-import { useLogin } from "../hooks/useLogin";
+import { schema } from "../../validation-schema";
+import InputField from "../InputField";
+import { useLogin } from "../../hooks/useLogin";
 
 import styles from "./styles.module.scss";
 

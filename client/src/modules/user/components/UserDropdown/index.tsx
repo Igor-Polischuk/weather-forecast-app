@@ -3,7 +3,7 @@ import { UserOutlined } from "@ant-design/icons";
 import { Navigate } from "react-router-dom";
 
 import { useCurrentUserQuery } from "@/gql";
-import { LogOut } from "../LogOut";
+import { LogOut } from "@/modules/auth";
 
 
 export const UserDropdown = () => {
