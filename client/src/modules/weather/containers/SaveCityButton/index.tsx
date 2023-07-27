@@ -17,7 +17,8 @@ export const SaveCityButton = () => {
   const [removeCity] = useRemoveCityMutation();
   const [saveCity] = useSaveCityMutation();
   const cityLimit = Number(import.meta.env.VITE_CITY_LIMIT);
-
+  console.log(currentCity);
+  
   if (!data?.currentUser) {
     return null;
   }
