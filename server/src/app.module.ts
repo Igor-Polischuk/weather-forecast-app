@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
@@ -12,7 +13,6 @@ import { WeatherModule } from './weather/weather.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CityModule } from './city/city.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [

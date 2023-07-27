@@ -1,9 +1,9 @@
+import { HttpService } from '@nestjs/axios';
 import {
   ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { HttpService } from '@nestjs/axios';
 
 import { CitiesNameOutput } from 'src/city/dto/output/cities-names';
 import { GeoApiResponse } from './interfaces/IGeoApiResponse';

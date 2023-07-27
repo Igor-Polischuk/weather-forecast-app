@@ -1,12 +1,13 @@
-import { HttpService } from '@nestjs/axios';
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { HttpService } from '@nestjs/axios';
 
 import { transformCurrentWeatherApiResponse } from './helpers/transformCurrentWeatherApiResponse';
+import { transformForecastApiResponse } from './helpers/transformForecastApiResponse';
 import { ICurrentWeatherApiResponse } from './interfaces/ICurrentWeatherApiResponse';
 import { CurrentWeatherOutput } from 'src/weather/dto/output/current-weather.output';
-import { ICoordinate } from './interfaces/ICoordinates';
-import { transformForecastApiResponse } from './helpers/transformForecastApiResponse';
 import { IForecastApiResponse } from './interfaces/IForecastApiResponse';
+import { ForecastOutput } from 'src/weather/dto/output/forecast.output';
+import { ICoordinate } from './interfaces/ICoordinates';
 
 enum Endpoint {
   Forecast = 'forecast',
@@ -36,7 +37,10 @@ export class WeatherApiService {
     }
   }
 
-  async getForecast(coord: ICoordinate, units: string) {
+  async getForecast(
+    coord: ICoordinate,
+    units: string,
+  ): Promise<ForecastOutput> {
     const url = this.generateUrl(coord, Endpoint.Forecast, units);
 
     try {

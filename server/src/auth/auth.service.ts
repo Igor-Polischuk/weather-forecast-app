@@ -2,11 +2,13 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
+import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
+import { LoginResponse } from './interfaces/IAuthReturning';
+import { SignUpInput } from 'src/auth/dto/input/sign-up';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
-import { SignUpInput } from 'src/auth/dto/input/sign-up';
-import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { IUser, UserDto } from 'src/users/dto/User';
+import { ITokens } from './interfaces/ITokens';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +38,7 @@ export class AuthService {
     return new UserDto(user);
   }
 
-  async login(user: User) {
+  async login(user: User): Promise<LoginResponse> {
     const { accessToken, refreshToken } = await this.generateTokens(user);
     return {
       accessToken,
@@ -45,7 +47,7 @@ export class AuthService {
     };
   }
 
-  async refresh(oldRefreshToken: string) {
+  async refresh(oldRefreshToken: string): Promise<ITokens> {
     if (!oldRefreshToken) {
       throw new UnauthorizedException();
     }
@@ -71,7 +73,7 @@ export class AuthService {
     };
   }
 
-  async signup(createUserInput: SignUpInput) {
+  async signup(createUserInput: SignUpInput): Promise<User> {
     const user = await this.usersService.findOneByEmail(createUserInput.email);
 
     if (user) {
@@ -87,7 +89,7 @@ export class AuthService {
     this.refreshTokenStrategy.clearRefreshToken(user);
   }
 
-  private async generateTokens(user: IUser) {
+  private async generateTokens(user: IUser): Promise<ITokens> {
     const accessToken = this.jwtService.sign({
       email: user.email,
       sub: user.id,

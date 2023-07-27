@@ -53,7 +53,7 @@ export class RefreshTokenStrategy {
     return (await this.saveRefreshToken(user, refreshToken)).refreshToken;
   }
 
-  async clearRefreshToken(user: IUser) {
+  async clearRefreshToken(user: IUser): Promise<void> {
     const tokenData = await this.tokenRepository.findOne({where: { user: {id: user.id} }});
 
     if (!tokenData) {

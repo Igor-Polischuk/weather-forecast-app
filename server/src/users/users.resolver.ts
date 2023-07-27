@@ -28,12 +28,18 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  saveCity(@Args('city') city: string, @CurrentUser() user: IUser) {
+  saveCity(
+    @Args('city') city: string,
+    @CurrentUser() user: IUser,
+  ): Promise<IUser> {
     return this.usersService.saveUserCity(user, city);
   }
 
   @Mutation(() => User)
-  removeCity(@Args('city') city: string, @CurrentUser() user: IUser) {
+  removeCity(
+    @Args('city') city: string,
+    @CurrentUser() user: IUser,
+  ): Promise<IUser> {
     return this.usersService.removeCity(user, city);
   }
 }

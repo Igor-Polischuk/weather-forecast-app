@@ -49,17 +49,17 @@ type ForecastOutput {
   items: [ForecastItem!]!
 }
 
+type User {
+  id: Int!
+  email: String!
+  cities: [City!]!
+}
+
 type City {
   name: String!
   fullname: String!
   lat: Float!
   lon: Float!
-}
-
-type User {
-  id: Int!
-  email: String!
-  cities: [City!]!
 }
 
 type CitiesNameOutput {

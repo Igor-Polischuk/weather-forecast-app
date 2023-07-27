@@ -17,7 +17,7 @@ export class CityService {
     return this.geoApiService.getCities(cityName);
   }
 
-  async findOrCreateCity(city: string) {
+  async findOrCreateCity(city: string): Promise<City> {
     const cityInDb = await this.findSavedCity(city);
 
     if (cityInDb) {
@@ -32,7 +32,7 @@ export class CityService {
     return newCity;
   }
 
-  async findSavedCity(city: string) {
+  async findSavedCity(city: string): Promise<City> {
     const cityInDb = await this.cityRepository.findOne({
       where: { fullname: city },
     });

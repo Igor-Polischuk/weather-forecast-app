@@ -4,10 +4,9 @@ import { WeatherApiModule } from 'src/external-api/weather-api/weather-api.modul
 import { WeatherResolver } from './weather.resolver';
 import { WeatherService } from './weather.service';
 import { CityModule } from 'src/city/city.module';
-import { UsersModule } from 'src/users/users.module';
 
 @Module({
-  imports: [WeatherApiModule, CityModule, UsersModule],
+  imports: [WeatherApiModule, CityModule],
   providers: [WeatherResolver, WeatherService],
 })
 export class WeatherModule {}

@@ -1,15 +1,16 @@
+import { InjectRepository } from '@nestjs/typeorm';
 import {
   ConflictException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+
+import { LimitExceededException } from 'src/common/exceptions';
+import { SignUpInput } from '../auth/dto/input/sign-up';
+import { CityService } from 'src/city/city.service';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import { SignUpInput } from '../auth/dto/input/sign-up';
 import { IUser } from './dto/User';
-import { CityService } from 'src/city/city.service';
-import { LimitExceededException } from 'src/common/exceptions';
 
 @Injectable()
 export class UsersService {
@@ -54,7 +55,7 @@ export class UsersService {
     return currentUser;
   }
 
-  async removeCity(user: IUser, cityName: string) {
+  async removeCity(user: IUser, cityName: string): Promise<User> {
     const city = await this.cityService.findSavedCity(cityName);
     const currentUser = await this.findOne(user.id);
 
@@ -72,7 +73,10 @@ export class UsersService {
     return currentUser;
   }
 
-  private async validateSavingCity(currentUser: User, cityName: string) {
+  private async validateSavingCity(
+    currentUser: User,
+    cityName: string,
+  ): Promise<void> {
     const limit = Number(process.env.SAVED_CITY_LIMIT);
 
     if (currentUser.cities.length === limit) {
