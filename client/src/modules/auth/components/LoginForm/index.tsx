@@ -52,7 +52,7 @@ export const LoginForm: React.FC = () => {
       <Button type="primary" htmlType="submit" size="large" block loading={loading}>
         Log in
       </Button>
-      {error && <p className={styles.error_message}>{error.message}</p>}
+      <p className={styles.error_message}>{error?.message}</p>
     </form>
   );
 };
