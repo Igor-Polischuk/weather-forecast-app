@@ -1,20 +1,21 @@
 /* eslint-disable prettier/prettier */
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { Strategy, ExtractJwt } from 'passport-jwt';
+import { Strategy } from 'passport-jwt';
+import { ExtractJwt } from '../helpers/ExtractJwt';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: ExtractJwt.fromAuthCookie(),
         ignoreExpiration: false,
         secretOrKey: process.env.JWT_SECRET,
         logging: true
     });
   }
 
-  async validate(payload: {sub: string, email: string}){ //payload is decoded jwt
+  async validate(payload: {sub: string, email: string}){
     return {id: payload.sub, email: payload.email}
   }
 }

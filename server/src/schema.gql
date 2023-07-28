@@ -69,12 +69,7 @@ type CitiesNameOutput {
   lon: Float!
 }
 
-type RefreshOutput {
-  accessToken: String!
-}
-
 type LoginOutput {
-  accessToken: String!
   user: User!
 }
 
@@ -104,7 +99,7 @@ type Mutation {
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
   logout: String!
-  refresh: RefreshOutput!
+  refresh: String!
 }
 
 input LoginInput {

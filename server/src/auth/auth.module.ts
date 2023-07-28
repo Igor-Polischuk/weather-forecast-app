@@ -19,7 +19,7 @@ import { AuthService } from './auth.service';
     PassportModule,
     UsersModule,
     JwtModule.register({
-      signOptions: { expiresIn: '30m' },
+      signOptions: { expiresIn: process.env.ACCESS_TOKEN_MAX_AGE },
       secret: process.env.JWT_SECRET,
     }),
   ],

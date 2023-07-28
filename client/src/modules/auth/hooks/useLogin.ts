@@ -10,9 +10,7 @@ export function useLogin() {
 
     const onSubmit = async (inputData: { email: string, password: string }) => {
         try {
-            const data = await login({ variables: inputData });
-            data.data?.login.accessToken
-            localStorage.setItem('token', data.data?.login.accessToken || "");
+            await login({ variables: inputData });
             await refetch();
             isClickedLogOut(false);
             navigate('/');
