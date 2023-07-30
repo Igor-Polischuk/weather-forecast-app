@@ -42,8 +42,8 @@ export const Weather = () => {
   return (
     <Space direction="vertical" size="large" style={{ display: "flex" }}>
       <CurrentWeather cityName={cityName} />
-      <Forecast cityName={cityName} />
       <CurrentWeatherAdditional cityName={cityName} />
+      <Forecast cityName={cityName} />
     </Space>
   );
 };

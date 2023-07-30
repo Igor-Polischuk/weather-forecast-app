@@ -5,6 +5,7 @@ import { SavedCityWeatherCard } from "../WeatherCard";
 
 import styles from "./style.module.scss";
 import { animated, useTransition } from "@react-spring/web";
+import { SaveCity } from "../SaveCity";
 
 export const WeatherCards = () => {
   const { data } = useCurrentUserQuery();
@@ -34,6 +35,7 @@ export const WeatherCards = () => {
       className={styles.cards}
     >
       <Space direction="vertical" size="large" style={{ display: "flex" }}>
+        <SaveCity/>
         {isCity ? (
           <Card>You haven't saved any city yet</Card>
         ) : (
