@@ -1,9 +1,10 @@
-import { Card, Row, Skeleton } from "antd";
+import { Card, Row, Skeleton, Tabs } from "antd";
 import { FC } from "react";
 
 import { ForecastItem } from "./ForecastItem";
 import { useGetForecastQuery } from "@/gql";
 
+import { WeatherByDay, groupWeatherByDay } from "@/modules/weather/helpers/group-weather-by-day";
 import styles from "./styles.module.scss";
 
 interface IForecastProps {
@@ -21,31 +22,42 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
     return null;
   }
 
-  const forecastItems = data.forecast.items.map((weather, i) => {
-    const temp = Math.round(weather.temperature);
-    const pop = (Math.round(weather.pop * 100));
-    const time = new Date(weather.date);
-    const timeStr = `${time.getHours()}:00`
+  const weatherByDay = groupWeatherByDay(data.forecast.items);
 
-    return (
-      <ForecastItem
-        icon={<img src={weather.icon} />}
-        temperature={temp}
-        pop={pop}
-        time={timeStr}
-        key={i}
-      />
-    );
+  const renderForecastItems = (weatherPerDay: WeatherByDay) => {
+    return weatherPerDay.data.map((weather, i) => {
+      const temp = Math.round(weather.temperature);
+      const pop = Math.round(weather.pop * 100);
+      return (
+        <ForecastItem
+          icon={weather.icon}
+          temperature={temp}
+          pop={pop}
+          time={weather.time}
+          weather={weather.weatherDescription}
+          key={i}
+          humidity={weather.humidity}
+          pressure={weather.pressure}
+          windSpeed={weather.windSpeed}
+        />
+      );
+    });
+  };
+
+  const tabsData = weatherByDay.map((weatherPerDay, i) => {
+    return {
+      label: weatherPerDay.dayName,
+      key: `${weatherPerDay.dayName}&${i}`,
+      children: <div>{renderForecastItems(weatherPerDay)}</div>,
+    };
   });
 
   return (
     <Card className={styles.forecastWrapper}>
       <Row>
-        <p>Forecast</p>
+        <p className={styles.title}>Forecast</p>
       </Row>
-      <Row wrap={false} className={styles.forecastLine}>
-        {forecastItems}
-      </Row>
+      <Tabs defaultActiveKey="1" type="card" size="middle" items={tabsData} />
     </Card>
   );
 };

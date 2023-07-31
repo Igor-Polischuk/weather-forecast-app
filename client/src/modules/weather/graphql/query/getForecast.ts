@@ -6,10 +6,15 @@ export const FORECAST = gql(`
         city: $cityName
       }){
         items {
-            temperature
-            pop
-            date
-            icon
+          temperature
+          icon
+          pop
+          date
+          weather
+          weatherDescription
+          windSpeed
+          pressure
+          humidity
           }
   }
 }

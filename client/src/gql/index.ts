@@ -235,7 +235,7 @@ export type GetForecastQueryVariables = Exact<{
 }>;
 
 
-export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, pop: number, date: number, icon: string }> } };
+export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, icon: string, pop: number, date: number, weather: string, weatherDescription: string, windSpeed: number, pressure: number, humidity: number }> } };
 
 
 export const LogOutDocument = gql`
@@ -542,9 +542,14 @@ export const GetForecastDocument = gql`
   forecast(WeatherInput: {city: $cityName}) {
     items {
       temperature
+      icon
       pop
       date
-      icon
+      weather
+      weatherDescription
+      windSpeed
+      pressure
+      humidity
     }
   }
 }
