@@ -1,11 +1,11 @@
+import { animated, useTransition } from "@react-spring/web";
 import { Card, Space } from "antd";
 
-import { useCurrentUserQuery } from "@/gql";
 import { SavedCityWeatherCard } from "../WeatherCard";
+import { useCurrentUserQuery } from "@/gql";
+import { SaveCity } from "../SaveCity";
 
 import styles from "./style.module.scss";
-import { animated, useTransition } from "@react-spring/web";
-import { SaveCity } from "../SaveCity";
 
 export const WeatherCards = () => {
   const { data } = useCurrentUserQuery();
@@ -29,13 +29,13 @@ export const WeatherCards = () => {
 
   return (
     <Card
-      title="Saved cities"
+      title={<CardHeader citiesLength={data.currentUser.cities.length} />}
       style={{ gap: 0 }}
       bodyStyle={{ overflowY: "auto", padding: 15 }}
+      headStyle={{minHeight: 'auto'}}
       className={styles.cards}
     >
       <Space direction="vertical" size="large" style={{ display: "flex" }}>
-        <SaveCity/>
         {isCity ? (
           <Card>You haven't saved any city yet</Card>
         ) : (
@@ -47,5 +47,14 @@ export const WeatherCards = () => {
         )}
       </Space>
     </Card>
+  );
+};
+
+const CardHeader = ({ citiesLength }: { citiesLength: number }) => {
+  return (
+    <div className={styles.cardHeader}>
+      <p>{`Saved cities ${citiesLength}/${import.meta.env.VITE_CITY_LIMIT}`}</p>
+      <SaveCity />
+    </div>
   );
 };

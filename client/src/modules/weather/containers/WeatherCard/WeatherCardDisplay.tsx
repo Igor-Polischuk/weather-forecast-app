@@ -1,6 +1,7 @@
-import { Card, Row, Col } from "antd";
+import { Card, Row, Col, Tooltip } from "antd";
 import { FC } from "react";
 
+import { truncateString } from "../../helpers/trim-string";
 import styles from "./styles.module.scss";
 
 interface IWeatherCardDisplayProps {
@@ -9,6 +10,7 @@ interface IWeatherCardDisplayProps {
   temperature: number;
   icon: string;
   onCardClick: () => void;
+  active?: boolean
 }
 export const WeatherCardDisplay: FC<IWeatherCardDisplayProps> = ({
   city,
@@ -16,11 +18,12 @@ export const WeatherCardDisplay: FC<IWeatherCardDisplayProps> = ({
   temperature,
   weather,
   onCardClick,
+  active
 }) => {
   return (
     <Card
       bodyStyle={{ padding: 5 }}
-      className={`${styles.weatherCard} fade`}
+      className={`${styles.weatherCard} fade ${active ? styles.active : ''}`}
       onClick={onCardClick}
     >
       <Row
@@ -33,9 +36,11 @@ export const WeatherCardDisplay: FC<IWeatherCardDisplayProps> = ({
             <img src={icon} alt={`icon of ${weather}`} />
           </Row>
         </Col>
-        <Col xl={12}>
+        <Col xl={14} offset={1}>
           <div>
-            <p className={styles.city}>{city}</p>
+            <Tooltip title={city}>
+              <p className={styles.city}>{truncateString(city, 21)}</p>
+            </Tooltip>
             <p>{`${weather}`}</p>
           </div>
         </Col>

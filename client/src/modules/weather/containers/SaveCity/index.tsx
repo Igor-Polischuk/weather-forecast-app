@@ -6,16 +6,17 @@ import {
   useSaveCityMutation,
 } from "@/gql";
 
-import { useReactiveVar } from "@apollo/client";
 import { currentCityVar } from "@/apollo/weather-vars";
+import { useReactiveVar } from "@apollo/client";
 
 export const SaveCity = () => {
   const { data } = useCurrentUserQuery();
   const currentCity = useReactiveVar(currentCityVar);
   const [removeCity, { loading: removeLoading }] = useRemoveCityMutation();
   const [saveCity, { loading: saveLoading }] = useSaveCityMutation();
+
   const cityLimit = Number(import.meta.env.VITE_CITY_LIMIT);
-  console.log(currentCity);
+  const cityName = currentCity.split(',')[0];
 
   if (!data?.currentUser) {
     return null;
@@ -43,14 +44,14 @@ export const SaveCity = () => {
   ) {
     return (
       <Button type="primary" block disabled>
-        Save city
+        Save {cityName} to cards
       </Button>
     );
   }
 
   return !isSavedCity ? (
     <Button type="primary" block onClick={onSave} loading={saveLoading}>
-      Save city
+      Save {cityName} to cards
     </Button>
   ) : (
     <Button
@@ -60,7 +61,7 @@ export const SaveCity = () => {
       onClick={onRemove}
       loading={removeLoading}
     >
-      Remove city
+      Remove {cityName} from cards
     </Button>
   );
 };

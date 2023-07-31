@@ -4,6 +4,7 @@ import { FC } from "react";
 import { WeatherCardDisplay } from "./WeatherCardDisplay";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { useGetCurrentWeatherQuery } from "@/gql";
+import { useReactiveVar } from "@apollo/client";
 
 interface IWeatherCardProps {
   city: {
@@ -13,6 +14,7 @@ interface IWeatherCardProps {
 }
 
 export const SavedCityWeatherCard: FC<IWeatherCardProps> = ({ city }) => {
+  const currentCity = useReactiveVar(currentCityVar);
   const { data, loading, error } = useGetCurrentWeatherQuery({
     variables: { cityName: city.fullname },
   });
@@ -34,11 +36,12 @@ export const SavedCityWeatherCard: FC<IWeatherCardProps> = ({ city }) => {
 
   return (
     <WeatherCardDisplay
-      city={city.name}
+      city={city.fullname}
       icon={weather.icon}
       onCardClick={onClick}
       temperature={temperature}
       weather={weather.weatherDescription}
+      active={currentCity === city.fullname}
     />
   );
 };
