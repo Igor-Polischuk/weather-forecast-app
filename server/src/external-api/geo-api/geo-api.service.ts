@@ -7,6 +7,7 @@ import {
 
 import { CitiesNameOutput } from 'src/city/dto/output/cities-names';
 import { GeoApiResponse } from './interfaces/IGeoApiResponse';
+import { removeDuplicatesByFullName } from './helpers/remove-duplicates-by-fullname';
 
 @Injectable()
 export class GeoApiService {
@@ -18,7 +19,9 @@ export class GeoApiService {
     try {
       const data = await this.httpService.axiosRef.get<GeoApiResponse>(url);
       const citiesList = data.data;
-      return this.transformCitiesInfo(citiesList);
+      const uniqueCities = removeDuplicatesByFullName(citiesList);
+
+      return this.transformCitiesInfo(uniqueCities);
     } catch (error) {
       console.log(error);
       throw new ForbiddenException('API not available');
