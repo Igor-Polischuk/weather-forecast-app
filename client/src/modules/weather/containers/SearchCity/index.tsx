@@ -6,8 +6,6 @@ import { debounce } from "../../../common/utils/debounce";
 import { currentCityVar } from "@/apollo/weather-vars";
 
 export const SearchCity = () => {
-  const { Search } = Input;
-  
   const [getCity, { data }] = useGetCitiesTipsLazyQuery();
   const [searchText, setSearchText] = useState("");
 
@@ -40,11 +38,6 @@ export const SearchCity = () => {
     getCityDebounce({ variables: { cityName: city } });
   };
 
-  const onSearch = (value: string) => {
-    const cityFullname = options[0]?.value || value;
-    currentCityVar(cityFullname);
-  };
-
   const options = getOptions();
 
   return (
@@ -54,10 +47,12 @@ export const SearchCity = () => {
       onSelect={onSelect}
       onSearch={(text) => getPanelValue(text)}
     >
-      <Search
+      <Input
         placeholder="Input city"
-        onSearch={onSearch}
-        enterButton
+        onPressEnter={(e) => {
+          const cityFullname = options[0]?.value || e.currentTarget.value;
+          currentCityVar(cityFullname);
+        }}
         allowClear
       />
     </AutoComplete>
