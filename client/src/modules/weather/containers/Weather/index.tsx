@@ -8,20 +8,20 @@ import { currentCityVar } from "@/apollo/weather-vars";
 import { WeatherMessage } from "./WeatherMessage";
 import { CurrentWeatherAdditional } from "./CurrentWeatherAdditional";
 import { useEffect } from "react";
-import { useCurrentUserQuery, useGetCurrentWeatherLazyQuery } from "@/gql";
+import { useGetCurrentWeatherLazyQuery, useUserCitiesQuery } from "@/gql";
 
 export const Weather = () => {
-  const { data } = useCurrentUserQuery();
+  const { data } = useUserCitiesQuery();
   const cityName = useReactiveVar(currentCityVar);
   const isCitySelected = cityName.trim() !== "";
   const [getCityWeather, { error }] = useGetCurrentWeatherLazyQuery();
 
   if (
     cityName === "" &&
-    data?.currentUser &&
-    data.currentUser.cities.length > 0
+    data?.cities &&
+    data.cities.length > 0
   ) {
-    currentCityVar(data.currentUser.cities[0].fullname)
+    currentCityVar(data.cities[0].fullname)
   }
     useEffect(() => {
       if (isCitySelected) {

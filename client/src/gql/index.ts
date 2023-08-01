@@ -78,8 +78,8 @@ export type Mutation = {
   login: LoginOutput;
   logout: Scalars['String']['output'];
   refresh: Scalars['String']['output'];
-  removeCity: User;
-  saveCity: User;
+  removeCity: Array<City>;
+  saveCity: Array<City>;
   signup: User;
 };
 
@@ -109,6 +109,7 @@ export type Query = {
   currentWeather: CurrentWeatherOutput;
   forecast: ForecastOutput;
   getCitiesTips: Array<CitiesNameOutput>;
+  getUserCities: Array<City>;
   user: User;
   users: Array<User>;
 };
@@ -147,7 +148,6 @@ export type Timezone = {
 
 export type User = {
   __typename?: 'User';
-  cities: Array<City>;
   email: Scalars['String']['output'];
   id: Scalars['Int']['output'];
 };
@@ -197,24 +197,29 @@ export type RefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 export type RefreshMutation = { __typename?: 'Mutation', refresh: string };
 
-export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: number, email: string, cities: Array<{ __typename?: 'City', fullname: string, name: string }> } };
-
 export type RemoveCityMutationVariables = Exact<{
   cityName: Scalars['String']['input'];
 }>;
 
 
-export type RemoveCityMutation = { __typename?: 'Mutation', removeCity: { __typename?: 'User', id: number, email: string, cities: Array<{ __typename?: 'City', fullname: string }> } };
+export type RemoveCityMutation = { __typename?: 'Mutation', cities: Array<{ __typename?: 'City', fullname: string, lat: number, lon: number, name: string }> };
 
 export type SaveCityMutationVariables = Exact<{
   cityName: Scalars['String']['input'];
 }>;
 
 
-export type SaveCityMutation = { __typename?: 'Mutation', saveCity: { __typename?: 'User', id: number, email: string, cities: Array<{ __typename?: 'City', fullname: string }> } };
+export type SaveCityMutation = { __typename?: 'Mutation', cities: Array<{ __typename?: 'City', fullname: string, lat: number, lon: number, name: string }> };
+
+export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CurrentUserQuery = { __typename?: 'Query', currentUser: { __typename?: 'User', id: number, email: string } };
+
+export type UserCitiesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type UserCitiesQuery = { __typename?: 'Query', cities: Array<{ __typename?: 'City', fullname: string, lat: number, lon: number, name: string }> };
 
 export type GetCitiesTipsQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
@@ -335,53 +340,13 @@ export function useRefreshMutation(baseOptions?: ApolloReactHooks.MutationHookOp
 export type RefreshMutationHookResult = ReturnType<typeof useRefreshMutation>;
 export type RefreshMutationResult = Apollo.MutationResult<RefreshMutation>;
 export type RefreshMutationOptions = Apollo.BaseMutationOptions<RefreshMutation, RefreshMutationVariables>;
-export const CurrentUserDocument = gql`
-    query currentUser {
-  currentUser {
-    id
-    email
-    cities {
-      fullname
-      name
-    }
-  }
-}
-    `;
-
-/**
- * __useCurrentUserQuery__
- *
- * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
- * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useCurrentUserQuery({
- *   variables: {
- *   },
- * });
- */
-export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
-      }
-export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
-        }
-export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
-export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
-export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
 export const RemoveCityDocument = gql`
-    mutation removeCity($cityName: String!) {
-  removeCity(city: $cityName) {
-    id
-    email
-    cities {
-      fullname
-    }
+    mutation RemoveCity($cityName: String!) {
+  cities: removeCity(city: $cityName) {
+    fullname
+    lat
+    lon
+    name
   }
 }
     `;
@@ -412,13 +377,12 @@ export type RemoveCityMutationHookResult = ReturnType<typeof useRemoveCityMutati
 export type RemoveCityMutationResult = Apollo.MutationResult<RemoveCityMutation>;
 export type RemoveCityMutationOptions = Apollo.BaseMutationOptions<RemoveCityMutation, RemoveCityMutationVariables>;
 export const SaveCityDocument = gql`
-    mutation saveCity($cityName: String!) {
-  saveCity(city: $cityName) {
-    id
-    email
-    cities {
-      fullname
-    }
+    mutation SaveCity($cityName: String!) {
+  cities: saveCity(city: $cityName) {
+    fullname
+    lat
+    lon
+    name
   }
 }
     `;
@@ -448,6 +412,78 @@ export function useSaveCityMutation(baseOptions?: ApolloReactHooks.MutationHookO
 export type SaveCityMutationHookResult = ReturnType<typeof useSaveCityMutation>;
 export type SaveCityMutationResult = Apollo.MutationResult<SaveCityMutation>;
 export type SaveCityMutationOptions = Apollo.BaseMutationOptions<SaveCityMutation, SaveCityMutationVariables>;
+export const CurrentUserDocument = gql`
+    query CurrentUser {
+  currentUser {
+    id
+    email
+  }
+}
+    `;
+
+/**
+ * __useCurrentUserQuery__
+ *
+ * To run a query within a React component, call `useCurrentUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCurrentUserQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+      }
+export function useCurrentUserLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<CurrentUserQuery, CurrentUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<CurrentUserQuery, CurrentUserQueryVariables>(CurrentUserDocument, options);
+        }
+export type CurrentUserQueryHookResult = ReturnType<typeof useCurrentUserQuery>;
+export type CurrentUserLazyQueryHookResult = ReturnType<typeof useCurrentUserLazyQuery>;
+export type CurrentUserQueryResult = Apollo.QueryResult<CurrentUserQuery, CurrentUserQueryVariables>;
+export const UserCitiesDocument = gql`
+    query UserCities {
+  cities: getUserCities {
+    fullname
+    lat
+    lon
+    name
+  }
+}
+    `;
+
+/**
+ * __useUserCitiesQuery__
+ *
+ * To run a query within a React component, call `useUserCitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useUserCitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUserCitiesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUserCitiesQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<UserCitiesQuery, UserCitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<UserCitiesQuery, UserCitiesQueryVariables>(UserCitiesDocument, options);
+      }
+export function useUserCitiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<UserCitiesQuery, UserCitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<UserCitiesQuery, UserCitiesQueryVariables>(UserCitiesDocument, options);
+        }
+export type UserCitiesQueryHookResult = ReturnType<typeof useUserCitiesQuery>;
+export type UserCitiesLazyQueryHookResult = ReturnType<typeof useUserCitiesLazyQuery>;
+export type UserCitiesQueryResult = Apollo.QueryResult<UserCitiesQuery, UserCitiesQueryVariables>;
 export const GetCitiesTipsDocument = gql`
     query getCitiesTips($cityName: String!) {
   getCitiesTips(cityName: $cityName) {
