@@ -1,9 +1,9 @@
 import { Row, Col } from "antd";
-import { WeatherCards } from "../WeatherCards";
+import { WeatherCards } from "../../containers/WeatherCards";
 
 import { UserDropdown } from "@/modules/user/components/UserDropdown";
 import { CloseOutlined } from "@ant-design/icons";
-import { Weather } from "../Weather";
+import { Weather } from "../../containers/Weather";
 
 import styles from "./styles.module.scss";
 

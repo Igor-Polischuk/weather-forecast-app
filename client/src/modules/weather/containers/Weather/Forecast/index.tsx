@@ -12,13 +12,13 @@ interface IForecastProps {
 }
 
 export const Forecast: FC<IForecastProps> = ({ cityName }) => {
-  const { data, loading } = useGetForecastQuery({ variables: { cityName } });
+  const { data, loading, error } = useGetForecastQuery({ variables: { cityName } });
 
   if (loading) {
     return <Skeleton />;
   }
 
-  if (!data?.forecast) {
+  if (!data?.forecast || error) {
     return null;
   }
 

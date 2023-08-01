@@ -5,7 +5,7 @@ import { CurrentWeather } from "./CurrentWeather";
 import { Forecast } from "./Forecast";
 
 import { currentCityVar } from "@/apollo/weather-vars";
-import { WeatherMessage } from "./WeatherMessage";
+import { WeatherMessage } from "../../components/WeatherMessage";
 import { CurrentWeatherAdditional } from "./CurrentWeatherAdditional";
 import { useEffect } from "react";
 import { useGetCurrentWeatherLazyQuery, useUserCitiesQuery } from "@/gql";

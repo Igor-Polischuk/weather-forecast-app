@@ -2,8 +2,8 @@ import { UserDropdown } from "@/modules/user/components/UserDropdown";
 import { Col, Row } from "antd";
 
 import { Burger } from "@/modules/common/components/Burger";
-import { SearchCity } from "../SearchCity";
-import { WeatherCards } from "../WeatherCards";
+import { SearchCity } from "../../containers/SearchCity";
+import { WeatherCards } from "../../containers/WeatherCards";
 
 export const TopBar = () => {
   return (

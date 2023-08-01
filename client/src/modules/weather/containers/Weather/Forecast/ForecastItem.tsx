@@ -23,7 +23,7 @@ export const ForecastItem: FC<IForecastItemProps> = (props) => {
       expandIconPosition='end'
       items={[
         {
-          label: getLabel(props),
+          label: <ForecastItemLabel {...props}/>,
           children: (
             <Row justify={'space-between'} className={styles.additional}>
                 <p>Wind speed: {Math.round(props.windSpeed)} m/s</p>
@@ -38,7 +38,7 @@ export const ForecastItem: FC<IForecastItemProps> = (props) => {
   );
 };
 
-const getLabel = ({ icon,
+const ForecastItemLabel = ({ icon,
     temperature,
     time,
     pop,
