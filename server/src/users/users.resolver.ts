@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
@@ -25,21 +25,5 @@ export class UsersResolver {
   @Query(() => User)
   async currentUser(@CurrentUser() user: IUser): Promise<IUser> {
     return this.usersService.findOne(user.id);
-  }
-
-  @Mutation(() => User)
-  saveCity(
-    @Args('city') city: string,
-    @CurrentUser() user: IUser,
-  ): Promise<IUser> {
-    return this.usersService.saveUserCity(user, city);
-  }
-
-  @Mutation(() => User)
-  removeCity(
-    @Args('city') city: string,
-    @CurrentUser() user: IUser,
-  ): Promise<IUser> {
-    return this.usersService.removeCity(user, city);
   }
 }

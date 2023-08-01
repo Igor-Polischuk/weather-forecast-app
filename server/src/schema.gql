@@ -52,7 +52,6 @@ type ForecastOutput {
 type User {
   id: Int!
   email: String!
-  cities: [City!]!
 }
 
 type City {
@@ -78,6 +77,7 @@ type Query {
   user(id: Int!): User!
   currentUser: User!
   getCitiesTips(cityName: String!): [CitiesNameOutput!]!
+  getUserCities: [City!]!
   currentWeather(WeatherInput: WeatherInput!): CurrentWeatherOutput!
   forecast(WeatherInput: WeatherInput!): ForecastOutput!
 }
@@ -94,8 +94,8 @@ enum WeatherUnits {
 }
 
 type Mutation {
-  saveCity(city: String!): User!
-  removeCity(city: String!): User!
+  saveCity(city: String!): [City!]!
+  removeCity(city: String!): [City!]!
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
   logout: String!
