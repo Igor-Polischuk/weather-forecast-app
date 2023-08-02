@@ -1,47 +1,59 @@
-import { Skeleton } from "antd";
+import { Card, Row, Col, Tooltip } from "antd";
 import { FC } from "react";
 
-import { WeatherCardDisplay } from "./WeatherCardDisplay";
-import { currentCityVar } from "@/apollo/weather-vars";
-import { useGetCurrentWeatherQuery } from "@/gql";
+import { truncateString } from "../../helpers/trim-string";
+import styles from "./styles.module.scss";
 import { useReactiveVar } from "@apollo/client";
+import { currentCityVar } from "@/apollo/weather-vars";
 
 interface IWeatherCardProps {
-  city: {
-    name: string;
-    fullname: string;
-  };
+  city: string;
+  weather: string;
+  temperature: number;
+  icon: string;
+  onCardClick: () => void;
 }
-
-export const SavedCityWeatherCard: FC<IWeatherCardProps> = ({ city }) => {
+export const WeatherCard: FC<IWeatherCardProps> = ({
+  city,
+  icon,
+  temperature,
+  weather,
+  onCardClick,
+}) => {
   const currentCity = useReactiveVar(currentCityVar);
-  const { data, loading, error } = useGetCurrentWeatherQuery({
-    variables: { cityName: city.fullname },
-  });
 
-  if (loading) {
-    return <Skeleton />;
-  }
-
-  if (error || !data?.currentWeather) {
-    return null;
-  }
-
-  const weather = data.currentWeather.weather;
-  const temperature = Math.round(weather.temperature);
-
-  const onClick = () => {
-    currentCityVar(city.fullname);
-  };
+  const active = currentCity === city;
 
   return (
-    <WeatherCardDisplay
-      city={city.fullname}
-      icon={weather.icon}
-      onCardClick={onClick}
-      temperature={temperature}
-      weather={weather.weatherDescription}
-      active={currentCity === city.fullname}
-    />
+    <Card
+      bodyStyle={{ padding: 5 }}
+      className={`${styles.weatherCard} fade ${active ? styles.active : ''}`}
+      onClick={onCardClick}
+    >
+      <Row
+        className={styles.weatherCard}
+        align={"middle"}
+        justify={"space-between"}
+      >
+        <Col xl={3}>
+          <Row align={"middle"}>
+            <img src={icon} alt={`icon of ${weather}`} />
+          </Row>
+        </Col>
+        <Col xl={14} offset={1}>
+          <div>
+            <Tooltip title={city}>
+              <p className={styles.city}>{truncateString(city, 21)}</p>
+            </Tooltip>
+            <p>{`${weather}`}</p>
+          </div>
+        </Col>
+        <Col xl={5}>
+          <Row justify={"end"}>
+            <p className={styles.temperature}>{Math.round(temperature)}°</p>
+          </Row>
+        </Col>
+      </Row>
+    </Card>
   );
 };

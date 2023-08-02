@@ -53,7 +53,7 @@ export type ForecastItem = {
   pressure: Scalars['Int']['output'];
   rainPerHour: Scalars['Float']['output'];
   temperature: Scalars['Float']['output'];
-  weather: Scalars['String']['output'];
+  weatherCondition: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
   windSpeed: Scalars['Float']['output'];
 };
@@ -103,12 +103,21 @@ export type MutationSignupArgs = {
   loginUserInput: SignUpInput;
 };
 
+export type PageInfo = {
+  __typename?: 'PageInfo';
+  currentPage: Scalars['Int']['output'];
+  pageSize: Scalars['Int']['output'];
+  totalElements: Scalars['Int']['output'];
+  totalPages: Scalars['Int']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   currentUser: User;
   currentWeather: CurrentWeatherOutput;
   forecast: ForecastOutput;
   getCitiesTips: Array<CitiesNameOutput>;
+  getCurrentWeatherInUserCities: UserCitiesCurrentWeatherOutput;
   getUserCities: Array<City>;
   user: User;
   users: Array<User>;
@@ -127,6 +136,11 @@ export type QueryForecastArgs = {
 
 export type QueryGetCitiesTipsArgs = {
   cityName: Scalars['String']['input'];
+};
+
+
+export type QueryGetCurrentWeatherInUserCitiesArgs = {
+  UserCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput;
 };
 
 
@@ -152,6 +166,23 @@ export type User = {
   id: Scalars['Int']['output'];
 };
 
+export type UserCitiesCurrentWeather = {
+  __typename?: 'UserCitiesCurrentWeather';
+  city: City;
+  weatherInCity: CurrentWeatherOutput;
+};
+
+export type UserCitiesCurrentWeatherInput = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+export type UserCitiesCurrentWeatherOutput = {
+  __typename?: 'UserCitiesCurrentWeatherOutput';
+  list: Array<UserCitiesCurrentWeather>;
+  pageInfo: PageInfo;
+};
+
 export type Weather = {
   __typename?: 'Weather';
   clouds: Scalars['Float']['output'];
@@ -163,7 +194,7 @@ export type Weather = {
   pressure: Scalars['Int']['output'];
   rainPerHour: Scalars['Float']['output'];
   temperature: Scalars['Float']['output'];
-  weather: Scalars['String']['output'];
+  weatherCondition: Scalars['String']['output'];
   weatherDescription: Scalars['String']['output'];
   windSpeed: Scalars['Float']['output'];
 };
@@ -233,14 +264,22 @@ export type GetCurrentWeatherQueryVariables = Exact<{
 }>;
 
 
-export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weather: string, weatherDescription: string, windSpeed: number, icon: string }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
+export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weatherCondition: string, weatherDescription: string, windSpeed: number, icon: string }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
 
 export type GetForecastQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
 }>;
 
 
-export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, icon: string, pop: number, date: number, weather: string, weatherDescription: string, windSpeed: number, pressure: number, humidity: number }> } };
+export type GetForecastQuery = { __typename?: 'Query', forecast: { __typename?: 'ForecastOutput', items: Array<{ __typename?: 'ForecastItem', temperature: number, icon: string, pop: number, date: number, weatherCondition: string, weatherDescription: string, windSpeed: number, pressure: number, humidity: number }> } };
+
+export type WeatherInUserCitiesQueryVariables = Exact<{
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+}>;
+
+
+export type WeatherInUserCitiesQuery = { __typename?: 'Query', getCurrentWeatherInUserCities: { __typename?: 'UserCitiesCurrentWeatherOutput', list: Array<{ __typename?: 'UserCitiesCurrentWeather', city: { __typename?: 'City', fullname: string }, weatherInCity: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, pressure: number, humidity: number, windSpeed: number, weatherCondition: string, weatherDescription: string, icon: string } } }>, pageInfo: { __typename?: 'PageInfo', currentPage: number, pageSize: number, totalPages: number, totalElements: number } } };
 
 
 export const LogOutDocument = gql`
@@ -532,7 +571,7 @@ export const GetCurrentWeatherDocument = gql`
       minTemperature
       pressure
       humidity
-      weather
+      weatherCondition
       weatherDescription
       windSpeed
       icon
@@ -581,7 +620,7 @@ export const GetForecastDocument = gql`
       icon
       pop
       date
-      weather
+      weatherCondition
       weatherDescription
       windSpeed
       pressure
@@ -618,3 +657,63 @@ export function useGetForecastLazyQuery(baseOptions?: ApolloReactHooks.LazyQuery
 export type GetForecastQueryHookResult = ReturnType<typeof useGetForecastQuery>;
 export type GetForecastLazyQueryHookResult = ReturnType<typeof useGetForecastLazyQuery>;
 export type GetForecastQueryResult = Apollo.QueryResult<GetForecastQuery, GetForecastQueryVariables>;
+export const WeatherInUserCitiesDocument = gql`
+    query WeatherInUserCities($page: Int!, $pageSize: Int!) {
+  getCurrentWeatherInUserCities(
+    UserCitiesCurrentWeatherInput: {page: $page, pageSize: $pageSize}
+  ) {
+    list {
+      city {
+        fullname
+      }
+      weatherInCity {
+        weather {
+          temperature
+          feelsLike
+          pressure
+          humidity
+          windSpeed
+          weatherCondition
+          weatherDescription
+          icon
+        }
+      }
+    }
+    pageInfo {
+      currentPage
+      pageSize
+      totalPages
+      totalElements
+    }
+  }
+}
+    `;
+
+/**
+ * __useWeatherInUserCitiesQuery__
+ *
+ * To run a query within a React component, call `useWeatherInUserCitiesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useWeatherInUserCitiesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useWeatherInUserCitiesQuery({
+ *   variables: {
+ *      page: // value for 'page'
+ *      pageSize: // value for 'pageSize'
+ *   },
+ * });
+ */
+export function useWeatherInUserCitiesQuery(baseOptions: ApolloReactHooks.QueryHookOptions<WeatherInUserCitiesQuery, WeatherInUserCitiesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<WeatherInUserCitiesQuery, WeatherInUserCitiesQueryVariables>(WeatherInUserCitiesDocument, options);
+      }
+export function useWeatherInUserCitiesLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<WeatherInUserCitiesQuery, WeatherInUserCitiesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<WeatherInUserCitiesQuery, WeatherInUserCitiesQueryVariables>(WeatherInUserCitiesDocument, options);
+        }
+export type WeatherInUserCitiesQueryHookResult = ReturnType<typeof useWeatherInUserCitiesQuery>;
+export type WeatherInUserCitiesLazyQueryHookResult = ReturnType<typeof useWeatherInUserCitiesLazyQuery>;
+export type WeatherInUserCitiesQueryResult = Apollo.QueryResult<WeatherInUserCitiesQuery, WeatherInUserCitiesQueryVariables>;

@@ -12,7 +12,7 @@ export const CURRENT_WEATHER = gql(`
             minTemperature
             pressure
             humidity
-            weather
+            weatherCondition
             weatherDescription
             windSpeed 
             icon

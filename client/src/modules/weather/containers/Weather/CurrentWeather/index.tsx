@@ -28,7 +28,7 @@ export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
     minTemperature,
     icon,
     weatherDescription,
-    weather,
+    weatherCondition,
   } = data.currentWeather.weather;
 
   return (
@@ -40,7 +40,7 @@ export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
       minTemp={minTemperature}
       temperature={temperature}
       weatherDesc={weatherDescription}
-      weatherMain={weather}
+      weatherMain={weatherCondition}
     />
   );
 };

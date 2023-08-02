@@ -10,7 +10,7 @@ export const FORECAST = gql(`
           icon
           pop
           date
-          weather
+          weatherCondition
           weatherDescription
           windSpeed
           pressure
