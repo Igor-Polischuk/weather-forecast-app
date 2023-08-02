@@ -1,11 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-
-enum WeatherUnits {
-  Metric = 'metric',
-  Standard = 'standard',
-  Imperial = 'imperial',
-}
+import { WeatherUnits } from 'src/weather/WeatherUnits';
 
 registerEnumType(WeatherUnits, {
     name: 'WeatherUnits',

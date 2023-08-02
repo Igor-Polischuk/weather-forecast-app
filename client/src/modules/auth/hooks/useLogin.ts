@@ -3,10 +3,11 @@ import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
 import { isClickedLogOut } from "@/apollo/user-vars";
 
 export function useLogin() {
-    const [login, { loading, error }] = useLoginMutation();
+    const [login, { loading: loginLoading, error }] = useLoginMutation();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, {refetch}] = useCurrentUserLazyQuery();
+    const [_, {refetch, loading: userLoading}] = useCurrentUserLazyQuery();
     const navigate = useNavigate();
+    const loading = loginLoading || userLoading
 
     const onSubmit = async (inputData: { email: string, password: string }) => {
         try {

@@ -12,7 +12,7 @@ type Weather {
   pressure: Int!
   humidity: Int!
   windSpeed: Float!
-  weather: String!
+  weatherCondition: String!
   weatherDescription: String!
   icon: String!
 }
@@ -38,7 +38,7 @@ type ForecastItem {
   pressure: Int!
   humidity: Int!
   windSpeed: Float!
-  weather: String!
+  weatherCondition: String!
   weatherDescription: String!
   icon: String!
   pop: Float!
@@ -68,6 +68,23 @@ type CitiesNameOutput {
   lon: Float!
 }
 
+type PageInfo {
+  currentPage: Int!
+  totalPages: Int!
+  pageSize: Int!
+  totalElements: Int!
+}
+
+type UserCitiesCurrentWeather {
+  city: City!
+  weather: CurrentWeatherOutput!
+}
+
+type UserCitiesCurrentWeatherOutput {
+  weatherInfo: [UserCitiesCurrentWeather!]!
+  pageInfo: PageInfo!
+}
+
 type LoginOutput {
   user: User!
 }
@@ -78,8 +95,14 @@ type Query {
   currentUser: User!
   getCitiesTips(cityName: String!): [CitiesNameOutput!]!
   getUserCities: [City!]!
+  getCurrentWeatherInUserCities(UserCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput!): UserCitiesCurrentWeatherOutput!
   currentWeather(WeatherInput: WeatherInput!): CurrentWeatherOutput!
   forecast(WeatherInput: WeatherInput!): ForecastOutput!
+}
+
+input UserCitiesCurrentWeatherInput {
+  page: Float!
+  pageSize: Float!
 }
 
 input WeatherInput {

@@ -6,6 +6,8 @@ import { UserCitiesService } from './user-cities.service';
 import { CurrentUser } from '../decorators/CurrentUser';
 import { City } from 'src/city/entities/city.entity';
 import { IUser } from '../dto/User';
+import { UserCitiesCurrentWeatherOutput } from './dto/user-cities-weather.output';
+import { UserCitiesCurrentWeatherInput } from './dto/user-cities-weather.input';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
@@ -15,6 +17,20 @@ export class UserCitiesResolver {
   @Query(() => [City])
   getUserCities(@CurrentUser() user: IUser): Promise<City[]> {
     return this.userCitiesService.getUserCities(user);
+  }
+
+  @Query(() => UserCitiesCurrentWeatherOutput)
+  getCurrentWeatherInUserCities(
+    @Args('UserCitiesCurrentWeatherInput')
+    userCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput,
+    @CurrentUser() user: IUser,
+  ): Promise<UserCitiesCurrentWeatherOutput> {
+    const { page, pageSize: limit } = userCitiesCurrentWeatherInput;
+    return this.userCitiesService.getCurrentWeatherInUserCities({
+      user,
+      page,
+      limit,
+    });
   }
 
   @Mutation(() => [City])

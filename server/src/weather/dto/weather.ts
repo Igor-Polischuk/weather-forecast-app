@@ -33,7 +33,7 @@ export class Weather {
   windSpeed: number
 
   @Field()
-  weather: string;
+  weatherCondition: string;
 
   @Field()
   weatherDescription: string;

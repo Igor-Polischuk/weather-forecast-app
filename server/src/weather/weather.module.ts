@@ -8,5 +8,6 @@ import { CityModule } from 'src/city/city.module';
 @Module({
   imports: [WeatherApiModule, CityModule],
   providers: [WeatherResolver, WeatherService],
+  exports: [WeatherService],
 })
 export class WeatherModule {}

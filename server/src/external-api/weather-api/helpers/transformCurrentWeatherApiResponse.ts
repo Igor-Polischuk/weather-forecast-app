@@ -34,7 +34,7 @@ export function transformCurrentWeatherApiResponse(
     rainPerHour: rain?.['1h'] || 0,
     pressure: main.pressure,
     humidity: main.humidity,
-    weather: weather[0].main,
+    weatherCondition: weather[0].main,
     weatherDescription: weather[0].description,
     windSpeed: wind.speed,
     icon: iconUrl
