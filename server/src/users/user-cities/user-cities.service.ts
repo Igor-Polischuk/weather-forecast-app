@@ -78,12 +78,12 @@ export class UserCitiesService {
     cities: City[],
   ): Promise<UserCitiesCurrentWeather[]> {
     const weatherInfoPromises = cities.map(async (city) => {
-      const weather = await this.weatherService.getCurrentWeather(
+      const weatherInCity = await this.weatherService.getCurrentWeather(
         city.fullname,
         WeatherUnits.Metric,
       );
 
-      return { weather, city };
+      return { weatherInCity, city };
     });
 
     return await Promise.all(weatherInfoPromises);

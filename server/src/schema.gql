@@ -77,11 +77,11 @@ type PageInfo {
 
 type UserCitiesCurrentWeather {
   city: City!
-  weather: CurrentWeatherOutput!
+  weatherInCity: CurrentWeatherOutput!
 }
 
 type UserCitiesCurrentWeatherOutput {
-  weatherInfo: [UserCitiesCurrentWeather!]!
+  list: [UserCitiesCurrentWeather!]!
   pageInfo: PageInfo!
 }
 
@@ -101,8 +101,8 @@ type Query {
 }
 
 input UserCitiesCurrentWeatherInput {
-  page: Float!
-  pageSize: Float!
+  page: Int!
+  pageSize: Int!
 }
 
 input WeatherInput {
