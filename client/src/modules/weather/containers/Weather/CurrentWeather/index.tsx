@@ -24,8 +24,6 @@ export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
   const {
     temperature,
     feelsLike,
-    maxTemperature,
-    minTemperature,
     icon,
     weatherDescription,
     weatherCondition,
@@ -36,8 +34,6 @@ export const CurrentWeather: FC<ICurrentWeatherProps> = ({ cityName }) => {
       city={cityName}
       feelsLike={feelsLike}
       icon={icon}
-      maxTemp={maxTemperature}
-      minTemp={minTemperature}
       temperature={temperature}
       weatherDesc={weatherDescription}
       weatherMain={weatherCondition}

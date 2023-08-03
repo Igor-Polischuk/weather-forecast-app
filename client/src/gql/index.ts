@@ -264,7 +264,7 @@ export type GetCurrentWeatherQueryVariables = Exact<{
 }>;
 
 
-export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, maxTemperature: number, minTemperature: number, pressure: number, humidity: number, weatherCondition: string, weatherDescription: string, windSpeed: number, icon: string }, timezone: { __typename?: 'Timezone', timezone: number, sunrise: number, sunset: number } } };
+export type GetCurrentWeatherQuery = { __typename?: 'Query', currentWeather: { __typename?: 'CurrentWeatherOutput', weather: { __typename?: 'Weather', temperature: number, feelsLike: number, pressure: number, humidity: number, weatherCondition: string, weatherDescription: string, windSpeed: number, icon: string } } };
 
 export type GetForecastQueryVariables = Exact<{
   cityName: Scalars['String']['input'];
@@ -567,19 +567,12 @@ export const GetCurrentWeatherDocument = gql`
     weather {
       temperature
       feelsLike
-      maxTemperature
-      minTemperature
       pressure
       humidity
       weatherCondition
       weatherDescription
       windSpeed
       icon
-    }
-    timezone {
-      timezone
-      sunrise
-      sunset
     }
   }
 }

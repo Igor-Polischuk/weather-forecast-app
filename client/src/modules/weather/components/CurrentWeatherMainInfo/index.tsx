@@ -7,8 +7,6 @@ import { getTimeStr } from "../../helpers/get-time-str";
 interface ICurrentWeatherMainInfoProps {
   city: string;
   temperature: number;
-  minTemp: number;
-  maxTemp: number;
   feelsLike: number;
   icon: string;
   weatherMain: string;
