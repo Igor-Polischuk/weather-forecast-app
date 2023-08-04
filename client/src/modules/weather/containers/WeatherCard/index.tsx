@@ -50,7 +50,7 @@ export const WeatherCard: FC<IWeatherCardProps> = ({
         </Col>
         <Col xl={5}>
           <Row justify={"end"}>
-            <p className={styles.temperature}>{Math.round(temperature)}°</p>
+            <p className={styles.temperature}>{Math.round(temperature)}°С</p>
           </Row>
         </Col>
       </Row>

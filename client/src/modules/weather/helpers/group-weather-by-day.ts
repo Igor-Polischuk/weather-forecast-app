@@ -5,7 +5,7 @@ interface ForecastItem {
     icon: string;
     humidity: number
     windSpeed: number
-    weather: string
+    weatherCondition: string
     weatherDescription: string
     pressure: number
 }
@@ -17,7 +17,7 @@ interface WeatherData {
     pop: number;
     humidity: number
     windSpeed: number
-    weather: string
+    weatherCondition: string
     weatherDescription: string
     pressure: number
 }
@@ -42,7 +42,7 @@ export function groupWeatherByDay(forecastItems: ForecastItem[]): WeatherByDay[]
             pop: item.pop,
             humidity: item.humidity,
             windSpeed: item.windSpeed,
-            weather: item.weather,
+            weatherCondition: item.weatherCondition,
             weatherDescription: item.weatherDescription,
             pressure: item.pressure
         };

@@ -1,48 +1,64 @@
 import { useReactiveVar } from "@apollo/client";
-import { Space } from "antd";
+import { Skeleton, Space } from "antd";
 
-import { CurrentWeather } from "./CurrentWeather";
 import { Forecast } from "./Forecast";
 
 import { currentCityVar } from "@/apollo/weather-vars";
 import { WeatherMessage } from "../../components/WeatherMessage";
-import { CurrentWeatherAdditional } from "./CurrentWeatherAdditional";
-import { useEffect } from "react";
-import { useGetCurrentWeatherLazyQuery, useUserCitiesQuery } from "@/gql";
+import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
+import { useWeatherData } from "../../hooks/useWeatherData";
+import { CurrentWeatherMainInfo } from "../../components/CurrentWeatherMainInfo";
+import { AdditionalWeatherInfo } from "../../components/AdditionalWeatherInfo";
 
 export const Weather = () => {
-  const { data } = useUserCitiesQuery();
+  const { weatherInfo } = useSavedCityWeather();
   const cityName = useReactiveVar(currentCityVar);
   const isCitySelected = cityName.trim() !== "";
-  const [getCityWeather, { error }] = useGetCurrentWeatherLazyQuery();
 
-  if (
-    cityName === "" &&
-    data?.cities &&
-    data.cities.length > 0
-  ) {
-    currentCityVar(data.cities[0].fullname)
+  if (cityName === "" && weatherInfo.length > 0) {
+    currentCityVar(weatherInfo[0].city);
   }
-    useEffect(() => {
-      if (isCitySelected) {
-        getCityWeather({ variables: { cityName } });
-      }
-    }, [cityName, getCityWeather, isCitySelected]);
+
+  const { data, loading, error } = useWeatherData();
+  
+  if (loading || !data?.currentWeather) {
+    return <Skeleton active />;
+  }
 
   if (!isCitySelected) {
-    return (
-      <WeatherMessage text="Use search panel to find weather in your city" />
-    );
+    return <WeatherMessage text="Use the search panel to find weather in your city" />;
   }
 
   if (error) {
     return <WeatherMessage text={error.message} />;
   }
 
+  const {
+    temperature,
+    feelsLike,
+    icon,
+    weatherDescription,
+    weatherCondition,
+    humidity,
+    pressure,
+    windSpeed,
+  } = data.currentWeather.weather;
+
   return (
     <Space direction="vertical" size="large" style={{ display: "flex" }}>
-      <CurrentWeather cityName={cityName} />
-      <CurrentWeatherAdditional cityName={cityName} />
+      <CurrentWeatherMainInfo
+        city={cityName}
+        feelsLike={feelsLike}
+        icon={icon}
+        temperature={temperature}
+        weatherDesc={weatherDescription}
+        weatherMain={weatherCondition}
+      />
+      <AdditionalWeatherInfo
+        humidity={humidity}
+        pressure={pressure}
+        windSpeed={windSpeed}
+      />
       <Forecast cityName={cityName} />
     </Space>
   );
