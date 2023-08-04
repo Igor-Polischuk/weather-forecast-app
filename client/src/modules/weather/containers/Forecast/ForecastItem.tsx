@@ -1,8 +1,8 @@
+import { Col, Collapse, Row } from "antd";
 import { FC } from "react";
 
-import drop from "@assets/drop.png";
 import styles from "./styles.module.scss";
-import { Col, Collapse, Row } from "antd";
+import drop from "@assets/drop.png";
 
 
 interface IForecastItemProps {
@@ -26,9 +26,9 @@ export const ForecastItem: FC<IForecastItemProps> = (props) => {
           label: <ForecastItemLabel {...props}/>,
           children: (
             <Row justify={'space-between'} className={styles.additional}>
-                <p>Wind speed: {Math.round(props.windSpeed)} m/s</p>
-                <p>Humidity: {props.humidity}%</p>
-                <p>Pressure: {props.pressure} hPa</p>
+                <p><span>Wind speed:</span> <span>{Math.round(props.windSpeed)} m/s</span></p>
+                <p><span>Humidity:</span> <span>{props.humidity}%</span></p>
+                <p><span>Pressure:</span> <span>{props.pressure} hPa</span></p>
             </Row>
           ),
           style: { borderRadius: 0 },
@@ -46,13 +46,13 @@ const ForecastItemLabel = ({ icon,
   }: IForecastItemProps) => {
     return (
         <Row justify={"space-between"} align={"middle"}>
-          <Col span={2} className={styles.time}>
+          <Col span={2} xs={4} className={styles.time}>
             <p>{time}</p>
           </Col>
-          <Col span={4} className={styles.temperature}>
+          <Col span={4} xs={5}  className={styles.temperature}>
             <p>{temperature} °C</p>
           </Col>
-          <Col span={10} className={styles.weather}>
+          <Col span={10} xs={12} className={styles.weather}>
             <img src={icon} alt={`${weather} icon`} />
             <p>{weather}</p>
           </Col>

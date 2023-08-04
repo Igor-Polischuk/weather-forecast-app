@@ -11,8 +11,12 @@ interface IInfoCardProps {
 
 export const InfoCard: FC<IInfoCardProps> = ({ image, text, title }) => {
   return (
-    <Card title={title} bodyStyle={{ paddingTop: 10, paddingBottom: 10 }}>
-      <div className={styles.card}>
+    <Card
+      title={title}
+      className={styles.card}
+      bodyStyle={{ paddingTop: 10, paddingBottom: 10 }}
+    >
+      <div className={styles.cardContent}>
         {image}
         {text}
       </div>

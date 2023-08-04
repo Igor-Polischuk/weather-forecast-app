@@ -10,10 +10,10 @@ import styles from "./styles.module.scss";
 export const WeatherDashboard = () => {
   return (
     <Row justify={"space-between"}>
-      <Col md={16} xs={24}>
+      <Col lg={16} md={14} xs={24}>
         <Weather/>
       </Col>
-      <Col xs={0} md={7}>
+      <Col xs={0} md={9} lg={7}>
         <div className={`${styles.sidebar}`}>
           <Row
             className={styles.sidebarTop}

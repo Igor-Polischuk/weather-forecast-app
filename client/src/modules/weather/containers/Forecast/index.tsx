@@ -49,6 +49,7 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
       label: weatherPerDay.dayName,
       key: `${weatherPerDay.dayName}&${i}`,
       children: <div>{renderForecastItems(weatherPerDay)}</div>,
+      
     };
   });
 
@@ -57,7 +58,7 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
       <Row>
         <p className={styles.title}>Forecast</p>
       </Row>
-      <Tabs defaultActiveKey="1" type="card" size="middle" items={tabsData} />
+      <Tabs defaultActiveKey="1" type="card" size="middle" items={tabsData} className={styles.tabs}/>
     </Card>
   );
 };

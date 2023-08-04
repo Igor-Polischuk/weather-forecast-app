@@ -1,4 +1,4 @@
-.card {
+.cardContent {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,6 +15,21 @@
         @media (max-width: 990px) {
             max-width: 25px;
             max-height: 25px;
+        }
+    }
+}
+
+.card{
+    :global(.ant-card-head){
+        @media(max-width: 550px) {
+            padding: 0 10px;
+            min-height: 35px;
+        }
+    }
+
+    :global(.ant-card-body){
+        @media(max-width: 550px) {
+            padding: 2px 5px !important;
         }
     }
 }
