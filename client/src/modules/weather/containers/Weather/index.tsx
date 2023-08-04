@@ -1,14 +1,14 @@
 import { useReactiveVar } from "@apollo/client";
 import { Skeleton, Space } from "antd";
 
-import { Forecast } from "./Forecast";
 
-import { currentCityVar } from "@/apollo/weather-vars";
-import { WeatherMessage } from "../../components/WeatherMessage";
-import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
-import { useWeatherData } from "../../hooks/useWeatherData";
 import { CurrentWeatherMainInfo } from "../../components/CurrentWeatherMainInfo";
 import { AdditionalWeatherInfo } from "../../components/AdditionalWeatherInfo";
+import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
+import { WeatherMessage } from "../../components/WeatherMessage";
+import { useWeatherData } from "../../hooks/useWeatherData";
+import { currentCityVar } from "@/apollo/weather-vars";
+import { Forecast } from "../Forecast";
 
 export const Weather = () => {
   const { weatherInfo } = useSavedCityWeather();
