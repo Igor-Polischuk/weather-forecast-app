@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useCurrentUserQuery } from "@/gql";
-import { Spin } from "antd";
 import { useReactiveVar } from "@apollo/client";
 import { isClickedLogOut } from "@/apollo/user-vars";
 import { AccessLevel } from "..";
+import { Loader } from "@/modules/common/components/Loader";
 
 interface IRequireAuthProps {
   children: JSX.Element;
@@ -13,14 +13,14 @@ interface IRequireAuthProps {
 }
 
 export const AccessControl: FC<IRequireAuthProps> = ({ children, access }) => {
-  const {data, loading } = useCurrentUserQuery();
+  const { data, loading } = useCurrentUserQuery();
   const wasClickedLogOut = useReactiveVar(isClickedLogOut);
   const location = useLocation();
 
   const isAuth = data?.currentUser && !wasClickedLogOut;
 
   if (loading) {
-    return <Spin size="large" />;
+    return <Loader />;
   }
 
   if (access === AccessLevel.AUTHORIZED && !isAuth) {

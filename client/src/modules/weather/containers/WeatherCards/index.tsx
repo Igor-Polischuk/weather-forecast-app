@@ -1,5 +1,5 @@
 import { animated, useTransition } from "@react-spring/web";
-import { Card, Space } from "antd";
+import { Card, Skeleton, Space } from "antd";
 
 import { SaveCity } from "../SaveCity";
 
@@ -8,27 +8,6 @@ import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
 import { WeatherCard } from "../WeatherCard";
 
 export const WeatherCards = () => {
-  // const { data, loading } = useUserCitiesQuery();
-
-  // const weatherCards = useTransition(data?.cities, {
-  //   key: (city: { fullname: string }) => city.fullname,
-  // from: { opacity: 0 },
-  // enter: { opacity: 1 },
-  // leave: { opacity: 0 },
-  // config: {
-  //   duration: 200,
-  // },
-  // });
-
-  // if (loading){
-  //   return <p>loading...</p>
-  // }
-
-  // if (!data?.cities) {
-  //   return <p>Something was wrong</p>;
-  // }
-
-  // const noCity = data.cities.length === 0;
   const { weatherInfo, total, loading } = useSavedCityWeather();
 
   const weatherCards = useTransition(weatherInfo, {
@@ -41,10 +20,8 @@ export const WeatherCards = () => {
     },
   });
 
-  // const noCity = total === 0;
-
-  if (loading){
-    return <p>loading...</p>
+  if (loading) {
+    return <Skeleton active />;
   }
 
   return (
@@ -67,15 +44,6 @@ export const WeatherCards = () => {
             />
           </animated.div>
         ))}
-        {/* {noCity ? (
-          <Card>You haven't saved any city yet</Card>
-        ) : (
-          weatherCards((style, city) => (
-            <animated.div style={style}>
-              <SavedCityWeatherCard city={city!} />
-            </animated.div>
-          ))
-        )} */}
       </Space>
     </Card>
   );
