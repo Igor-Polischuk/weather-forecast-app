@@ -9,6 +9,7 @@ import { WeatherMessage } from "../../components/WeatherMessage";
 import { useWeatherData } from "../../hooks/useWeatherData";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { Forecast } from "../Forecast";
+import { SaveCity } from "../SaveCity";
 
 export const Weather = () => {
   const { weatherInfo } = useSavedCityWeather();
@@ -53,6 +54,7 @@ export const Weather = () => {
         temperature={temperature}
         weatherDesc={weatherDescription}
         weatherMain={weatherCondition}
+        button={<SaveCity/>}
       />
       <AdditionalWeatherInfo
         humidity={humidity}

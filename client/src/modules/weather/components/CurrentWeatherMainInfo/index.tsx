@@ -11,6 +11,7 @@ interface ICurrentWeatherMainInfoProps {
   icon: string;
   weatherMain: string;
   weatherDesc: string;
+  button?: JSX.Element;
 }
 
 export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
@@ -20,11 +21,17 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
   weatherDesc,
   weatherMain,
   feelsLike,
+  button
 }) => {
   return (
     <Card
       className={styles.currentWeather}
-      title={`${city} as of ${getTimeStr()}`}
+      title={
+        <Row justify={"space-between"} align={"middle"}>
+          <Col sm={18} md={24}>{`${city} as of ${getTimeStr()}`}</Col>
+          <Col sm={6} md={0}>{button}</Col>
+        </Row>
+      }
     >
       <Row justify={"space-between"}>
         <Col span={16}>
