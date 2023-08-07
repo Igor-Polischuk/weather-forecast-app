@@ -41,7 +41,7 @@ const InputField: React.FC<InputFieldProps> = ({
           />
         )}
       />
-      <p className={styles.error_message}>{errorMessage || "  "}</p>
+      <p className={styles.errorMessage}>{errorMessage || "  "}</p>
     </div>
   );
 };

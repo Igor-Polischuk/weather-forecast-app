@@ -1,15 +1,6 @@
-@import '@styles/vars';
-
 .login_form{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-}
-
-.error_message{
-    display: block;
-    height: 16px;
-    color: $red;
-    margin-top: 10px;
 }

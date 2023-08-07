@@ -5,6 +5,8 @@ import { useGetCitiesTipsLazyQuery } from "@/gql";
 import { debounce } from "../../../common/utils/debounce";
 import { currentCityVar } from "@/apollo/weather-vars";
 
+import styles from './styles.module.scss';
+
 export const SearchCity = () => {
   const [getCity, { data }] = useGetCitiesTipsLazyQuery();
   const [searchText, setSearchText] = useState("");
@@ -43,7 +45,7 @@ export const SearchCity = () => {
   return (
     <AutoComplete
       options={options}
-      style={{ width: "100%" }}
+      className={styles.autocomplete}
       onSelect={onSelect}
       onSearch={(text) => getPanelValue(text)}
     >

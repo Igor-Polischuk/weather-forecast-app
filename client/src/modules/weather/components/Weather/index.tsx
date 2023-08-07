@@ -11,6 +11,8 @@ import { currentCityVar } from "@/apollo/weather-vars";
 import { Forecast } from "../Forecast";
 import { SaveCity } from "../SaveCity";
 
+import styles from './styles.module.scss';
+
 export const Weather = () => {
   const { weatherInfo } = useSavedCityWeather();
   const cityName = useReactiveVar(currentCityVar);
@@ -46,7 +48,7 @@ export const Weather = () => {
   } = data.currentWeather.weather;
 
   return (
-    <Space direction="vertical" size="large" style={{ display: "flex" }}>
+    <Space direction="vertical" size="large" className={styles.wrapper}>
       <CurrentWeatherMainInfo
         city={cityName}
         feelsLike={feelsLike}

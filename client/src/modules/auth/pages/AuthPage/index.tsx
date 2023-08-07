@@ -9,7 +9,7 @@ export const AuthPage: React.FC = () => {
 
   return (
     <div className={styles.auth_container}>
-      <Title style={{marginBottom: 15}}>Sign in</Title>
+      <Title className={styles.title}>Sign in</Title>
       <LoginForm/>
     </div>
   );

@@ -1,5 +1,14 @@
+@import '@styles/vars';
+
 .input_field{
     width: 100%;
     min-height: 65px;
     margin-bottom: 15px;
+}
+
+.errorMessage{
+    display: block;
+    height: 16px;
+    color: $red;
+    margin-top: 10px;
 }

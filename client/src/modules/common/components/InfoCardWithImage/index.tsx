@@ -1,5 +1,5 @@
 import { Card } from "antd";
-import { FC } from "react";
+import { CSSProperties, FC } from "react";
 
 import styles from "./style.module.scss";
 
@@ -9,12 +9,21 @@ interface IInfoCardProps {
   title: string;
 }
 
-export const InfoCard: FC<IInfoCardProps> = ({ image, text, title }) => {
+const cardBodyStyles: CSSProperties = {
+  paddingTop: 10,
+  paddingBottom: 10,
+};
+
+export const InfoCardWithImage: FC<IInfoCardProps> = ({
+  image,
+  text,
+  title,
+}) => {
   return (
     <Card
       title={title}
       className={styles.card}
-      bodyStyle={{ paddingTop: 10, paddingBottom: 10 }}
+      bodyStyle={cardBodyStyles}
     >
       <div className={styles.cardContent}>
         {image}

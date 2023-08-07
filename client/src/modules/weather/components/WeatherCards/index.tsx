@@ -1,10 +1,16 @@
 import { animated, useTransition } from "@react-spring/web";
 import { Card, Skeleton, Space } from "antd";
+import { CSSProperties } from "react";
 
 import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
 import { WeatherCard } from "../WeatherCard";
 
 import styles from "./style.module.scss";
+
+const cardBodyStyles: CSSProperties = { 
+  overflowY: "auto", 
+  padding: 15 
+}
 
 export const WeatherCards = () => {
   const { weatherInfo, total, loading } = useSavedCityWeather();
@@ -26,8 +32,7 @@ export const WeatherCards = () => {
   return (
     <Card
       title={`Saved cities ${total}/${import.meta.env.VITE_CITY_LIMIT}`}
-      style={{ gap: 0 }}
-      bodyStyle={{ overflowY: "auto", padding: 15 }}
+      bodyStyle={cardBodyStyles}
       className={styles.cards}
     >
       <Space direction="vertical" size="large" style={{ display: "flex" }}>

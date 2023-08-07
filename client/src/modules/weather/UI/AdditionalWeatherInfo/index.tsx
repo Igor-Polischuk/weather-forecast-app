@@ -1,4 +1,4 @@
-import { InfoCard } from "@/modules/common/components/InfoCard";
+import { InfoCardWithImage } from "@/modules/common/components/InfoCardWithImage";
 import { Row, Col } from "antd";
 import { FC } from "react";
 
@@ -23,21 +23,21 @@ export const AdditionalWeatherInfo: FC<IAdditionalWeatherInfoProps> = ({
   return (
     <Row justify={"space-between"} gutter={[16, 16]} className={styles.cards}>
       <Col span={8}>
-        <InfoCard
+        <InfoCardWithImage
           image={<img src={windImg} />}
           text={`${windSpeed} m/s`}
           title="Wind"
         />
       </Col>
       <Col span={8}>
-        <InfoCard
+        <InfoCardWithImage
           image={<img src={humidityImg} />}
           text={`${humidity} %`}
           title="Humidity"
         />
       </Col>
       <Col span={8}>
-        <InfoCard
+        <InfoCardWithImage
           image={<img src={pressureImg} />}
           text={`${pressure} hPa`}
           title="Pressure"
