@@ -13,6 +13,7 @@ import { WeatherModule } from './weather/weather.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CityModule } from './city/city.module';
+import { UserCitiesModule } from './user-cities/user-cities.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { CityModule } from './city/city.module';
     WeatherModule,
     CityModule,
     GeoApiModule,
+    UserCitiesModule,
   ]
 })
 export class AppModule {}

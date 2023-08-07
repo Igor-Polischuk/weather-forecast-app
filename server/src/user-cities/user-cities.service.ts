@@ -7,20 +7,20 @@ import {
 } from '@nestjs/common';
 
 import { IGetCurrentWeatherInUserCitiesParams } from './interfaces/current-cities-weather-param';
+import { ICreatePaginationReturningType } from 'src/common/utils/pagination/IPagination';
+import { createPagination } from 'src/common/utils/pagination/create-pagination';
 import { LimitExceededException } from 'src/common/exceptions';
 import { WeatherService } from 'src/weather/weather.service';
 import { WeatherUnits } from 'src/weather/WeatherUnits';
+import { User } from 'src/users/entities/user.entity';
 import { City } from 'src/city/entities/city.entity';
 import { CityService } from 'src/city/city.service';
-import { User } from '../entities/user.entity';
-import { IUser } from '../dto/User';
+import { IUser } from 'src/users/dto/User';
 
 import {
   UserCitiesCurrentWeather,
   UserCitiesCurrentWeatherOutput,
 } from './dto/user-cities-weather.output';
-import { createPagination } from 'src/common/utils/pagination/create-pagination';
-import { ICreatePaginationReturningType } from 'src/common/utils/pagination/IPagination';
 
 @Injectable()
 export class UserCitiesService {
@@ -96,7 +96,7 @@ export class UserCitiesService {
     const paginationData = createPagination({
       data: userInDb.cities,
       page: params.page,
-      pageSize: params.limit,
+      pageSize: params.pageSize,
     });
 
     return paginationData;

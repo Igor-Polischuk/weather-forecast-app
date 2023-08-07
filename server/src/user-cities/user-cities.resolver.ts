@@ -1,13 +1,13 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { UserCitiesService } from './user-cities.service';
-import { CurrentUser } from '../decorators/CurrentUser';
-import { City } from 'src/city/entities/city.entity';
-import { IUser } from '../dto/User';
 import { UserCitiesCurrentWeatherOutput } from './dto/user-cities-weather.output';
 import { UserCitiesCurrentWeatherInput } from './dto/user-cities-weather.input';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UserCitiesService } from './user-cities.service';
+import { CurrentUser } from '../users/decorators/CurrentUser';
+import { City } from 'src/city/entities/city.entity';
+import { IUser } from '../users/dto/User';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)
@@ -29,7 +29,7 @@ export class UserCitiesResolver {
     return this.userCitiesService.getCurrentWeatherInUserCities({
       user,
       page,
-      limit,
+      pageSize: limit,
     });
   }
 

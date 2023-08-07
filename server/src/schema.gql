@@ -68,6 +68,10 @@ type CitiesNameOutput {
   lon: Float!
 }
 
+type LoginOutput {
+  user: User!
+}
+
 type PageInfo {
   currentPage: Int!
   totalPages: Int!
@@ -85,24 +89,15 @@ type UserCitiesCurrentWeatherOutput {
   pageInfo: PageInfo!
 }
 
-type LoginOutput {
-  user: User!
-}
-
 type Query {
   users: [User!]!
   user(id: Int!): User!
   currentUser: User!
   getCitiesTips(cityName: String!): [CitiesNameOutput!]!
-  getUserCities: [City!]!
-  getCurrentWeatherInUserCities(UserCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput!): UserCitiesCurrentWeatherOutput!
   currentWeather(WeatherInput: WeatherInput!): CurrentWeatherOutput!
   forecast(WeatherInput: WeatherInput!): ForecastOutput!
-}
-
-input UserCitiesCurrentWeatherInput {
-  page: Int!
-  pageSize: Int!
+  getUserCities: [City!]!
+  getCurrentWeatherInUserCities(UserCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput!): UserCitiesCurrentWeatherOutput!
 }
 
 input WeatherInput {
@@ -116,13 +111,18 @@ enum WeatherUnits {
   Imperial
 }
 
+input UserCitiesCurrentWeatherInput {
+  page: Int!
+  pageSize: Int!
+}
+
 type Mutation {
-  saveCity(city: String!): [City!]!
-  removeCity(city: String!): [City!]!
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
   logout: String!
   refresh: String!
+  saveCity(city: String!): [City!]!
+  removeCity(city: String!): [City!]!
 }
 
 input LoginInput {
