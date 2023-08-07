@@ -9,11 +9,9 @@ import {
 import { IGetCurrentWeatherInUserCitiesParams } from './interfaces/current-cities-weather-param';
 import { LimitExceededException } from 'src/common/exceptions';
 import { WeatherService } from 'src/weather/weather.service';
-import { paginateCities } from './helpers/paginate-cities';
 import { WeatherUnits } from 'src/weather/WeatherUnits';
 import { City } from 'src/city/entities/city.entity';
 import { CityService } from 'src/city/city.service';
-import { PageInfo } from 'src/common/dto/page-info';
 import { User } from '../entities/user.entity';
 import { IUser } from '../dto/User';
 
@@ -21,6 +19,8 @@ import {
   UserCitiesCurrentWeather,
   UserCitiesCurrentWeatherOutput,
 } from './dto/user-cities-weather.output';
+import { createPagination } from 'src/common/utils/pagination/create-pagination';
+import { ICreatePaginationReturningType } from 'src/common/utils/pagination/IPagination';
 
 @Injectable()
 export class UserCitiesService {
@@ -69,8 +69,8 @@ export class UserCitiesService {
   async getCurrentWeatherInUserCities(
     params: IGetCurrentWeatherInUserCitiesParams,
   ): Promise<UserCitiesCurrentWeatherOutput> {
-    const { cities, ...pageInfo } = await this.getCitiesAtPage(params);
-    const weatherInfo = await this.getWeatherInfoForCities(cities);
+    const { data, pageInfo } = await this.getCitiesAtPage(params);
+    const weatherInfo = await this.getWeatherInfoForCities(data);
     return { list: weatherInfo, pageInfo };
   }
 
@@ -91,21 +91,15 @@ export class UserCitiesService {
 
   private async getCitiesAtPage(
     params: IGetCurrentWeatherInUserCitiesParams,
-  ): Promise<PageInfo & { cities: City[] }> {
+  ): Promise<ICreatePaginationReturningType<City[]>> {
     const userInDb = await this.findOne(params.user.id);
-    const { cities, totalElements, totalPages } = paginateCities(
-      userInDb.cities,
-      params.page,
-      params.limit,
-    );
-
-    return {
-      cities,
-      currentPage: params.page,
+    const paginationData = createPagination({
+      data: userInDb.cities,
+      page: params.page,
       pageSize: params.limit,
-      totalPages,
-      totalElements,
-    };
+    });
+
+    return paginationData;
   }
 
   private async validateSavingCity(
