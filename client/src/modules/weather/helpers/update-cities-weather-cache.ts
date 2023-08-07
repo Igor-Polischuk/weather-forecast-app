@@ -1,6 +1,6 @@
 import { ApolloCache } from "@apollo/client";
 import { WeatherInUserCitiesQuery, GetCurrentWeatherQuery } from "@/gql";
-import { CURRENT_WEATHER } from "../graphql/query/getCurrentWeather";
+import { CURRENT_WEATHER_QUERY } from "../graphql/query/getCurrentWeather";
 
 interface IUpdateCacheParams {
   cache: ApolloCache<WeatherInUserCitiesQuery>;
@@ -14,7 +14,7 @@ export function updateCitiesWeatherCache({ cache, city, action }: IUpdateCachePa
       getCurrentWeatherInUserCities(existingCitiesData: WeatherInUserCitiesQuery['getCurrentWeatherInUserCities']) {
         if (action === 'ADD') {
           const weatherInSavedCity = cache.readQuery({
-            query: CURRENT_WEATHER,
+            query: CURRENT_WEATHER_QUERY,
             variables: { cityName: city },
           }) as GetCurrentWeatherQuery;
 

@@ -1,6 +1,7 @@
-import { REFRESH } from '@/modules/auth/graphql/mutation/refresh';
 import { ApolloClient, ApolloLink, InMemoryCache, Observable, createHttpLink } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
+
+import { REFRESH_MUTATION } from '@/modules/auth/graphql/mutation/refresh';
 
 const httpLink = createHttpLink({
   uri: import.meta.env.VITE_SERVER_URL,
@@ -44,7 +45,7 @@ export const client = new ApolloClient({
 const refreshToken = async () => {
   try {
     await client.mutate({
-      mutation: REFRESH,
+      mutation: REFRESH_MUTATION,
     });
   } catch (error) {
     console.log(error);

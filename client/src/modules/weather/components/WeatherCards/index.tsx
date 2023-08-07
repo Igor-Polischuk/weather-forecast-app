@@ -1,11 +1,11 @@
 import { animated, useTransition } from "@react-spring/web";
 import { Card, Skeleton, Space } from "antd";
 
+import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
+import { WeatherCard } from "../WeatherCard";
 import { SaveCity } from "../SaveCity";
 
 import styles from "./style.module.scss";
-import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
-import { WeatherCard } from "../WeatherCard";
 
 export const WeatherCards = () => {
   const { weatherInfo, total, loading } = useSavedCityWeather();

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const USER_CITIES = gql(`
+export const USER_CITIES_QUERY = gql(`
 query UserCities{
     cities: getUserCities{
         fullname

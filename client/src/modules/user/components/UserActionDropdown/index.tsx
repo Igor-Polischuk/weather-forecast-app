@@ -6,7 +6,7 @@ import { useCurrentUserQuery } from "@/gql";
 import { LogOut } from "@/modules/auth";
 
 
-export const UserDropdown = () => {
+export const UserActionDropdown = () => {
   const { data, error } = useCurrentUserQuery();
 
   const items: MenuProps["items"] = [

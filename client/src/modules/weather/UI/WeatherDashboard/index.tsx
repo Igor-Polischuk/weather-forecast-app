@@ -1,9 +1,9 @@
 import { Row, Col } from "antd";
-import { WeatherCards } from "../../containers/WeatherCards";
 
-import { UserDropdown } from "@/modules/user/components/UserDropdown";
+import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown";
+import { WeatherCards } from "../../components/WeatherCards";
+import { Weather } from "../../components/Weather";
 import { CloseOutlined } from "@ant-design/icons";
-import { Weather } from "../../containers/Weather";
 
 import styles from "./styles.module.scss";
 
@@ -22,7 +22,7 @@ export const WeatherDashboard = () => {
           >
             <Col span={18}>
               <Row justify={"start"}>
-                <UserDropdown />
+                <UserActionDropdown />
               </Row>
             </Col>
             <Col span={5}>

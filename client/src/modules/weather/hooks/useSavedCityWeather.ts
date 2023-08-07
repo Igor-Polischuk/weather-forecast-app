@@ -1,8 +1,24 @@
+import { CURRENT_WEATHER_QUERY } from "../graphql/query/getCurrentWeather";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { useWeatherInUserCitiesQuery } from "@/gql";
-import { CURRENT_WEATHER } from "../graphql/query/getCurrentWeather";
 
-export function useSavedCityWeather() {
+interface IUseSavedCityWeatherReturningType {
+    weatherInfo: {
+        city: string;
+        temperature: number;
+        humidity: number;
+        pressure: number;
+        windSpeed: number;
+        weatherDescription: string;
+        weatherCondition: string;
+        icon: string;
+        onClick(): void;
+    }[];
+    loading: boolean;
+    total: number;
+}
+
+export function useSavedCityWeather(): IUseSavedCityWeatherReturningType {
     const { data, loading, client } = useWeatherInUserCitiesQuery(
         { variables: { page: 1, pageSize: 10 }, });
 
@@ -10,7 +26,7 @@ export function useSavedCityWeather() {
         const { weather } = item.weatherInCity
 
         client.writeQuery({
-            query: CURRENT_WEATHER, 
+            query: CURRENT_WEATHER_QUERY,
             data: {
                 currentWeather: {
                     __typename: 'Weather',
@@ -37,8 +53,8 @@ export function useSavedCityWeather() {
                 currentCityVar(item.city.fullname);
             }
         }
-    })
+    }) || []
 
-    return { weatherInfo: weatherInfo || [], loading, total: data?.getCurrentWeatherInUserCities.list.length || 0 }
+    return { weatherInfo, loading, total: weatherInfo.length }
 }
 

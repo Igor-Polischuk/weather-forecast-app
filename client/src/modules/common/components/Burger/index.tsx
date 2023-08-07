@@ -2,7 +2,7 @@ import { CloseCircleOutlined, MenuOutlined } from "@ant-design/icons";
 import { FC, ReactElement, useState } from "react";
 import styles from "./styles.module.scss";
 import { Col, Row } from "antd";
-import { UserDropdown } from "@/modules/user/components/UserDropdown";
+import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown";
 
 interface IBurgerProps {
   children: ReactElement;
@@ -33,7 +33,7 @@ export const Burger: FC<IBurgerProps> = ({ children }) => {
             </Col>
             <Col>
               <Row justify={"end"}>
-                <UserDropdown />
+                <UserActionDropdown />
               </Row>
             </Col>
           </Row>

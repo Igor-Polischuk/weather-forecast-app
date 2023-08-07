@@ -1,9 +1,9 @@
-import { UserDropdown } from "@/modules/user/components/UserDropdown";
+import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown";
 import { Col, Row } from "antd";
 
 import { Burger } from "@/modules/common/components/Burger";
-import { SearchCity } from "../../containers/SearchCity";
-import { WeatherCards } from "../../containers/WeatherCards";
+import { WeatherCards } from "../../components/WeatherCards";
+import { SearchCity } from "../../components/SearchCity";
 
 import styles from "./styles.module.scss";
 
@@ -26,7 +26,7 @@ export const TopBar = () => {
       </Col>
       <Col xs={0} md={9} lg={7}>
         <Row justify={"end"}>
-          <UserDropdown />
+          <UserActionDropdown />
         </Row>
       </Col>
     </Row>

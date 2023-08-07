@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const USER_CITIES_WEATHER = gql`
+export const USER_CITIES_WEATHER_QUERY = gql`
   query WeatherInUserCities($page: Int!, $pageSize: Int!) {
     getCurrentWeatherInUserCities(UserCitiesCurrentWeatherInput: {
       page: $page

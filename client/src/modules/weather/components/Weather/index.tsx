@@ -2,10 +2,10 @@ import { useReactiveVar } from "@apollo/client";
 import { Skeleton, Space } from "antd";
 
 
-import { CurrentWeatherMainInfo } from "../../components/CurrentWeatherMainInfo";
-import { AdditionalWeatherInfo } from "../../components/AdditionalWeatherInfo";
+import { CurrentWeatherMainInfo } from "../../UI/CurrentWeatherMainInfo";
+import { AdditionalWeatherInfo } from "../../UI/AdditionalWeatherInfo";
 import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
-import { WeatherMessage } from "../../components/WeatherMessage";
+import { WeatherMessage } from "../../UI/WeatherMessage";
 import { useWeatherData } from "../../hooks/useWeatherData";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { Forecast } from "../Forecast";

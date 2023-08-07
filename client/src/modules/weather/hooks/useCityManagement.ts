@@ -4,7 +4,16 @@ import { currentCityVar } from "@/apollo/weather-vars";
 import { useSavedCityWeather } from "./useSavedCityWeather";
 import { updateCitiesWeatherCache } from "../helpers/update-cities-weather-cache";
 
-export function useCityManagement() {
+interface IUseCityManagementReturningType {
+  onSave: () => void;
+  onRemove: () => void;
+  loading: boolean;
+  cantSaveCity: boolean;
+  isSavedCity: boolean;
+  cityName: string;
+}
+
+export function useCityManagement(): IUseCityManagementReturningType {
   const { weatherInfo, total } = useSavedCityWeather();
   const currentCity = useReactiveVar(currentCityVar);
 

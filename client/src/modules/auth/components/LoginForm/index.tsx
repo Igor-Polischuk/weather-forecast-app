@@ -5,8 +5,8 @@ import React from "react";
 
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
-import { schema } from "../../validation-schema";
-import InputField from "../InputField";
+import { loginSchema } from "../../schemas/login-validation-schema";
+import InputField from "../../../common/components/InputField";
 import { useLogin } from "../../hooks/useLogin";
 
 import styles from "./styles.module.scss";
@@ -22,7 +22,7 @@ export const LoginForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(loginSchema),
     mode: "onSubmit",
     defaultValues: {
       email: 'somebody@gmail.com',

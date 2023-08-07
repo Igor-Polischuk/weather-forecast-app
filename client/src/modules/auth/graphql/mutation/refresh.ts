@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const REFRESH = gql(`
+export const REFRESH_MUTATION = gql(`
   mutation Refresh {
     refresh
   }

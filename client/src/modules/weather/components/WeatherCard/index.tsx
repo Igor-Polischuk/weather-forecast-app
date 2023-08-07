@@ -2,9 +2,10 @@ import { Card, Row, Col, Tooltip } from "antd";
 import { FC } from "react";
 
 import { truncateString } from "../../helpers/trim-string";
-import styles from "./styles.module.scss";
-import { useReactiveVar } from "@apollo/client";
 import { currentCityVar } from "@/apollo/weather-vars";
+import { useReactiveVar } from "@apollo/client";
+
+import styles from "./styles.module.scss";
 
 interface IWeatherCardProps {
   city: string;

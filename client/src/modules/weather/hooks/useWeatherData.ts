@@ -1,10 +1,16 @@
-import { useReactiveVar } from "@apollo/client";
+import { ApolloError, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
 
+import { GetCurrentWeatherQuery, useGetCurrentWeatherLazyQuery } from "@/gql";
 import { currentCityVar } from "@/apollo/weather-vars";
-import { useGetCurrentWeatherLazyQuery } from "@/gql";
 
-export function useWeatherData() {
+interface IUseWeatherDataReturningType {
+  data: GetCurrentWeatherQuery | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+}
+
+export function useWeatherData(): IUseWeatherDataReturningType {
   const cityName = useReactiveVar(currentCityVar);
   const isCitySelected = cityName.trim() !== "";
   const [getCityWeather, { data, loading, error }] = useGetCurrentWeatherLazyQuery();
