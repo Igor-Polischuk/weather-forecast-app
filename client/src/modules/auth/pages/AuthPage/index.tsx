@@ -1,10 +1,9 @@
-import React from "react";
 import {Typography } from "antd";
 
 import { LoginForm } from "@modules/auth";
 import styles from "./styles.module.scss";
 
-export const AuthPage: React.FC = () => {
+export const AuthPage = () => {
   const { Title } = Typography;
 
   return (
