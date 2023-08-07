@@ -8,21 +8,26 @@ import { CurrentWeatherOutput } from 'src/weather/dto/output/current-weather.out
 import { IForecastApiResponse } from './interfaces/IForecastApiResponse';
 import { ForecastOutput } from 'src/weather/dto/output/forecast.output';
 import { ICoordinate } from './interfaces/ICoordinates';
-
-enum Endpoint {
-  Forecast = 'forecast',
-  Weather = 'weather',
-}
+import { QueryParams } from 'src/common/utils/query-params/QueryParams';
 
 @Injectable()
 export class WeatherApiService {
+  private apiKey = process.env.WEATHER_API_KEY;
+
   constructor(private readonly httpService: HttpService) {}
 
   async getCurrentWeather(
     coord: ICoordinate,
     units: string,
   ): Promise<CurrentWeatherOutput> {
-    const url = this.generateUrl(coord, Endpoint.Weather, units);
+    const query = new QueryParams({
+      lat: coord.lat,
+      lon: coord.lon,
+      units: units,
+      appid: this.apiKey,
+    });
+
+    const url = `weather?${query.toString()}`;
 
     try {
       const data =
@@ -41,7 +46,14 @@ export class WeatherApiService {
     coord: ICoordinate,
     units: string,
   ): Promise<ForecastOutput> {
-    const url = this.generateUrl(coord, Endpoint.Forecast, units);
+    const query = new QueryParams({
+      lat: coord.lat,
+      lon: coord.lon,
+      units: units,
+      appid: this.apiKey,
+    });
+
+    const url = `forecast?${query.toString()}`;
 
     try {
       const data = await this.httpService.axiosRef.get<IForecastApiResponse>(
@@ -56,15 +68,5 @@ export class WeatherApiService {
 
       throw new ForbiddenException('API not available');
     }
-  }
-
-  private generateUrl(
-    coord: ICoordinate,
-    endpoint: Endpoint,
-    units: string,
-  ): string {
-    const apiKey = process.env.WEATHER_API_KEY;
-    const url = `${endpoint}?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}&units=${units}`;
-    return url;
   }
 }
