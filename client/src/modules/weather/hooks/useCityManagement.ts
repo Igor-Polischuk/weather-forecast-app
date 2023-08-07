@@ -10,7 +10,6 @@ interface IUseCityManagementReturningType {
   loading: boolean;
   cantSaveCity: boolean;
   isSavedCity: boolean;
-  cityName: string;
 }
 
 export function useCityManagement(): IUseCityManagementReturningType {
@@ -23,7 +22,6 @@ export function useCityManagement(): IUseCityManagementReturningType {
   const loading = removeLoading || saveLoading;
 
   const cityLimit = Number(import.meta.env.VITE_CITY_LIMIT);
-  const cityName = currentCity.split(",")[0];
 
   const isSavedCity = !!weatherInfo.find((info) => info.city === currentCity);
 
@@ -49,7 +47,6 @@ export function useCityManagement(): IUseCityManagementReturningType {
     loading,
     cantSaveCity,
     isSavedCity,
-    cityName,
   };
 }
 

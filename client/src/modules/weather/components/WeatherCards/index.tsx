@@ -3,7 +3,6 @@ import { Card, Skeleton, Space } from "antd";
 
 import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
 import { WeatherCard } from "../WeatherCard";
-import { SaveCity } from "../SaveCity";
 
 import styles from "./style.module.scss";
 
@@ -26,10 +25,9 @@ export const WeatherCards = () => {
 
   return (
     <Card
-      title={<CardHeader citiesLength={total} />}
+      title={`Saved cities ${total}/${import.meta.env.VITE_CITY_LIMIT}`}
       style={{ gap: 0 }}
       bodyStyle={{ overflowY: "auto", padding: 15 }}
-      headStyle={{ minHeight: "auto" }}
       className={styles.cards}
     >
       <Space direction="vertical" size="large" style={{ display: "flex" }}>
@@ -46,14 +44,5 @@ export const WeatherCards = () => {
         ))}
       </Space>
     </Card>
-  );
-};
-
-const CardHeader = ({ citiesLength }: { citiesLength: number }) => {
-  return (
-    <div className={styles.cardHeader}>
-      <p>{`Saved cities ${citiesLength}/${import.meta.env.VITE_CITY_LIMIT}`}</p>
-      <SaveCity />
-    </div>
   );
 };

@@ -28,8 +28,8 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
       className={styles.currentWeather}
       title={
         <Row justify={"space-between"} align={"middle"}>
-          <Col sm={18} md={24}>{`${city} as of ${getTimeStr()}`}</Col>
-          <Col sm={6} md={0}>{button}</Col>
+          <Col md={18}>{`${city} as of ${getTimeStr()}`}</Col>
+          <Col md={6}>{button}</Col>
         </Row>
       }
     >

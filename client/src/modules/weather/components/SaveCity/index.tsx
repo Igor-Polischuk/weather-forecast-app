@@ -2,11 +2,11 @@ import { Button } from "antd";
 import { useCityManagement } from "../../hooks/useCityManagement";
 
 export const SaveCity = () => {
-  const {onSave, onRemove, loading, cityName, isSavedCity, cantSaveCity} = useCityManagement()
+  const {onSave, onRemove, loading, isSavedCity, cantSaveCity} = useCityManagement()
 
   return !isSavedCity ? (
     <Button type="primary" disabled={cantSaveCity} block onClick={onSave} loading={loading}>
-      Save {cityName}
+      Save
     </Button>
   ) : (
     <Button
@@ -16,7 +16,7 @@ export const SaveCity = () => {
       onClick={onRemove}
       loading={loading}
     >
-      Remove {cityName}
+      Remove
     </Button>
   );
 };
