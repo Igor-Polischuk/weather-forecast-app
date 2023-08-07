@@ -7,13 +7,13 @@ import { Module } from '@nestjs/common';
 
 import { join } from 'path';
 
-import { GeoApiModule } from './external-api/geo-api/geo-api.module';
 import { DatabaseModule } from './database/database.module';
 import { WeatherModule } from './weather/weather.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CityModule } from './city/city.module';
 import { UserCitiesModule } from './user-cities/user-cities.module';
+import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
@@ -33,8 +33,8 @@ import { UserCitiesModule } from './user-cities/user-cities.module';
     AuthModule,
     WeatherModule,
     CityModule,
-    GeoApiModule,
     UserCitiesModule,
+    ClientsModule,
   ]
 })
 export class AppModule {}

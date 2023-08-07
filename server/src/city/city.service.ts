@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { GeoApiService } from 'src/external-api/geo-api/geo-api.service';
+import { GeoApiService } from 'src/clients/geo-api.service';
 import { CitiesNameOutput } from './dto/output/cities-names';
 import { City } from './entities/city.entity';
 import { Repository } from 'typeorm';

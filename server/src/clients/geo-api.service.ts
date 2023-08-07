@@ -8,13 +8,23 @@ import {
 import { CitiesNameOutput } from 'src/city/dto/output/cities-names';
 import { GeoApiResponse } from './interfaces/IGeoApiResponse';
 import { removeDuplicatesByFullName } from './helpers/remove-duplicates-by-fullname';
+import { QueryParams } from 'src/common/utils/query-params/QueryParams';
 
 @Injectable()
 export class GeoApiService {
+  private appid = process.env.GEO_API_KEY;
+  private baseUrl = process.env.GEO_API_BASE_URL;
+
   constructor(private readonly httpService: HttpService) {}
 
   async getCities(cityName: string): Promise<CitiesNameOutput[]> {
-    const url = this.getUrl(cityName);
+    const query = new QueryParams({
+      limit: 5,
+      q: cityName,
+      appid: this.appid,
+    });
+
+    const url = `${this.baseUrl}/direct?${query.toString()}`;
 
     try {
       const data = await this.httpService.axiosRef.get<GeoApiResponse>(url);

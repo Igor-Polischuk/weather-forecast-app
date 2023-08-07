@@ -13,6 +13,6 @@ export class QueryParams {
         return `${prevVal}&${queryKey}=${this.query[queryKey]}`;
     }, '')
 
-    return queryString;
+    return queryString.slice(1);
   }
 }

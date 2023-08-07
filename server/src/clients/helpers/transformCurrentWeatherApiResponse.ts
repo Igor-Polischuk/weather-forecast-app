@@ -4,8 +4,8 @@ import { Timezone } from "src/weather/dto/timezone";
 import { Weather } from "src/weather/dto/weather";
 
 import { ICurrentWeatherApiResponse } from "../interfaces/ICurrentWeatherApiResponse";
-import { isDayTime } from "src/external-api/weather-api/helpers/is-day";
-import { getWeatherIconUrl } from "src/external-api/weather-api/helpers/get-icon-url";
+import { getWeatherIconUrl } from "./get-icon-url";
+import { isDayTime } from "./is-day";
 
 
 export function transformCurrentWeatherApiResponse(

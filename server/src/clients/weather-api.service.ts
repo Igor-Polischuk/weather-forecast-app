@@ -13,6 +13,7 @@ import { QueryParams } from 'src/common/utils/query-params/QueryParams';
 @Injectable()
 export class WeatherApiService {
   private apiKey = process.env.WEATHER_API_KEY;
+  private baseUrl = process.env.WEATHER_API_BASE_URL;
 
   constructor(private readonly httpService: HttpService) {}
 
@@ -27,7 +28,7 @@ export class WeatherApiService {
       appid: this.apiKey,
     });
 
-    const url = `weather?${query.toString()}`;
+    const url = `${this.baseUrl}weather?${query.toString()}`;
 
     try {
       const data =
@@ -53,7 +54,7 @@ export class WeatherApiService {
       appid: this.apiKey,
     });
 
-    const url = `forecast?${query.toString()}`;
+    const url = `${this.baseUrl}forecast?${query.toString()}`;
 
     try {
       const data = await this.httpService.axiosRef.get<IForecastApiResponse>(

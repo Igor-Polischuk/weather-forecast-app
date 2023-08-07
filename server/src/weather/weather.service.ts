@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { WeatherApiService } from 'src/external-api/weather-api/weather-api.service';
 import { CurrentWeatherOutput } from './dto/output/current-weather.output';
+import { WeatherApiService } from 'src/clients/weather-api.service';
 import { ForecastOutput } from './dto/output/forecast.output';
 import { CityService } from './../city/city.service';
 
