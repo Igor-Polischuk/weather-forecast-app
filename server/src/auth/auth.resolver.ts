@@ -1,5 +1,5 @@
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 
 import { SignUpInput } from 'src/auth/dto/input/sign-up';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
@@ -18,9 +18,15 @@ export class AuthResolver {
 
   @Mutation(() => LoginOutput)
   @UseGuards(GqlAuthGuard)
-  async login(@Args('loginInput') _: LoginInput, @Context() context) {
-    const { refreshToken, accessToken, ...result } =
-      await this.authService.login(context.user);
+  async login(
+    @Args('loginInput') _: LoginInput,
+    @Context() context,
+  ): Promise<{
+    user: User;
+  }> {
+    const { refreshToken, accessToken, user } = await this.authService.login(
+      context.user,
+    );
 
     setTokensCookie({
       accessToken,
@@ -28,27 +34,35 @@ export class AuthResolver {
       res: context.res,
     });
 
-    return { ...result };
+    return { user };
   }
 
   @Mutation(() => User)
-  signup(@Args('loginUserInput') signInInput: SignUpInput) {
+  signup(@Args('loginUserInput') signInInput: SignUpInput): Promise<User> {
     return this.authService.signup(signInInput);
   }
 
-  @Mutation(() => String)
+  @Mutation(() => Boolean)
   @UseGuards(JwtAuthGuard)
-  async logout(@Context() context, @CurrentUser() user: IUser) {
+  async logout(
+    @Context() context,
+    @CurrentUser() user: IUser,
+  ): Promise<boolean> {
     this.authService.logout(user);
 
     clearTokensCookie(context.res);
 
-    return 'Successfully logout';
+    return true;
   }
 
-  @Mutation(() => String)
-  async refresh(@Context() context) {
+  @Mutation(() => Boolean)
+  async refresh(@Context() context): Promise<boolean> {
     const { refreshToken } = context.req.cookies;
+
+    if (!refreshToken) {
+      throw new UnauthorizedException();
+    }
+
     const newTokens = await this.authService.refresh(refreshToken);
 
     setTokensCookie({
@@ -57,6 +71,6 @@ export class AuthResolver {
       res: context.res,
     });
 
-    return 'Token was updated';
+    return true;
   }
 }

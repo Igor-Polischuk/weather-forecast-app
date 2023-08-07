@@ -48,10 +48,6 @@ export class AuthService {
   }
 
   async refresh(oldRefreshToken: string): Promise<ITokens> {
-    if (!oldRefreshToken) {
-      throw new UnauthorizedException();
-    }
-
     const decoded = await this.refreshTokenStrategy.validateRefreshToken(
       oldRefreshToken,
     );
@@ -80,7 +76,10 @@ export class AuthService {
       throw new Error('User already exist');
     }
 
-    const password = await bcrypt.hash(createUserInput.password, 10);
+    const password = await bcrypt.hash(
+      createUserInput.password,
+      Number(process.env.B_SALT),
+    );
 
     return this.usersService.saveUser({ ...createUserInput, password });
   }

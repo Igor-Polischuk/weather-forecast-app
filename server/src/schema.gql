@@ -119,8 +119,8 @@ input UserCitiesCurrentWeatherInput {
 type Mutation {
   login(loginInput: LoginInput!): LoginOutput!
   signup(loginUserInput: SignUpInput!): User!
-  logout: String!
-  refresh: String!
+  logout: Boolean!
+  refresh: Boolean!
   saveCity(city: String!): [City!]!
   removeCity(city: String!): [City!]!
 }
