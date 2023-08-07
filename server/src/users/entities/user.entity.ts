@@ -22,6 +22,6 @@ export class User extends BaseEntity{
   refreshToken: RefreshToken;
 
   @ManyToMany(() => City, city => city.users)
-  @JoinTable()
+  @JoinTable({name: 'user_city'})
   cities: City[];
 }
