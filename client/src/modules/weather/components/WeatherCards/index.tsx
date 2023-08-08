@@ -2,15 +2,15 @@ import { animated, useTransition } from "@react-spring/web";
 import { Card, Skeleton, Space } from "antd";
 import { CSSProperties } from "react";
 
-import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
+import { useSavedCityWeather } from "@modules/weather/hooks/useSavedCityWeather";
 import { WeatherCard } from "../WeatherCard";
 
 import styles from "./style.module.scss";
 
-const cardBodyStyles: CSSProperties = { 
-  overflowY: "auto", 
-  padding: 15 
-}
+const cardBodyStyles: CSSProperties = {
+  overflowY: "auto",
+  padding: 15,
+};
 
 export const WeatherCards = () => {
   const { weatherInfo, total, loading } = useSavedCityWeather();

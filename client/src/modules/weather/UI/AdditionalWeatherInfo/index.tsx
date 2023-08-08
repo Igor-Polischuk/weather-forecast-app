@@ -2,10 +2,10 @@ import { InfoCardWithImage } from "@/modules/common/components/InfoCardWithImage
 import { Row, Col } from "antd";
 import { FC } from "react";
 
-import styles from './styles.module.scss';
-import windImg from "@assets/wind.png";
 import humidityImg from "@assets/humidity.png";
 import pressureImg from "@assets/pressure.png";
+import windImg from "@assets/wind.png";
+import styles from './styles.module.scss';
 
 interface IAdditionalWeatherInfoProps {
   windSpeed: number;

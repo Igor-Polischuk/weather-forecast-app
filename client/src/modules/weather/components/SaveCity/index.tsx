@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { useCityManagement } from "../../hooks/useCityManagement";
+import { useCityManagement } from "@modules/weather/hooks/useCityManagement";
 
 export const SaveCity = () => {
   const {onSave, onRemove, loading, isSavedCity, cantSaveCity} = useCityManagement()

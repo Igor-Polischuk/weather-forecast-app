@@ -1,5 +1,5 @@
-import { AccessLevel } from '../auth';
-import { IModule } from '../common/interfaces/IModule';
+import { AccessLevel } from '@modules/auth';
+import { IModule } from '@modules/common/interfaces/IModule';
 import { WeatherPage } from './pages/index';
 
 export const WeatherModule: IModule = {

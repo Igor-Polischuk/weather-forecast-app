@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import styles from "./styles.module.scss";
-import { useLogOutMutation } from "@/gql";
 import { currentCityVar } from "@/apollo/weather-vars";
+import { useLogOutMutation } from "@/gql";
+
+import styles from "./styles.module.scss";
 
 export const LogOut = () => {
   const [logOut, { client }] = useLogOutMutation();

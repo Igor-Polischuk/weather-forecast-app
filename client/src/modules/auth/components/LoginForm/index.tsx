@@ -1,13 +1,13 @@
-import { useForm } from "react-hook-form";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 import { Button } from "antd";
 import React from "react";
 
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
 
-import { loginSchema } from "../../schemas/login-validation-schema";
-import InputField from "../../../common/components/InputField";
-import { useLogin } from "../../hooks/useLogin";
+import { loginSchema } from "@modules/auth/schemas/login-validation-schema";
+import InputField from "@modules/common/components/InputField";
+import { useLogin } from "@modules/auth/hooks/useLogin";
 
 import styles from "./styles.module.scss";
 

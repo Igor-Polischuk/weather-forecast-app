@@ -1,5 +1,5 @@
-import { Card } from "antd";
 import { CSSProperties, FC } from "react";
+import { Card } from "antd";
 
 import styles from "./style.module.scss";
 

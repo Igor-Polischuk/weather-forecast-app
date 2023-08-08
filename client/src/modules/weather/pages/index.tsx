@@ -1,7 +1,7 @@
 import { Space } from "antd";
 
-import { WeatherDashboard } from "../UI/WeatherDashboard";
-import { TopBar } from "../UI/TopBar";
+import { WeatherDashboard } from "@modules/weather/UI/WeatherDashboard";
+import { TopBar } from "@modules/weather/UI/TopBar";
 
 import styles from "./styles.module.scss";
 

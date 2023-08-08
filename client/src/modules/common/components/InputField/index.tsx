@@ -1,6 +1,6 @@
-import React from "react";
 import { Controller, Control } from "react-hook-form";
 import { Input } from "antd";
+import React from "react";
 
 import styles from "./styles.module.scss";
 

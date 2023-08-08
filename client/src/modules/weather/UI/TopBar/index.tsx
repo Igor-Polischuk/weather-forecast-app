@@ -2,8 +2,8 @@ import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown
 import { Col, Row } from "antd";
 
 import { Burger } from "@/modules/common/components/Burger";
-import { WeatherCards } from "../../components/WeatherCards";
-import { SearchCity } from "../../components/SearchCity";
+import { WeatherCards } from "@modules/weather/components/WeatherCards";
+import { SearchCity } from "@modules/weather/components/SearchCity";
 
 import styles from "./styles.module.scss";
 

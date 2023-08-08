@@ -1,9 +1,10 @@
 import { Skeleton, Space } from "antd";
 
-import { CurrentWeatherMainInfo } from "../../UI/CurrentWeatherMainInfo";
-import { AdditionalWeatherInfo } from "../../UI/AdditionalWeatherInfo";
-import { WeatherMessage } from "../../UI/WeatherMessage";
-import { useWeatherData } from "../../hooks/useWeatherData";
+import { CurrentWeatherMainInfo } from "@modules/weather/UI/CurrentWeatherMainInfo";
+import { AdditionalWeatherInfo } from "@modules/weather/UI/AdditionalWeatherInfo";
+import { useWeatherData } from "@modules/weather/hooks/useWeatherData";
+import { WeatherMessage } from "@modules/weather/UI/WeatherMessage";
+
 import { Forecast } from "../Forecast";
 import { SaveCity } from "../SaveCity";
 

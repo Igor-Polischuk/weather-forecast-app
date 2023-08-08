@@ -1,8 +1,9 @@
 import { CloseCircleOutlined, MenuOutlined } from "@ant-design/icons";
 import { FC, ReactElement, useState } from "react";
-import styles from "./styles.module.scss";
 import { Col, Row } from "antd";
+
 import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown";
+import styles from "./styles.module.scss";
 
 interface IBurgerProps {
   children: ReactElement;

@@ -2,7 +2,7 @@ import { Card, Row, Col } from "antd";
 import { FC } from "react";
 
 import styles from "./styles.module.scss";
-import { getTimeStr } from "../../helpers/get-time-str";
+import { getTimeStr } from "@modules/weather/helpers/get-time-str";
 
 interface ICurrentWeatherMainInfoProps {
   city: string;

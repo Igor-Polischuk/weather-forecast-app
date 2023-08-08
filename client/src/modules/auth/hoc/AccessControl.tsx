@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { FC } from "react";
 
-import { Loader } from "@/modules/common/components/Loader";
+import { Loader } from "@modules/common/components/Loader";
 import { useCurrentUserQuery } from "@/gql";
 import { AccessLevel } from "..";
 

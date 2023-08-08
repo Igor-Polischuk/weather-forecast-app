@@ -2,8 +2,8 @@ import { useCallback, useState } from "react";
 import { AutoComplete, Input } from "antd";
 
 import { useGetCitiesTipsLazyQuery } from "@/gql";
-import { debounce } from "../../../common/utils/debounce";
 import { currentCityVar } from "@/apollo/weather-vars";
+import { debounce } from "@modules/common/utils/debounce";
 
 import styles from './styles.module.scss';
 

@@ -1,7 +1,7 @@
 import { Card, Row, Col, Tooltip } from "antd";
 import { FC } from "react";
 
-import { truncateString } from "../../helpers/trim-string";
+import { truncateString } from "@modules/weather/helpers/trim-string";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { useReactiveVar } from "@apollo/client";
 

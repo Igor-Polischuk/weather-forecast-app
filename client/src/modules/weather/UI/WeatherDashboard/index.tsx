@@ -1,8 +1,8 @@
 import { Row, Col } from "antd";
 
 import { UserActionDropdown } from "@/modules/user/components/UserActionDropdown";
-import { WeatherCards } from "../../components/WeatherCards";
-import { Weather } from "../../components/Weather";
+import { WeatherCards } from "@modules/weather/components/WeatherCards";
+import { Weather } from "@modules/weather/components/Weather";
 import { CloseOutlined } from "@ant-design/icons";
 
 import styles from "./styles.module.scss";

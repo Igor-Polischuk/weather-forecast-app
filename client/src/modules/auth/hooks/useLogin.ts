@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
 import { ApolloError } from "@apollo/client";
+
+import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
 
 
 interface IUseLoginReturningType {
