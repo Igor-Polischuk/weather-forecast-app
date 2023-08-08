@@ -9,7 +9,6 @@ export const AuthModule: IModule = {
     pages: [{
         pageComponent: AuthPage(),
         routePath: '/login',
-        accessLevel: AccessLevel.UNAUTHORIZED
     }]
 }
 

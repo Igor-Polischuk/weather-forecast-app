@@ -1,10 +1,9 @@
-import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useCurrentUserQuery } from "@/gql";
-import { useReactiveVar } from "@apollo/client";
-import { isClickedLogOut } from "@/apollo/user-vars";
-import { AccessLevel } from "..";
+import { FC } from "react";
+
 import { Loader } from "@/modules/common/components/Loader";
+import { useCurrentUserQuery } from "@/gql";
+import { AccessLevel } from "..";
 
 interface IRequireAuthProps {
   children: JSX.Element;
@@ -14,10 +13,9 @@ interface IRequireAuthProps {
 
 export const AccessControl: FC<IRequireAuthProps> = ({ children, access }) => {
   const { data, loading } = useCurrentUserQuery();
-  const wasClickedLogOut = useReactiveVar(isClickedLogOut);
   const location = useLocation();
 
-  const isAuth = data?.currentUser && !wasClickedLogOut;
+  const isAuth = data?.currentUser;
 
   if (loading) {
     return <Loader />;

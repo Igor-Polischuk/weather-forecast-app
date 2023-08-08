@@ -18,8 +18,6 @@ export function updateCitiesWeatherCache({ cache, city, action }: IUpdateCachePa
             variables: { cityName: city },
           }) as GetCurrentWeatherQuery;
 
-          console.log(weatherInSavedCity.currentWeather.weather);
-
           const newItem = {
             __typename: "UserCitiesCurrentWeather",
             city: {

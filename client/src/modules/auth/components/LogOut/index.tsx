@@ -1,24 +1,18 @@
-import { useLogOutMutation } from "@/gql";
 import { useNavigate } from "react-router-dom";
-import { isClickedLogOut } from "@/apollo/user-vars";
-import { currentCityVar } from "@/apollo/weather-vars";
 
 import styles from "./styles.module.scss";
+import { useLogOutMutation } from "@/gql";
+import { currentCityVar } from "@/apollo/weather-vars";
 
 export const LogOut = () => {
-  const [logOut, {client}] = useLogOutMutation();
+  const [logOut, { client }] = useLogOutMutation();
   const navigate = useNavigate();
 
   const logout = async () => {
-    try {
-      await logOut();
-      isClickedLogOut(true);
-      await client.clearStore()
-      currentCityVar('')
-      navigate("/login");
-    } catch (error) {
-      console.error("Error during logout:", error);
-    }
+    await logOut();
+    await client.clearStore();
+    currentCityVar('')
+    navigate("/login");
   };
 
   return (

@@ -1,7 +1,6 @@
 import { useReactiveVar } from "@apollo/client";
 import { Skeleton, Space } from "antd";
 
-
 import { CurrentWeatherMainInfo } from "../../UI/CurrentWeatherMainInfo";
 import { AdditionalWeatherInfo } from "../../UI/AdditionalWeatherInfo";
 import { useSavedCityWeather } from "../../hooks/useSavedCityWeather";
@@ -11,7 +10,7 @@ import { currentCityVar } from "@/apollo/weather-vars";
 import { Forecast } from "../Forecast";
 import { SaveCity } from "../SaveCity";
 
-import styles from './styles.module.scss';
+import styles from "./styles.module.scss";
 
 export const Weather = () => {
   const { weatherInfo } = useSavedCityWeather();
@@ -21,19 +20,16 @@ export const Weather = () => {
   if (cityName === "" && weatherInfo.length > 0) {
     currentCityVar(weatherInfo[0].city);
   }
-
-  const { data, loading, error } = useWeatherData();
   
-  if (loading || !data?.currentWeather) {
+  const { data, loading, error } = useWeatherData();
+
+  if (loading) {
     return <Skeleton active />;
   }
 
-  if (!isCitySelected) {
-    return <WeatherMessage text="Use the search panel to find weather in your city" />;
-  }
-
-  if (error) {
-    return <WeatherMessage text={error.message} />;
+  if (!isCitySelected || !data?.currentWeather || error) {
+    const messageText = error ? error.message : "Use the search panel to find weather in your city";
+    return <WeatherMessage text={messageText} />;
   }
 
   const {
@@ -56,7 +52,7 @@ export const Weather = () => {
         temperature={temperature}
         weatherDesc={weatherDescription}
         weatherMain={weatherCondition}
-        button={<SaveCity/>}
+        button={<SaveCity />}
       />
       <AdditionalWeatherInfo
         humidity={humidity}
