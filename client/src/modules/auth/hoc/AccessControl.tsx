@@ -2,8 +2,8 @@ import { Navigate, useLocation } from "react-router-dom";
 import { FC } from "react";
 
 import { Loader } from "@modules/common/components/Loader";
+import { AccessLevel } from "@/enums/access-levels";
 import { useCurrentUserQuery } from "@/gql";
-import { AccessLevel } from "..";
 
 interface IRequireAuthProps {
   children: JSX.Element;

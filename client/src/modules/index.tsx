@@ -2,6 +2,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { FC } from "react";
 
 import { CommonModule, IModule } from "@modules/common";
+import { AccessLevel } from "@/enums/access-levels";
 import { AccessControl, AuthModule } from "./auth";
 import { WeatherModule } from "./weather";
 
@@ -15,7 +16,7 @@ export const RootModule: FC = () => {
           key={page.routePath}
           path={page.routePath}
           element={
-            <AccessControl access={page.accessLevel}>
+            <AccessControl access={page.accessLevel || AccessLevel.PUBLIC}>
               {page.pageComponent}
             </AccessControl>
           }
