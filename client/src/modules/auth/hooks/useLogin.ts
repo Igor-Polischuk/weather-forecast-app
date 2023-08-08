@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { useCurrentUserLazyQuery, useLoginMutation } from "@/gql";
-import { isClickedLogOut } from "@/apollo/user-vars";
 import { ApolloError } from "@apollo/client";
 
 
@@ -24,7 +23,6 @@ export function useLogin(): IUseLoginReturningType {
         try {
             await login({ variables: inputData });
             await refetch();
-            isClickedLogOut(false);
             navigate('/');
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {

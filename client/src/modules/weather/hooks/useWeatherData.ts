@@ -12,14 +12,15 @@ interface IUseWeatherDataReturningType {
 
 export function useWeatherData(): IUseWeatherDataReturningType {
   const cityName = useReactiveVar(currentCityVar);
-  const isCitySelected = cityName.trim() !== "";
+
+
   const [getCityWeather, { data, loading, error }] = useGetCurrentWeatherLazyQuery();
 
   useEffect(() => {
-    if (isCitySelected) {
+    if (cityName !== '') {
       getCityWeather({ variables: { cityName } });
     }
-  }, [cityName, getCityWeather, isCitySelected]);
+  }, [cityName, getCityWeather]);
 
   return { data, loading, error };
 }
