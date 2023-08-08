@@ -1,9 +1,13 @@
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./apollo/apollo-client";
-import { MainModule } from "./modules";
-const mainModule = new MainModule();
+import { RootModule } from "./modules";
+
 function App() {
-  return <ApolloProvider client={client}>{mainModule.Pages}</ApolloProvider>;
+  return (
+    <ApolloProvider client={client}>
+      <RootModule />
+    </ApolloProvider>
+  );
 }
 
 export default App;

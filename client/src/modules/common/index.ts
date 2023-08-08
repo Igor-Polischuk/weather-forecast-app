@@ -13,3 +13,5 @@ export const CommonModule: IModule = {
         routePath: '*',
     }]
 }
+
+export type { IModule }
