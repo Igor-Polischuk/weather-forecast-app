@@ -1,5 +1,5 @@
+import { AccessLevel } from "@/enums/access-levels";
 import { IModule } from "./interfaces/IModule";
-import { AccessLevel } from "../auth";
 import { MainPage, NotFound } from "./pages";
 
 export const CommonModule: IModule = {

@@ -25,7 +25,7 @@ export const AdditionalWeatherInfo: FC<IAdditionalWeatherInfoProps> = ({
       <Col span={8}>
         <InfoCardWithImage
           image={<img src={windImg} />}
-          text={`${windSpeed} m/s`}
+          text={`${Math.round(windSpeed)} m/s`}
           title="Wind"
         />
       </Col>
