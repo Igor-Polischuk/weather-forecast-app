@@ -1,12 +1,14 @@
 import { animated, useTransition } from "@react-spring/web";
+import { useReactiveVar } from "@apollo/client";
 import { Card, Skeleton, Space } from "antd";
 import { CSSProperties } from "react";
 
 import { useSavedCityWeather } from "@modules/weather/hooks/useSavedCityWeather";
-import { WeatherCard } from "../WeatherCard";
+import { WeatherCard } from "@modules/weather/UI/WeatherCard";
+import { currentCityVar } from "@/apollo/weather-vars";
+import { RemoveCity } from "../RemoveCity";
 
 import styles from "./style.module.scss";
-import { RemoveCity } from "../RemoveCity";
 
 const cardBodyStyles: CSSProperties = {
   overflowY: "auto",
@@ -15,7 +17,8 @@ const cardBodyStyles: CSSProperties = {
 
 export const WeatherCards = () => {
   const { weatherInfo, total, loading } = useSavedCityWeather();
-
+  const city = useReactiveVar(currentCityVar);
+  
   const weatherCards = useTransition(weatherInfo, {
     key: (data: { city: string }) => data.city,
     from: { opacity: 0 },
@@ -44,8 +47,9 @@ export const WeatherCards = () => {
               icon={cityWeatherData.icon}
               onCardClick={cityWeatherData.onClick}
               temperature={cityWeatherData.temperature}
+              active={cityWeatherData.city === city}
               weather={cityWeatherData.weatherDescription}
-              cardButton={<RemoveCity city={cityWeatherData.city}/>}
+              cardButton={<RemoveCity city={cityWeatherData.city} />}
             />
           </animated.div>
         ))}

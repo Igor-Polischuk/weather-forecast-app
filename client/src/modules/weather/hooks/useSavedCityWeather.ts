@@ -1,19 +1,15 @@
 import { CURRENT_WEATHER_QUERY } from "../graphql/query/getCurrentWeather";
 import { currentCityVar } from "@/apollo/weather-vars";
 import { useWeatherInUserCitiesQuery } from "@/gql";
+import { IWeather } from "../interfaces/IWeather";
+
+interface IWeatherInfo extends Omit<IWeather, 'feelsLike'>{
+    onClick(): void;
+    city: string
+}
 
 interface IUseSavedCityWeatherReturningType {
-    weatherInfo: {
-        city: string;
-        temperature: number;
-        humidity: number;
-        pressure: number;
-        windSpeed: number;
-        weatherDescription: string;
-        weatherCondition: string;
-        icon: string;
-        onClick(): void;
-    }[];
+    weatherInfo: IWeatherInfo[];
     loading: boolean;
     total: number;
 }

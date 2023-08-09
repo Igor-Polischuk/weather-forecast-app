@@ -3,13 +3,13 @@ import { Skeleton, Space } from "antd";
 import { CurrentWeatherMainInfo } from "@modules/weather/UI/CurrentWeatherMainInfo";
 import { AdditionalWeatherInfo } from "@modules/weather/UI/AdditionalWeatherInfo";
 import { useWeatherData } from "@modules/weather/hooks/useWeatherData";
-import { WeatherMessage } from "@modules/weather/UI/WeatherMessage";
+import { useDefaultCity } from "@modules/weather/hooks/useDefaultCity";
+import { InfoDisplay } from "@/modules/common/UI/InfoDisplay";
 
 import { Forecast } from "../Forecast";
 import { CitySaveRemoveToggle } from "../CitySaveRemoveToggle";
 
 import styles from "./styles.module.scss";
-import { useDefaultCity } from "../../hooks/useDefaultCity";
 
 export const Weather = () => {
   const { data, loading, error } = useWeatherData();
@@ -23,7 +23,7 @@ export const Weather = () => {
     const messageText = error
       ? error.message
       : "Use the search panel to find weather in your city";
-    return <WeatherMessage text={messageText} />;
+    return <InfoDisplay text={messageText} />;
   }
 
   if (data?.currentWeather) {

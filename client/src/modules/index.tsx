@@ -10,14 +10,14 @@ const modules: IModule[] = [AuthModule, CommonModule, WeatherModule];
 
 export const RootModule: FC = () => {
   const pages = modules.flatMap((module) => {
-    return module.pages.map((page) => {
+    return module.pages.map((pageInfo) => {
       return (
         <Route
-          key={page.routePath}
-          path={page.routePath}
+          key={pageInfo.routePath}
+          path={pageInfo.routePath}
           element={
-            <AccessControl access={page.accessLevel || AccessLevel.PUBLIC}>
-              {page.pageComponent}
+            <AccessControl access={pageInfo.accessLevel || AccessLevel.PUBLIC}>
+              {pageInfo.pageComponent}
             </AccessControl>
           }
         />

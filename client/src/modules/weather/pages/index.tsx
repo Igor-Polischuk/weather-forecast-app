@@ -10,7 +10,6 @@ export const WeatherPage = () => {
     <Space
       direction="vertical"
       size="large"
-      style={{ display: "flex" }}
       className={styles.weatherPage}
     >
       <TopBar />

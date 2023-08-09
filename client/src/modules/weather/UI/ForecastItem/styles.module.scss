@@ -1,0 +1,19 @@
+.forecastItem {
+    border: none;
+    border-radius: 0;
+    background-color: #fff;
+
+    :global(.ant-collapse-header) {
+        align-items: center !important;
+        
+        @media (max-width: 500px) {
+            padding: 5px 0 !important;
+        }
+    }
+
+    :global(.ant-collapse-content-box) {
+        @media (max-width: 500px) {
+            padding: 5px 0 !important;
+        }
+    }
+}

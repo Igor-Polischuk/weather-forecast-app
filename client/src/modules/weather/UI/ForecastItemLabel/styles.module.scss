@@ -1,0 +1,111 @@
+@import "@styles/vars";
+
+.time {
+    font-weight: 400;
+    color: $gray;
+    font-size: 16px;
+
+
+    @media (max-width: 830px) {
+        font-size: 14px;
+    }
+}
+
+.temperature {
+    font-weight: bold;
+    font-size: 26px;
+
+    @media (max-width: 830px) {
+        font-size: 22px;
+    }
+
+    @media (max-width: 830px) {
+        font-size: 18px;
+    }
+
+    @media (max-width: 415px) {
+        font-size: 16px;
+    }
+}
+
+.pop {
+    display: flex;
+    align-items: center;
+
+    img {
+        width: 20px;
+        height: 20px;
+
+        @media (max-width: 830px) {
+            width: 15px;
+            height: 15px;
+        }
+
+
+        @media (max-width: 500px) {
+            width: 9px;
+            height: 9px;
+        }
+    }
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+        
+    @media (max-width: 450px) {
+        gap: 5px;
+    }
+
+    img {
+        width: 35px;
+        height: 35px;
+
+        @media (max-width: 830px) {
+            width: 30px;
+            height: 30px;
+        }
+
+        @media (max-width: 450px) {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    p{
+        @media (max-width: 830px) {
+            font-size: 12px
+        }
+    }
+}
+
+.additional {
+    font-size: 16px;
+    font-weight: 500;
+
+
+    @media (max-width: 830px) {
+        font-size: 14px;
+    }
+
+
+    @media (max-width: 500px) {
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    p{
+        @media (max-width: 500px) {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+}
+
+.tabs {
+    min-height: 585px;
+}

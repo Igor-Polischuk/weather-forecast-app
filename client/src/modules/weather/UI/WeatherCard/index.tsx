@@ -1,9 +1,7 @@
 import { Card, Row, Col, Tooltip } from "antd";
 import { FC } from "react";
 
-import { truncateString } from "@modules/weather/helpers/trim-string";
-import { currentCityVar } from "@/apollo/weather-vars";
-import { useReactiveVar } from "@apollo/client";
+import { truncateString } from "@/modules/common/utils/trimString";
 
 import styles from "./styles.module.scss";
 
@@ -12,8 +10,9 @@ interface IWeatherCardProps {
   weather: string;
   temperature: number;
   icon: string;
+  active: boolean;
   onCardClick: () => void;
-  cardButton?: JSX.Element
+  cardButton?: JSX.Element;
 }
 
 export const WeatherCard: FC<IWeatherCardProps> = ({
@@ -23,16 +22,12 @@ export const WeatherCard: FC<IWeatherCardProps> = ({
   weather,
   onCardClick,
   cardButton,
-
+  active,
 }) => {
-  const currentCity = useReactiveVar(currentCityVar);
-
-  const active = currentCity === city;
-
   return (
     <Card
       bodyStyle={{ padding: 5 }}
-      className={`${styles.weatherCard} fade ${active ? styles.active : ''}`}
+      className={`${styles.weatherCard} fade ${active ? styles.active : ""}`}
       onClick={onCardClick}
       tabIndex={0}
     >

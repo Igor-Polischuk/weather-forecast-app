@@ -5,7 +5,7 @@ interface IWeatherMessage {
   text: string
 }
 
-export const WeatherMessage: FC<IWeatherMessage> = ({text}) => {
+export const InfoDisplay: FC<IWeatherMessage> = ({text}) => {
   return (
     <Card>
       <h3>{text}</h3>

@@ -1,5 +1,6 @@
 .weatherPage{
     padding: 20px 200px;
+    display: flex;
 
     @media (max-width: 1430px) {
         padding: 20px 100px;

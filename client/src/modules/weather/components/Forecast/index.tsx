@@ -1,10 +1,12 @@
 import { Card, Row, Skeleton, Tabs } from "antd";
 import { FC } from "react";
 
-import { ForecastItem } from "./ForecastItem";
 import { useGetForecastQuery } from "@/gql";
 
-import { WeatherByDay, groupWeatherByDay } from "@/modules/weather/helpers/group-weather-by-day";
+import { WeatherByDay, groupWeatherByDay } from "@/modules/weather/helpers/groupWeatherByDay";
+import { InfoDisplay } from "@/modules/common/UI/InfoDisplay";
+import { ForecastItem } from "@modules/weather/UI/ForecastItem";
+
 import styles from "./styles.module.scss";
 
 interface IForecastProps {
@@ -19,12 +21,12 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
   }
 
   if (!data?.forecast || error) {
-    return null;
+    return error ? <InfoDisplay text={error.message}/> : null;
   }
 
   const weatherByDay = groupWeatherByDay(data.forecast.items);
 
-  const renderForecastItems = (weatherPerDay: WeatherByDay) => {
+  const forecastItems = (weatherPerDay: WeatherByDay) => {
     return weatherPerDay.data.map((weather, i) => {
       const temp = Math.round(weather.temperature);
       const pop = Math.round(weather.pop * 100);
@@ -34,7 +36,7 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
           temperature={temp}
           pop={pop}
           time={weather.time}
-          weather={weather.weatherDescription}
+          weatherDescription={weather.weatherDescription}
           key={i}
           humidity={weather.humidity}
           pressure={weather.pressure}
@@ -48,7 +50,7 @@ export const Forecast: FC<IForecastProps> = ({ cityName }) => {
     return {
       label: weatherPerDay.dayName,
       key: `${weatherPerDay.dayName}&${i}`,
-      children: <div>{renderForecastItems(weatherPerDay)}</div>,
+      children: <div>{forecastItems(weatherPerDay)}</div>,
       
     };
   });

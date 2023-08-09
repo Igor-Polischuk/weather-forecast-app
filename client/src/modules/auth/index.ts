@@ -12,4 +12,4 @@ export const AuthModule: IModule = {
     }]
 }
 
-export {LoginForm, AccessControl, AuthPage, LogOut};
+export {LoginForm, AccessControl, LogOut};
