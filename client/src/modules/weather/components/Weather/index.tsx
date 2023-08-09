@@ -6,7 +6,7 @@ import { useWeatherData } from "@modules/weather/hooks/useWeatherData";
 import { WeatherMessage } from "@modules/weather/UI/WeatherMessage";
 
 import { Forecast } from "../Forecast";
-import { SaveCity } from "../SaveCity";
+import { CitySaveRemoveToggle } from "../CitySaveRemoveToggle";
 
 import styles from "./styles.module.scss";
 import { useDefaultCity } from "../../hooks/useDefaultCity";
@@ -47,7 +47,7 @@ export const Weather = () => {
           temperature={temperature}
           weatherDesc={weatherDescription}
           weatherMain={weatherCondition}
-          button={<SaveCity />}
+          button={<CitySaveRemoveToggle />}
         />
         <AdditionalWeatherInfo
           humidity={humidity}

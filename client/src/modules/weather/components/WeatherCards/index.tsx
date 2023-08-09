@@ -6,6 +6,7 @@ import { useSavedCityWeather } from "@modules/weather/hooks/useSavedCityWeather"
 import { WeatherCard } from "../WeatherCard";
 
 import styles from "./style.module.scss";
+import { RemoveCity } from "../RemoveCity";
 
 const cardBodyStyles: CSSProperties = {
   overflowY: "auto",
@@ -44,6 +45,7 @@ export const WeatherCards = () => {
               onCardClick={cityWeatherData.onClick}
               temperature={cityWeatherData.temperature}
               weather={cityWeatherData.weatherDescription}
+              cardButton={<RemoveCity city={cityWeatherData.city}/>}
             />
           </animated.div>
         ))}

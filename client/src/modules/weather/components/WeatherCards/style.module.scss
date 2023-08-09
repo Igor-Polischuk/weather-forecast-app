@@ -1,3 +1,5 @@
+@import "@styles/vars.scss";
+
 .cards {
     max-height: 625px;
     height: 100%;
@@ -6,7 +8,7 @@
     gap: 0px;
 }
 
-.cardHeader{
+.cardHeader {
     padding: 15px 0px;
     min-height: 85px;
     display: flex;

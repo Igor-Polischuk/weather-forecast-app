@@ -6,7 +6,7 @@ import { updateCitiesWeatherCache } from "../helpers/update-cities-weather-cache
 
 interface IUseCityManagementReturningType {
   onSave: () => void;
-  onRemove: () => void;
+  onRemove: (city?: string) => void;
   loading: boolean;
   cantSaveCity: boolean;
   isSavedCity: boolean;
@@ -25,10 +25,10 @@ export function useCityManagement(): IUseCityManagementReturningType {
 
   const isSavedCity = !!weatherInfo.find((info) => info.city === currentCity);
 
-  const onRemove = () => {
+  const onRemove = (city?: string) => {
     removeCity({
-      variables: { cityName: currentCity },
-      update: (cache) => updateCitiesWeatherCache({ cache, action: 'REMOVE', city: currentCity }),
+      variables: { cityName: city || currentCity },
+      update: (cache) => updateCitiesWeatherCache({ cache, action: 'REMOVE', city: city || currentCity }),
     });
   };
 

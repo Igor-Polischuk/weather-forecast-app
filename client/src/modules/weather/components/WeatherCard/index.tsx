@@ -13,13 +13,17 @@ interface IWeatherCardProps {
   temperature: number;
   icon: string;
   onCardClick: () => void;
+  cardButton?: JSX.Element
 }
+
 export const WeatherCard: FC<IWeatherCardProps> = ({
   city,
   icon,
   temperature,
   weather,
   onCardClick,
+  cardButton,
+
 }) => {
   const currentCity = useReactiveVar(currentCityVar);
 
@@ -30,6 +34,7 @@ export const WeatherCard: FC<IWeatherCardProps> = ({
       bodyStyle={{ padding: 5 }}
       className={`${styles.weatherCard} fade ${active ? styles.active : ''}`}
       onClick={onCardClick}
+      tabIndex={0}
     >
       <Row
         className={styles.weatherCard}
@@ -50,8 +55,9 @@ export const WeatherCard: FC<IWeatherCardProps> = ({
           </div>
         </Col>
         <Col xl={5}>
-          <Row justify={"end"}>
+          <Row justify={"end"} align={"middle"} className={styles.tempRow}>
             <p className={styles.temperature}>{Math.round(temperature)}°С</p>
+            {cardButton}
           </Row>
         </Col>
       </Row>

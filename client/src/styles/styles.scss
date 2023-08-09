@@ -79,3 +79,18 @@ button:focus-visible {
 #root {
   width: 100%;
 }
+
+.cardRemove {
+  color: #3d3d3d;
+  opacity: 0;
+  width: 0;
+
+  &:hover{
+      color: $red;
+  }
+
+  svg {
+      width: 15px;
+      height: 15px;
+  }
+}

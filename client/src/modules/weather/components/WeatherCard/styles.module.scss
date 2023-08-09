@@ -4,6 +4,11 @@
     &:hover {
         background-color: rgba(0, 0, 0, .02);
         cursor: pointer;
+
+        :global(.cardRemove){
+            opacity: 1;
+            width: auto;
+        }
     }
 
     img {
@@ -28,6 +33,10 @@
             font-size: 16px;
         }
     }
+}
+
+.tempRow{
+    gap: 5px;
 }
 
 .active{

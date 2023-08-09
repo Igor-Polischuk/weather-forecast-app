@@ -1,8 +1,8 @@
 import { Button } from "antd";
 import { useCityManagement } from "@modules/weather/hooks/useCityManagement";
 
-export const SaveCity = () => {
-  const {onSave, onRemove, loading, isSavedCity, cantSaveCity} = useCityManagement()
+export const CitySaveRemoveToggle = () => {
+  const {onSave, onRemove, loading, isSavedCity, cantSaveCity} = useCityManagement();
 
   return !isSavedCity ? (
     <Button type="primary" disabled={cantSaveCity} block onClick={onSave} loading={loading}>
@@ -13,7 +13,7 @@ export const SaveCity = () => {
       type="default"
       danger
       block
-      onClick={onRemove}
+      onClick={() => onRemove()}
       loading={loading}
     >
       Remove

@@ -45,7 +45,7 @@ const ForecastItemLabel = ({ icon,
     weather,
   }: IForecastItemProps) => {
     return (
-        <Row justify={"space-between"} align={"middle"}>
+        <Row justify={"space-between"} align={"middle"} tabIndex={0} role="link">
           <Col span={2} xs={4} className={styles.time}>
             <p>{time}</p>
           </Col>
