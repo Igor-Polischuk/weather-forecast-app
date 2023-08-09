@@ -3,14 +3,12 @@ import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
 import { SignUpInput } from '../auth/dto/input/sign-up';
-import { CityService } from 'src/city/city.service';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    private readonly cityService: CityService,
   ) {}
 
   saveUser(user: SignUpInput): Promise<User> {

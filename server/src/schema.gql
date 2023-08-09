@@ -93,9 +93,9 @@ type Query {
   users: [User!]!
   user(id: Int!): User!
   currentUser: User!
-  getCitiesTips(cityName: String!): [CitiesNameOutput!]!
   currentWeather(WeatherInput: WeatherInput!): CurrentWeatherOutput!
   forecast(WeatherInput: WeatherInput!): ForecastOutput!
+  getCitiesTips(cityName: String!): [CitiesNameOutput!]!
   getUserCities: [City!]!
   getCurrentWeatherInUserCities(UserCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput!): UserCitiesCurrentWeatherOutput!
 }
@@ -114,6 +114,7 @@ enum WeatherUnits {
 input UserCitiesCurrentWeatherInput {
   page: Int!
   pageSize: Int!
+  units: WeatherUnits! = Metric
 }
 
 type Mutation {

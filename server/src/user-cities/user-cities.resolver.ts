@@ -25,11 +25,12 @@ export class UserCitiesResolver {
     userCitiesCurrentWeatherInput: UserCitiesCurrentWeatherInput,
     @CurrentUser() user: IUser,
   ): Promise<UserCitiesCurrentWeatherOutput> {
-    const { page, pageSize: limit } = userCitiesCurrentWeatherInput;
+    const { page, pageSize: limit, units } = userCitiesCurrentWeatherInput;
     return this.userCitiesService.getCurrentWeatherInUserCities({
       user,
       page,
       pageSize: limit,
+      units,
     });
   }
 

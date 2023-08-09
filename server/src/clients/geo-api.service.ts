@@ -14,12 +14,13 @@ import { QueryParams } from 'src/common/utils/query-params/QueryParams';
 export class GeoApiService {
   private appid = process.env.GEO_API_KEY;
   private baseUrl = process.env.GEO_API_BASE_URL;
+  private cityLimitApi = 5;
 
   constructor(private readonly httpService: HttpService) {}
 
   async getCities(cityName: string): Promise<CitiesNameOutput[]> {
     const query = new QueryParams({
-      limit: 5,
+      limit: this.cityLimitApi,
       q: cityName,
       appid: this.appid,
     });
@@ -60,10 +61,5 @@ export class GeoApiService {
         lon: city.lon,
       };
     });
-  }
-
-  private getUrl(cityName: string): string {
-    const locationName = encodeURIComponent(cityName.trim());
-    return `/direct?q=${locationName}&limit=5&appid=${process.env.GEO_API_KEY}`;
   }
 }

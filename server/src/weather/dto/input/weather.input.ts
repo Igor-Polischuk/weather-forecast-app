@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Field, InputType, registerEnumType } from '@nestjs/graphql';
-import { WeatherUnits } from 'src/weather/WeatherUnits';
+import { MeasurementSystem } from 'src/common/enums/measurement-system';
 
-registerEnumType(WeatherUnits, {
+registerEnumType(MeasurementSystem, {
     name: 'WeatherUnits',
   });
 
@@ -11,6 +11,6 @@ export class WeatherInput {
   @Field()
   city: string;
 
-  @Field(() => WeatherUnits, {defaultValue: 'metric'})
-  units: WeatherUnits
+  @Field(() => MeasurementSystem, {defaultValue: 'metric'})
+  units: MeasurementSystem
 }

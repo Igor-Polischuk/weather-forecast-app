@@ -48,7 +48,7 @@ export class AuthResolver {
     @Context() context,
     @CurrentUser() user: IUser,
   ): Promise<boolean> {
-    this.authService.logout(user);
+    await this.authService.logout(user);
 
     clearTokensCookie(context.res);
 

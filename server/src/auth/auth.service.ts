@@ -84,8 +84,8 @@ export class AuthService {
     return this.usersService.saveUser({ ...createUserInput, password });
   }
 
-  logout(user: IUser) {
-    this.refreshTokenStrategy.clearRefreshToken(user);
+  async logout(user: IUser): Promise<void> {
+    await this.refreshTokenStrategy.clearRefreshToken(user);
   }
 
   private async generateTokens(user: IUser): Promise<ITokens> {

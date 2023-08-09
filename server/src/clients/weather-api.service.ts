@@ -9,6 +9,7 @@ import { IForecastApiResponse } from './interfaces/IForecastApiResponse';
 import { ForecastOutput } from 'src/weather/dto/output/forecast.output';
 import { ICoordinate } from './interfaces/ICoordinates';
 import { QueryParams } from 'src/common/utils/query-params/QueryParams';
+import { MeasurementSystem } from 'src/common/enums/measurement-system';
 
 @Injectable()
 export class WeatherApiService {
@@ -18,13 +19,13 @@ export class WeatherApiService {
   constructor(private readonly httpService: HttpService) {}
 
   async getCurrentWeather(
-    coord: ICoordinate,
-    units: string,
+    { lat, lon }: ICoordinate,
+    units: MeasurementSystem,
   ): Promise<CurrentWeatherOutput> {
     const query = new QueryParams({
-      lat: coord.lat,
-      lon: coord.lon,
-      units: units,
+      lat,
+      lon,
+      units,
       appid: this.apiKey,
     });
 
@@ -44,13 +45,13 @@ export class WeatherApiService {
   }
 
   async getForecast(
-    coord: ICoordinate,
-    units: string,
+    { lat, lon }: ICoordinate,
+    units: MeasurementSystem,
   ): Promise<ForecastOutput> {
     const query = new QueryParams({
-      lat: coord.lat,
-      lon: coord.lon,
-      units: units,
+      lat,
+      lon,
+      units,
       appid: this.apiKey,
     });
 

@@ -9,9 +9,9 @@ import {
 import { IGetCurrentWeatherInUserCitiesParams } from './interfaces/current-cities-weather-param';
 import { ICreatePaginationReturningType } from 'src/common/utils/pagination/IPagination';
 import { createPagination } from 'src/common/utils/pagination/create-pagination';
+import { MeasurementSystem } from 'src/common/enums/measurement-system';
 import { LimitExceededException } from 'src/common/exceptions';
 import { WeatherService } from 'src/weather/weather.service';
-import { WeatherUnits } from 'src/weather/WeatherUnits';
 import { User } from 'src/users/entities/user.entity';
 import { City } from 'src/city/entities/city.entity';
 import { CityService } from 'src/city/city.service';
@@ -70,17 +70,18 @@ export class UserCitiesService {
     params: IGetCurrentWeatherInUserCitiesParams,
   ): Promise<UserCitiesCurrentWeatherOutput> {
     const { data, pageInfo } = await this.getCitiesAtPage(params);
-    const weatherInfo = await this.getWeatherInfoForCities(data);
+    const weatherInfo = await this.getWeatherInfoForCities(data, params.units);
     return { list: weatherInfo, pageInfo };
   }
 
   private async getWeatherInfoForCities(
     cities: City[],
+    units: MeasurementSystem,
   ): Promise<UserCitiesCurrentWeather[]> {
     const weatherInfoPromises = cities.map(async (city) => {
       const weatherInCity = await this.weatherService.getCurrentWeather(
         city.fullname,
-        WeatherUnits.Metric,
+        units,
       );
 
       return { weatherInCity, city };

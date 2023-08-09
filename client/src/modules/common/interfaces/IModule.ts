@@ -1,4 +1,4 @@
-import { AccessLevel } from "@/modules/auth"
+import { AccessLevel } from "@/enums/access-levels";
 
 export interface IModule {
     pages: IModulePage[]
