@@ -5,9 +5,9 @@ import { UserCitiesCurrentWeatherOutput } from './dto/user-cities-weather.output
 import { UserCitiesCurrentWeatherInput } from './dto/user-cities-weather.input';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UserCitiesService } from './user-cities.service';
-import { CurrentUser } from '../users/decorators/CurrentUser';
+import { CurrentUser } from '../user/decorators/CurrentUser';
 import { City } from 'src/city/entities/city.entity';
-import { IUser } from '../users/dto/User';
+import { IUser } from '../user/dto/User';
 
 @Resolver()
 @UseGuards(JwtAuthGuard)

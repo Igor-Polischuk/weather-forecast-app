@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Field, ObjectType } from '@nestjs/graphql';
 import { BaseEntity } from 'src/database/entities/base.entity';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/user/entities/user.entity';
 import { Column, Entity, ManyToMany } from 'typeorm';
 
 @Entity()

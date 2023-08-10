@@ -6,7 +6,7 @@ import { SignUpInput } from '../auth/dto/input/sign-up';
 import { User } from './entities/user.entity';
 
 @Injectable()
-export class UsersService {
+export class UserService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}

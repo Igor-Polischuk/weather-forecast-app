@@ -8,7 +8,7 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { UsersModule } from 'src/users/users.module';
+import { UserModule } from 'src/user/user.module';
 import { AuthResolver } from './auth.resolver';
 import { AuthService } from './auth.service';
 
@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
     TypeOrmModule.forFeature([RefreshToken]),
     ConfigModule.forRoot(),
     PassportModule,
-    UsersModule,
+    UserModule,
     JwtModule.register({
       signOptions: { expiresIn: process.env.ACCESS_TOKEN_MAX_AGE },
       secret: process.env.JWT_SECRET,

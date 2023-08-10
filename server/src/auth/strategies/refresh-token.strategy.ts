@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import * as jwt from 'jsonwebtoken';
 
 import { RefreshToken } from '../entities/refresh-token.entity';
-import { IUser } from 'src/users/dto/User';
+import { IUser } from 'src/user/dto/User';
 
 @Injectable()
 export class RefreshTokenStrategy {

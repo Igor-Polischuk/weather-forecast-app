@@ -3,13 +3,13 @@ import { UnauthorizedException, UseGuards } from '@nestjs/common';
 
 import { SignUpInput } from 'src/auth/dto/input/sign-up';
 import { GqlAuthGuard } from './guards/gql-auth.guard';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/user/entities/user.entity';
 import { LoginOutput } from './dto/output/login';
 import { LoginInput } from './dto/input/login';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { CurrentUser } from 'src/users/decorators/CurrentUser';
-import { IUser } from 'src/users/dto/User';
+import { CurrentUser } from 'src/user/decorators/CurrentUser';
+import { IUser } from 'src/user/dto/User';
 import { clearTokensCookie, setTokensCookie } from './helpers/cookie';
 
 @Resolver()

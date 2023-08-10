@@ -12,10 +12,10 @@ import { createPagination } from 'src/common/utils/pagination/create-pagination'
 import { MeasurementSystem } from 'src/common/enums/measurement-system';
 import { LimitExceededException } from 'src/common/exceptions';
 import { WeatherService } from 'src/weather/weather.service';
-import { User } from 'src/users/entities/user.entity';
+import { User } from 'src/user/entities/user.entity';
 import { City } from 'src/city/entities/city.entity';
 import { CityService } from 'src/city/city.service';
-import { IUser } from 'src/users/dto/User';
+import { IUser } from 'src/user/dto/User';
 
 import {
   UserCitiesCurrentWeather,

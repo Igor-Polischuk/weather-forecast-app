@@ -5,15 +5,15 @@ import * as bcrypt from 'bcrypt';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 import { LoginResponse } from './interfaces/IAuthReturning';
 import { SignUpInput } from 'src/auth/dto/input/sign-up';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
-import { IUser, UserDto } from 'src/users/dto/User';
+import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
+import { IUser, UserDto } from 'src/user/dto/User';
 import { ITokens } from './interfaces/ITokens';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
+    private usersService: UserService,
     private jwtService: JwtService,
     private refreshTokenStrategy: RefreshTokenStrategy,
   ) {}
