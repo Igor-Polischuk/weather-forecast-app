@@ -13,7 +13,6 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
     if (operation.operationName === 'Refresh' || operation.operationName === 'Login') {
       return
     }
-    console.log(graphQLErrors);
     
     return new Observable((observer) => {
       (async () => {

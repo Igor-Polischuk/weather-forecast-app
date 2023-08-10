@@ -37,8 +37,6 @@ export class WeatherApiService {
       const weather = data.data;
       return transformCurrentWeatherApiResponse(weather);
     } catch (error) {
-      console.log(error);
-
       throw new ForbiddenException('API not available');
     }
   }
@@ -65,8 +63,6 @@ export class WeatherApiService {
 
       return transformForecastApiResponse(forecast);
     } catch (error) {
-      console.log(error);
-
       throw new ForbiddenException('API not available');
     }
   }

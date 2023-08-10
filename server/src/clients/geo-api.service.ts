@@ -34,7 +34,6 @@ export class GeoApiService {
 
       return this.transformCitiesInfo(uniqueCities);
     } catch (error) {
-      console.log(error);
       throw new ForbiddenException('API not available');
     }
   }

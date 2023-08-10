@@ -17,7 +17,9 @@ import { ClientsModule } from './clients/clients.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true, 
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
@@ -38,3 +40,4 @@ import { ClientsModule } from './clients/clients.module';
   ]
 })
 export class AppModule {}
+

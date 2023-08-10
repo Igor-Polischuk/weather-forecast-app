@@ -22,17 +22,10 @@ export class RefreshTokenStrategy {
     return refreshToken;
   }
 
-  async saveRefreshToken(user: IUser, token: string): Promise<RefreshToken>{
-    const tokenData = await this.tokenRepository.findOne({where: { user: {id: user.id} }});
+  async saveRefreshToken(user: IUser, token: string): Promise<string>{
+    await this.tokenRepository.upsert({user, refreshToken: token}, ['user'])
 
-    if (tokenData){
-        tokenData.refreshToken = token;
-        return this.tokenRepository.save(tokenData);
-    }
-
-    const newToken = this.tokenRepository.create({user, refreshToken: token});
-
-    return this.tokenRepository.save(newToken);
+    return token;
   }
 
   async findRefreshToken(refreshToken: string): Promise<RefreshToken | null> {
@@ -46,11 +39,6 @@ export class RefreshTokenStrategy {
     } catch {
         throw new UnauthorizedException('Invalid token');
     }
-  }
-
-  async generateAndSaveToken(user: IUser): Promise<string>{
-    const refreshToken = await this.generateRefreshToken(user);
-    return (await this.saveRefreshToken(user, refreshToken)).refreshToken;
   }
 
   async clearRefreshToken(user: IUser): Promise<void> {

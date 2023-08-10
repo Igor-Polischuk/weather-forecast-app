@@ -94,10 +94,12 @@ export class AuthService {
       sub: user.id,
     });
 
-    const refreshToken = await this.refreshTokenStrategy.generateAndSaveToken({
+    const refreshToken = await this.refreshTokenStrategy.generateRefreshToken({
       id: user.id,
       email: user.email,
     });
+
+    await this.refreshTokenStrategy.saveRefreshToken(user, refreshToken);
 
     return {
       refreshToken,
