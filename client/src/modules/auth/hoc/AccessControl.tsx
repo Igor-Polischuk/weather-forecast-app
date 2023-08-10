@@ -15,7 +15,7 @@ export const AccessControl: FC<IRequireAuthProps> = ({ children, access }) => {
   const { data, loading } = useCurrentUserQuery();
   const location = useLocation();
 
-  const isAuth = data?.currentUser;
+  const isAuth = !!data?.currentUser;
 
   if (loading) {
     return <Loader />;

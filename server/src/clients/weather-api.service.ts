@@ -35,7 +35,6 @@ export class WeatherApiService {
       const data =
         await this.httpService.axiosRef.get<ICurrentWeatherApiResponse>(url);
       const weather = data.data;
-
       return transformCurrentWeatherApiResponse(weather);
     } catch (error) {
       console.log(error);

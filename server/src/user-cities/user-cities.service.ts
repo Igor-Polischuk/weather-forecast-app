@@ -79,6 +79,7 @@ export class UserCitiesService {
     units: MeasurementSystem,
   ): Promise<UserCitiesCurrentWeather[]> {
     const weatherInfoPromises = cities.map(async (city) => {
+      console.log(city.fullname);
       const weatherInCity = await this.weatherService.getCurrentWeather(
         city.fullname,
         units,

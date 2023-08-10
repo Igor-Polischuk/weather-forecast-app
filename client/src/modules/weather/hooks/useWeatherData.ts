@@ -22,11 +22,14 @@ export function useWeatherData(): IUseWeatherDataReturningType {
   useEffect(() => {
     if (cityName === "" && weatherInfo.length > 0) {
       currentCityVar(weatherInfo[0].city);
-  }
+    }
+  }, [cityName, weatherInfo]);
+
+  useEffect(() => {
     if (cityName !== '') {
       getCityWeather({ variables: { cityName } });
     }
-  }, [cityName, getCityWeather, weatherInfo]);
+  }, [cityName, getCityWeather])
 
   return { data, loading, error, cityName };
 }

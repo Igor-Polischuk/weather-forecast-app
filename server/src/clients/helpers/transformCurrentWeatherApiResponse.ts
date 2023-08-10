@@ -45,7 +45,7 @@ export function transformCurrentWeatherApiResponse(
     sunset: sys.sunset || 0,
     timezone: timezone || 0,
   };
-
+  
   return {
     weather: mainData,
     timezone: timezoneData,

@@ -76,8 +76,8 @@ export type LoginOutput = {
 export type Mutation = {
   __typename?: 'Mutation';
   login: LoginOutput;
-  logout: Scalars['String']['output'];
-  refresh: Scalars['String']['output'];
+  logout: Scalars['Boolean']['output'];
+  refresh: Scalars['Boolean']['output'];
   removeCity: Array<City>;
   saveCity: Array<City>;
   signup: User;
@@ -175,6 +175,7 @@ export type UserCitiesCurrentWeather = {
 export type UserCitiesCurrentWeatherInput = {
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
+  units?: WeatherUnits;
 };
 
 export type UserCitiesCurrentWeatherOutput = {
@@ -213,7 +214,7 @@ export enum WeatherUnits {
 export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LogOutMutation = { __typename?: 'Mutation', logout: string };
+export type LogOutMutation = { __typename?: 'Mutation', logout: boolean };
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String']['input'];
@@ -226,7 +227,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Lo
 export type RefreshMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RefreshMutation = { __typename?: 'Mutation', refresh: string };
+export type RefreshMutation = { __typename?: 'Mutation', refresh: boolean };
 
 export type RemoveCityMutationVariables = Exact<{
   cityName: Scalars['String']['input'];

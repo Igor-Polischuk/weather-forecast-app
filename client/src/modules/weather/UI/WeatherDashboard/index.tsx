@@ -14,7 +14,7 @@ export const WeatherDashboard = () => {
         <Weather/>
       </Col>
       <Col xs={0} md={9} lg={7}>
-        <div className={`${styles.sidebar}`}>
+        <div className={styles.sidebar}>
           <Row
             className={styles.sidebarTop}
             justify={"space-between"}
