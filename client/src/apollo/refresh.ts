@@ -7,6 +7,6 @@ export const refreshToken = async () => {
       mutation: REFRESH_MUTATION,
     });
   } catch (error) {
-    console.log(error);
+    //
   }
 };

@@ -2,7 +2,7 @@ import { Navigate, useLocation } from "react-router-dom";
 import { FC } from "react";
 
 import { Loader } from "@modules/common/components/Loader";
-import { AccessLevel } from "@/enums/access-levels";
+import { AccessLevel } from "@/modules/auth/access-levels";
 import { useCurrentUserQuery } from "@/gql";
 
 interface IRequireAuthProps {
@@ -12,7 +12,9 @@ interface IRequireAuthProps {
 }
 
 export const AccessControl: FC<IRequireAuthProps> = ({ children, access }) => {
-  const { data, loading } = useCurrentUserQuery();
+  const { data, loading } = useCurrentUserQuery({
+    fetchPolicy: 'cache-only'
+  });
   const location = useLocation();
 
   const isAuth = !!data?.currentUser;

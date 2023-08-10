@@ -2,7 +2,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { FC } from "react";
 
 import { CommonModule, IModule } from "@modules/common";
-import { AccessLevel } from "@/enums/access-levels";
+import { AccessLevel } from "@/modules/auth/access-levels";
 import { AccessControl, AuthModule } from "./auth";
 import { WeatherModule } from "./weather";
 

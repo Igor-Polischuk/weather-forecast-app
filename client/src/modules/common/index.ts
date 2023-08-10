@@ -1,4 +1,4 @@
-import { AccessLevel } from "@/enums/access-levels";
+import { AccessLevel } from "@/modules/auth/access-levels";
 import { IModule } from "./interfaces/IModule";
 import { MainPage, NotFound } from "./pages";
 
