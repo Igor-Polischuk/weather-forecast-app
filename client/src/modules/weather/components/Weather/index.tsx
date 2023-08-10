@@ -1,9 +1,8 @@
-import { Skeleton, Space } from "antd";
+import { Empty, Skeleton, Space } from "antd";
 
 import { CurrentWeatherMainInfo } from "@modules/weather/UI/CurrentWeatherMainInfo";
 import { AdditionalWeatherInfo } from "@modules/weather/UI/AdditionalWeatherInfo";
 import { useWeatherData } from "@modules/weather/hooks/useWeatherData";
-import { InfoDisplay } from "@modules/common/UI/InfoDisplay";
 
 import { Forecast } from "../Forecast";
 import { CitySaveRemoveToggle } from "../CitySaveRemoveToggle";
@@ -18,10 +17,17 @@ export const Weather = () => {
   }
 
   if (!data?.currentWeather || error) {
-    const messageText = error
-      ? error.message
-      : "Use the search panel to find weather in your city";
-    return <InfoDisplay text={messageText} />;
+    const [message, image] = error
+      ? [
+          error.message,
+          "https://img.freepik.com/free-icon/computer_318-365870.jpg?size=626&ext=jpg&ga=GA1.2.53924716.1685835618&semt=sph",
+        ]
+      : [
+          "Use the search panel to find weather in your city",
+          "https://img.freepik.com/premium-vector/data-search-found-illustration-concept_108061-574.jpg?size=626&ext=jpg&ga=GA1.1.53924716.1685835618&semt=ais",
+        ];
+
+    return <Empty description={message} image={image} />;
   }
 
   const {

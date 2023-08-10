@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { AutoComplete, Input } from "antd";
 
 import { useGetCitiesTipsLazyQuery } from "@/gql";
-import { currentCityVar } from "@/apollo/weather-vars";
+import { currentCityVar } from "@/modules/weather/vars/city-vars";
 import { debounce } from "@modules/common/utils/debounce";
 
 import styles from './styles.module.scss';

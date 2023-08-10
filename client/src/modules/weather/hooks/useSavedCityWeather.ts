@@ -1,5 +1,5 @@
 import { CURRENT_WEATHER_QUERY } from "../graphql/query/getCurrentWeather";
-import { currentCityVar } from "@/apollo/weather-vars";
+import { currentCityVar } from "@/modules/weather/vars/city-vars";
 import { useWeatherInUserCitiesQuery } from "@/gql";
 import { IWeather } from "../interfaces/IWeather";
 

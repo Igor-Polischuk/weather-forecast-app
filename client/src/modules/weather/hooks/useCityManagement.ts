@@ -1,6 +1,6 @@
 import { useRemoveCityMutation, useSaveCityMutation } from "@/gql";
 import { useReactiveVar } from "@apollo/client";
-import { currentCityVar } from "@/apollo/weather-vars";
+import { currentCityVar } from "@/modules/weather/vars/city-vars";
 import { useSavedCityWeather } from "./useSavedCityWeather";
 import { updateCitiesWeatherCache } from "../helpers/updateCitiesWeatherCache";
 

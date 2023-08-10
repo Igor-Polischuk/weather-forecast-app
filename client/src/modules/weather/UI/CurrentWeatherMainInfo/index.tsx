@@ -21,7 +21,7 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
   weatherDesc,
   weatherMain,
   feelsLike,
-  button
+  button,
 }) => {
   return (
     <Card
@@ -29,7 +29,9 @@ export const CurrentWeatherMainInfo: FC<ICurrentWeatherMainInfoProps> = ({
       title={
         <Row justify={"space-between"} align={"middle"}>
           <Col md={18}>{`${city} as of ${getTimeStr()}`}</Col>
-          <Col md={6}>{button}</Col>
+          <Col md={6}>
+            <Row justify={"end"} align={"middle"}>{button}</Row>
+          </Col>
         </Row>
       }
     >

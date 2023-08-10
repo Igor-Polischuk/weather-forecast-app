@@ -2,9 +2,9 @@ import { InfoCardWithImage } from "@/modules/common/components/InfoCardWithImage
 import { Row, Col } from "antd";
 import { FC } from "react";
 
-import humidityImg from "@assets/humidity.png";
-import pressureImg from "@assets/pressure.png";
-import windImg from "@assets/wind.png";
+import humidityImg from "@assets/images/humidity.png";
+import pressureImg from "@assets/images/pressure.png";
+import windImg from "@assets/images/wind.png";
 import styles from './styles.module.scss';
 
 interface IAdditionalWeatherInfoProps {

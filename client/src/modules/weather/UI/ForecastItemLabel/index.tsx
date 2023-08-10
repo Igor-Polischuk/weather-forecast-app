@@ -4,7 +4,7 @@ import { FC } from "react";
 import { IForecastItemProps } from "@modules/weather/UI/ForecastItem";
 
 import styles from "./styles.module.scss";
-import drop from "@assets/drop.png";
+import drop from "@assets/images/drop.png";
 
 export const ForecastItemLabel: FC<IForecastItemProps> = ({ icon,
     temperature,

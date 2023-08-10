@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { currentCityVar } from "@/apollo/weather-vars";
+import { currentCityVar } from "@/modules/weather/vars/city-vars";
 import { useLogOutMutation } from "@/gql";
 
 import styles from "./styles.module.scss";

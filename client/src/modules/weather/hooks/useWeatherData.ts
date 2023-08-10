@@ -2,7 +2,7 @@ import { ApolloError, useReactiveVar } from "@apollo/client";
 import { useEffect } from "react";
 
 import { GetCurrentWeatherQuery, useGetCurrentWeatherLazyQuery } from "@/gql";
-import { currentCityVar } from "@/apollo/weather-vars";
+import { currentCityVar } from "@/modules/weather/vars/city-vars";
 import { useSavedCityWeather } from "./useSavedCityWeather";
 
 interface IUseWeatherDataReturningType {
@@ -17,7 +17,7 @@ export function useWeatherData(): IUseWeatherDataReturningType {
   const { weatherInfo, loading: cityLoading, total } = useSavedCityWeather();
   const cityName = useReactiveVar(currentCityVar);
 
-  const loading = (!data?.currentWeather && total > 0) || weatherLoading || cityLoading
+  const loading = !error && (!data?.currentWeather && total > 0) || weatherLoading || cityLoading
 
   useEffect(() => {
     if (cityName === "" && weatherInfo.length > 0) {
