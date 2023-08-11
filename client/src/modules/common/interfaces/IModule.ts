@@ -1,9 +1,10 @@
 import { AccessLevel } from "@/modules/auth/access-levels";
 
-export interface IModule {
+export interface IModule<T extends string = ''> {
     pages: IModulePage[]
     modules?: IModule[]
-    components?: Record<string, JSX.Element>
+    components?: Record<T, JSX.Element>
+    providers?: JSX.Element[]
 }
 
 export interface IModulePage {

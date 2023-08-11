@@ -3,10 +3,11 @@ import { ObjectType, Int, Field } from '@nestjs/graphql';
 import { RefreshToken } from 'src/auth/entities/refresh-token.entity';
 import { City } from 'src/city/entities/city.entity';
 import { BaseEntity } from 'src/database/entities/base.entity';
-import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToOne, Unique } from 'typeorm';
 
 @Entity()
 @ObjectType()
+@Unique(['email'])
 export class User extends BaseEntity{
   @Field(() => Int)
   id: number;

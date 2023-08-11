@@ -4,7 +4,7 @@ import { AccessLevel } from '@/modules/auth/access-levels';
 
 export const WeatherModule: IModule = {
     pages: [{
-        pageComponent: WeatherPage(),
+        pageComponent: <WeatherPage/>,
         routePath: '/weather',
         accessLevel: AccessLevel.AUTHORIZED
     }],

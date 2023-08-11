@@ -1,5 +1,6 @@
+import { FC } from "react";
 import { Navigate } from "react-router-dom";
 
-export const MainPage = () => {
+export const MainPage: FC = () => {
   return <Navigate to="/weather"/>
 };

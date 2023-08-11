@@ -1,33 +1,13 @@
-import { Route, BrowserRouter, Routes } from "react-router-dom";
-import { FC } from "react";
-
+import { AppRouter } from "@modules/navigation/components/AppRouter";
 import { CommonModule, IModule } from "@modules/common";
-import { AccessLevel } from "@/modules/auth/access-levels";
-import { AccessControl, AuthModule } from "./auth";
+
+import { WithRequired } from "./common/types/with-required";
 import { WeatherModule } from "./weather";
+import { AuthModule } from "./auth";
 
-const modules: IModule[] = [AuthModule, CommonModule, WeatherModule];
-
-export const RootModule: FC = () => {
-  const pages = modules.flatMap((module) => {
-    return module.pages.map((pageInfo) => {
-      return (
-        <Route
-          key={pageInfo.routePath}
-          path={pageInfo.routePath}
-          element={
-            <AccessControl access={pageInfo.accessLevel || AccessLevel.PUBLIC}>
-              {pageInfo.pageComponent}
-            </AccessControl>
-          }
-        />
-      );
-    });
-  });
-
-  return (
-    <BrowserRouter>
-      <Routes>{pages}</Routes>
-    </BrowserRouter>
-  );
-};
+export const MainModule: WithRequired<IModule<'AppRouter'>, 'components'> = {
+  pages: [],
+  components: {
+    AppRouter:  <AppRouter modules={[AuthModule, CommonModule, WeatherModule]}/>,
+  }
+}

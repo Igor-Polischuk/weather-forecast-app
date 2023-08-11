@@ -7,7 +7,7 @@ import { IModule } from '@modules/common/interfaces/IModule';
 
 export const AuthModule: IModule = {
     pages: [{
-        pageComponent: AuthPage(),
+        pageComponent: <AuthPage/>,
         routePath: '/login',
     }]
 }

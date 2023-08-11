@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import styles from './styles.module.scss';
 
-export const NotFound = () => {
+export const NotFound: FC = () => {
     return (
         <div className={styles.page}>
             <h1>404</h1>
