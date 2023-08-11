@@ -37,15 +37,22 @@ export class UserCitiesService {
   }
 
   async saveUserCity(user: IUser, cityName: string): Promise<City[]> {
-    const city = await this.cityService.findOrCreateCity(cityName);
-    const currentUser = await this.findOne(user.id);
+    const cities = await this.usersRepository.manager.transaction(
+      async (transactionEntityManager) => {
+        const city = await this.cityService.findOrCreateCity(cityName);
+        const currentUser = await transactionEntityManager.findOne(User, {
+          where: { id: user.id },
+          relations: ['cities'],
+        });
+        await this.validateSavingCity(currentUser, cityName);
+        currentUser.cities.push(city);
+        await transactionEntityManager.save(User, currentUser);
 
-    await this.validateSavingCity(currentUser, cityName);
+        return currentUser.cities;
+      },
+    );
 
-    currentUser.cities.push(city);
-    await this.usersRepository.save(currentUser);
-
-    return currentUser.cities;
+    return cities;
   }
 
   async removeCity(user: IUser, cityName: string): Promise<City[]> {
